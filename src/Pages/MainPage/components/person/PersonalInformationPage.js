@@ -1,13 +1,17 @@
 import {Avatar, Button, Divider, Message, Upload} from "@arco-design/web-react";
 import {IconMan, IconUpload} from "@arco-design/web-react/icon";
+import { Link, Outlet } from "react-router-dom";
 
 const PersonalInformationPage=()=>{
     return (
         <>
+        <Outlet />
             <div style={{margin:'auto',marginTop:30,backgroundColor:'white',width:730,height:140,borderRadius:20,position:'relative'}}>
-                <Button style={{display:'flex',justifyContent:'center',alignItems:'center',color:"white",fontSize:17,marginLeft:615,width:90,height:35,backgroundColor:'rgba(60,192,201,100%)',borderRadius:3,position:'relative',top:15}}>
-                    编 辑
-                </Button>
+                <Link to={'/main/personal/edit'} style={{textDecoration:'none'}}>
+                    <Button style={{zIndex:'1',display:'flex',justifyContent:'center',alignItems:'center',color:"white",fontSize:17,marginLeft:615,width:90,height:35,backgroundColor:'rgba(60,192,201,100%)',borderRadius:3,position:'relative',top:15}}>
+                        编 辑
+                    </Button>
+                </Link>
                 <div style={{display:'flex',justifyContent:'space-around',alignItems:'center',position:'absolute',top:0,left:0,width:'100%',height:'100%'}}>
                     <div style={{display:'flex'}}>
                         <Avatar size={64}>User</Avatar>
@@ -25,7 +29,7 @@ const PersonalInformationPage=()=>{
                             </div>
                         </div>
                     </div>
-                    <div style={{marginRight:100}}>
+                    <div style={{marginRight:200,width:200}}>
                         <div>期望:算法工程师</div>
                         <div style={{display:'flex',marginTop:5}}>
                             <div>中南大学</div>

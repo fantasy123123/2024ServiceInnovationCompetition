@@ -1,4 +1,5 @@
 import {Button, Input} from "@arco-design/web-react";
+import {Link} from "react-router-dom";
 
 const HomePage=()=>{
     return <>
@@ -6,6 +7,9 @@ const HomePage=()=>{
             <Input  placeholder='搜索职位、公司'
                     style={{ backgroundColor:'white',width: 650,height:45, border:'solid 1px rgba(60,192,201,100%)',borderRadius:'5px 0px 0px 5px'}}/>
             <Button style={{color:'white',backgroundColor:'rgba(60,192,201,100%)',width:100,height:45,fontSize:17,borderRadius:'0px 5px 5px 0px'}}>搜 索</Button>
+        </div>
+        <div  style={{textAlign:"center",marginTop:100}}>
+            <Link to={'/guide/identity'}>新手指导</Link>
         </div>
     </>
 }

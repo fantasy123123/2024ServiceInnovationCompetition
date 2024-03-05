@@ -1,8 +1,7 @@
 import {Layout, Button, Avatar} from '@arco-design/web-react';
 import './style/MainPage.css'
 import {useState} from "react";
-import {Link, Navigate, Outlet, Route, Routes} from "react-router-dom";
-import {IconMan} from "@arco-design/web-react/icon";
+import {Link,  Outlet} from "react-router-dom";
 const Header = Layout.Header;
 const Content = Layout.Content;
 
@@ -107,11 +106,11 @@ const MainPage=()=>{
                     </Link>
                 </div>
                 <div style={{width:'15%',textAlign:"center",fontSize:20}}>
-                    {/*<Link to={'/signIn'} style={{textDecoration:'none',color:'white'}}>*/}
-                    {/*    <div class={'animation'}>*/}
-                    {/*        登录*/}
-                    {/*    </div>*/}
-                    {/*</Link>*/}
+                    {/* <Link to={'/signIn'} style={{textDecoration:'none',color:'white'}}>
+                        <div class={'animation'}>
+                            登录
+                        </div>
+                    </Link>  */}
                     <Link to={'/main/personal'} style={{textDecoration:'none'}}>
                         <div class={textStyle5}  style={buttonStyle5} onClick={()=>{
                             setTextStyle4(animationStyle)
