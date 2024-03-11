@@ -13,7 +13,7 @@ const Step = Steps.Step;
 const StudentGuidePage=()=>{
     const [visible, setVisible] = useState(false);
 
-    const [animationStyle,setAnimationStyle]=useState('animation')
+    const [animationStyle,setAnimationStyle]=useState('fadeInAnimation')
     setTimeout(()=>{setAnimationStyle('')},1500)
 
     function Title(){

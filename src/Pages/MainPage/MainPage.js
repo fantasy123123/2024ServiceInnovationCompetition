@@ -5,8 +5,8 @@ import {Link,  Outlet} from "react-router-dom";
 const Header = Layout.Header;
 const Content = Layout.Content;
 
-const noSelectedStyle={position:'relative',height:'70px',width:'25%',fontSize:21,backgroundColor:'rgba(56,56,56,100%)',color:'white'}
-const selectedStyle={position:'relative',height:'70px',width:'25%',fontSize:21,backgroundColor:'rgba(56,56,56,100%)',color:'rgba(60,192,201,100%)'}
+const noSelectedStyle={height:'100%',width:'25%',fontSize:21,backgroundColor:'rgba(56,56,56,100%)',color:'white',display:'flex',alignItems:'center',justifyContent:'center'}
+const selectedStyle={height:'100%',width:'25%',fontSize:21,backgroundColor:'rgba(56,56,56,100%)',color:'rgba(60,192,201,100%)',display:'flex',alignItems:'center',justifyContent:'center'}
 
 const noSelectedStyle2={color:'white',display:'flex',alignItems:'center'}
 const selectedStyle2={color:'rgba(60,192,201,100%)',display:'flex',alignItems:'center'}
@@ -33,12 +33,12 @@ const MainPage=()=>{
     const [textStyle5,setTextStyle5]=useState(animationStyle2)
 
     return (<>
-        <Layout style={{ position:'absolute',top:0,bottom:0,left:0,right:0,backgroundColor:'whitesmoke' }}>
-            <Header style={{width:'100%',height:'70px',backgroundColor:'rgba(56,56,56,100%)',display:'flex',justifyContent:'space-between',alignItems:'center'}}>
+        <Layout>
+            <Header style={{position:'absolute',left:0,right:0,top:0,bottom:'90%',backgroundColor:'rgba(56,56,56,100%)',display:'flex',justifyContent:'space-between',alignItems:'center'}}>
                 <div style={{width:'15%',textAlign:"center",fontSize:30,color:'rgba(60,192,201,100%)'}}>
                     LOGO
                 </div>
-                <div id={'buttonGroup'} style={{display:'flex',fontSize:25,width:'40%',justifyContent:'space-around'}}>
+                <div id={'buttonGroup'} style={{display:'flex',fontSize:25,width:'40%',height:'100%',justifyContent:'space-around'}}>
                     <Link to={'/main/home'}>
                         <Button style={buttonStyle1} onClick={()=>{
                             setTextStyle1(notAnimationStyle)
@@ -130,7 +130,7 @@ const MainPage=()=>{
                     </Link>
                 </div>
             </Header>
-            <Content style={{width:'100%'}}>
+            <Content style={{position:'absolute',left:0,top:'10%',bottom:0,right:0}}>
                 <Outlet />
             </Content>
         </Layout>

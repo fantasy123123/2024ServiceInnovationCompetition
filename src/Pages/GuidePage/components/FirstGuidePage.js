@@ -14,7 +14,7 @@ const Step = Steps.Step;
 const FirstGuidePage=()=>{
     const [ifStudentSelected,setIfStudentSelected]=useState(true)
 
-    const [animationStyle,setAnimationStyle]=useState('animation')
+    const [animationStyle,setAnimationStyle]=useState('fadeInAnimation')
     setTimeout(()=>{setAnimationStyle('')},1500)
 
     return (

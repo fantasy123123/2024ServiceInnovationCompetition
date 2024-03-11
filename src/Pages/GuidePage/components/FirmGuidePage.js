@@ -25,7 +25,7 @@ const FirmGuidePage=()=>{
     const [address,setAddress]=useState('')
     const [link,setLink]=useState('')
 
-    const [animationStyle,setAnimationStyle]=useState('animation')
+    const [animationStyle,setAnimationStyle]=useState('fadeInAnimation')
     setTimeout(()=>{setAnimationStyle('')},1500)
 
     return (

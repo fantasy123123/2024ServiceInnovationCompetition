@@ -4,6 +4,7 @@ const Header = Layout.Header;
 const Content = Layout.Content;
 
 const GuidePage=()=>{
+
     return (<>
         <Layout style={{ position:'absolute',top:0,bottom:0,left:0,right:0,backgroundColor:'whitesmoke' }}>
             <Header style={{width:'100%',height:'70px',backgroundColor:'rgba(56,56,56,100%)',display:'flex',alignItems:'center'}}>
