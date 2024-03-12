@@ -4,7 +4,7 @@ import SignInPage from "./Pages/SignInPage/SignInPage";
 import ApplyForJobPage from "./Pages/MainPage/components/home/ApplyForJob/ApplyForJobPage";
 import HomePage from "./Pages/MainPage/components/home/HomePage";
 import ProfessionConsultPage from "./Pages/MainPage/components/home/ProfessionConsultPage";
-import RecruitPage from "./Pages/MainPage/components/home/RecruitPage";
+import RecruitPage from "./Pages/MainPage/components/home/RecruitPage/RecruitPage";
 import PersonalInformationPage from "./Pages/MainPage/components/person/PersonalInformationPage";
 import EditInformation from "./Pages/MainPage/components/person/EditInformation";
 import GuidePage from "./Pages/GuidePage/GuidePage";
