@@ -25,7 +25,6 @@ const RegisterPage = () => {
       </Select>
       <div className={'registerCard'}>
         <div className={'registerImage'}>
-          <div className={'logo'} />
         </div>
         <div className={'registerInformationCard'}>
           <Tabs

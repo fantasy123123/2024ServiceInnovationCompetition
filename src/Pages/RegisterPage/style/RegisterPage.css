@@ -25,20 +25,10 @@
     left:0;
     bottom: 0;
     right: 30%;
-    background: url("./image/RegisterPageBackgroundImage.jpg");
+    background: url("./image/picture.png");
     background-size: 100% 100%;
     border-bottom-left-radius: 10px;
     border-top-left-radius: 10px;
-}
-
-.logo{
-    position: absolute;
-    left: 3%;
-    top:3%;
-    height: 69px;
-    width: 246px;
-    background: url("./image/logo.png");
-    background-size: 100% 100%;
 }
 
 .registerInformationCard{

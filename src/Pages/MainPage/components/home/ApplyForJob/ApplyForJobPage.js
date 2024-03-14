@@ -141,11 +141,11 @@ const ApplyForJobPage=()=>{
     }
 
     return (<>
-        <div style={{width:'100%',backgroundColor:'white',height:'65px',display:'flex',justifyContent:'space-around',alignItems:'center'}}>
-            <div style={{width:240,fontSize:30,color:'rgba(60,192,201,100%)',fontWeight:'bold'}}>
+        <div style={{width:'100%',backgroundColor:'white',height:'65px',display:'flex',alignItems:'center'}}>
+            <div style={{marginLeft:'7%',width:'20%',fontSize:30,color:'rgba(60,192,201,100%)',fontWeight:'bold'}}>
                 推荐职位
             </div>
-            <div>
+            <div style={{marginLeft:'3%',width:'30%'}}>
                 <RadioGroup>
                     <Radio key={1} value='学历优先'>学历优先</Radio>
                     <Radio key={2} value='地址优先'>地址优先</Radio>
@@ -153,7 +153,7 @@ const ApplyForJobPage=()=>{
                     <Radio key={4} value='能力优先'>能力优先</Radio>
                 </RadioGroup>
             </div>
-            <div style={{width:240}}>
+            <div style={{marginLeft:'20%'}}>
                 <Button style={{color:'white',backgroundColor:'rgba(60,192,201,100%)',width:110,height:40,fontSize:18,borderRadius:5}}>修改简历</Button>
                 <Button style={{marginLeft:20,color:'white',backgroundColor:'rgba(60,192,201,100%)',width:110,height:40,fontSize:18,borderRadius:5}}>重新推荐</Button>
             </div>

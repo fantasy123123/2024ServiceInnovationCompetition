@@ -2,6 +2,7 @@ import {Layout, Button, Avatar} from '@arco-design/web-react';
 import './style/MainPage.css'
 import {useState} from "react";
 import {Link,  Outlet} from "react-router-dom";
+import logo from './image/logo.png'
 const Header = Layout.Header;
 const Content = Layout.Content;
 
@@ -35,8 +36,8 @@ const MainPage=()=>{
     return (<>
         <Layout>
             <Header style={{position:'absolute',left:0,right:0,top:0,bottom:'90%',backgroundColor:'rgba(56,56,56,100%)',display:'flex',justifyContent:'space-between',alignItems:'center'}}>
-                <div style={{width:'15%',textAlign:"center",fontSize:30,color:'rgba(60,192,201,100%)'}}>
-                    LOGO
+                <div style={{height:'100%',width:'15%',display:'flex',alignItems:'center',justifyContent:'center',fontSize:30,color:'rgba(60,192,201,100%)'}}>
+                    <img src={logo} alt={'logo'} height={'70%'}/>
                 </div>
                 <div id={'buttonGroup'} style={{display:'flex',fontSize:25,width:'40%',height:'100%',justifyContent:'space-around'}}>
                     <Link to={'/main/home'}>

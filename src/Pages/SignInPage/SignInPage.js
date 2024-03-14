@@ -25,7 +25,6 @@ const SignInPage = () => {
       </Select>
       <div className={'signInCard'}>
         <div className={'signInCardImage'}>
-          <div className={'logo'} />
         </div>
         <div
           style={{

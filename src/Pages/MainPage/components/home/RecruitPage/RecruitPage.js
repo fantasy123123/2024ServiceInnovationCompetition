@@ -153,17 +153,15 @@ const RecruitPage=()=>{
     }
 
     return (<>
-        <div style={{width:'100%',backgroundColor:'white',height:'65px',display:'flex',justifyContent:'center',alignItems:'center'}}>
-            <div style={{width:'35%',fontSize:30,color:'rgba(60,192,201,100%)',fontWeight:'bold'}}>
+        <div style={{width:'100%',backgroundColor:'white',height:'65px',display:'flex',alignItems:'center'}}>
+            <div style={{marginLeft:'7%',width:'20%',fontSize:30,color:'rgba(60,192,201,100%)',fontWeight:'bold'}}>
                 推荐候选人
             </div>
-            <div>
+            <div style={{marginLeft:'3%'}}>
                 <RadioGroup>
                     <Radio key={1} value='学历优先'>学历优先</Radio>
                     <Radio key={2} value='能力优先'>能力优先</Radio>
                 </RadioGroup>
-            </div>
-            <div style={{width:'35%'}}>
             </div>
         </div>
         <div style={{width:'100%',display:'flex',height:'90%'}}>

@@ -90,7 +90,7 @@ const AccountRegister = () => {
               width: '125%',
               borderRadius: '5px',
               position: 'relative',
-              bottom: '8px',
+              bottom: '15px',
             }}
             onClick={async () => {
               if (formRef.current) {
