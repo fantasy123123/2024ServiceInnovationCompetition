@@ -11,6 +11,7 @@ import GuidePage from "./Pages/GuidePage/GuidePage";
 import FirstGuidePage from "./Pages/GuidePage/components/FirstGuidePage";
 import StudentGuidePage from "./Pages/GuidePage/components/StudentGuidePage";
 import FirmGuidePage from "./Pages/GuidePage/components/FirmGuidePage";
+import SecondStudentGuidePage from "./Pages/GuidePage/components/SecondStudentGuidePage";
 
 const routes=[
     {
@@ -62,8 +63,12 @@ const routes=[
                 element:<FirstGuidePage/>
             },
             {
-                path:'/guide/student',
+                path:'/guide/student_resume',
                 element:<StudentGuidePage/>
+            },
+            {
+                path:'/guide/student_information',
+                element:<SecondStudentGuidePage/>
             },
             {
                 path:'/guide/firm',

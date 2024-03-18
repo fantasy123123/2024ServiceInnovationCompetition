@@ -19,7 +19,7 @@ const FirstGuidePage=()=>{
 
     return (
         <>
-            <div style={{position:'absolute',top:0,bottom:0,left:0,right:'78%',backgroundColor:'#F0F4FF',textAlign:'center',paddingTop:100,paddingBottom:100}}>
+            <div style={{position:'fixed',top:'10%',bottom:0,left:0,right:'78%',textAlign:'center',paddingTop:100,paddingBottom:100}}>
                 <img src={leftWord} alt={''} style={{width:'90%'}} class={animationStyle}></img>
                 <img src={leftIcon} alt={''} style={{width:'90%'}} class={animationStyle}></img>
             </div>
@@ -51,11 +51,11 @@ const FirstGuidePage=()=>{
                          }}
                     ></img>
                 </div>
-                <Link to={ifStudentSelected?'/guide/student':'/guide/firm'}>
+                <Link to={ifStudentSelected?'/guide/student_resume':'/guide/firm'}>
                     <Button style={{marginTop:50,float:'right',color:'white',backgroundColor:'rgba(60,192,201,100%)',width:100,height:35,fontSize:17,borderRadius:3}}>继 续</Button>
                 </Link>
             </div>
-            <div style={{position:'absolute',top:0,bottom:0,left:'78%',right:0,backgroundColor:'#F0F4FF',textAlign:'center',paddingTop:100,paddingBottom:100}}>
+            <div style={{position:'fixed',top:'10%',bottom:0,left:'78%',right:0,textAlign:'center',paddingTop:100,paddingBottom:100}}>
                 <img src={rightIcon} alt={''} style={{width:'90%'}} class={animationStyle}></img>
                 <img src={rightWord} alt={''} style={{width:'90%'}} class={animationStyle}></img>
             </div>

@@ -229,7 +229,7 @@ const ApplyForJobPage=()=>{
                         <div style={{height:'100%',width:1.5,backgroundColor:'#ececec'}}></div>
                         <div  style={{width:'45%',height:'100%',marginLeft:'5%'}}>
                             <div style={{fontWeight:'bold',fontSize:17}}>
-                                匹配分析结果
+                                能力评价
                             </div>
                         </div>
                     </div>

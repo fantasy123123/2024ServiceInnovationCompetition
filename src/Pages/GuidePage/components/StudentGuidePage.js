@@ -22,7 +22,7 @@ const StudentGuidePage=()=>{
 
     return (
         <>
-            <div style={{position:'absolute',top:0,bottom:0,left:0,right:'78%',backgroundColor:'#F0F4FF',textAlign:'center',paddingTop:100,paddingBottom:100}}>
+            <div style={{position:'fixed',top:'10%',bottom:0,left:0,right:'78%',textAlign:'center',paddingTop:100,paddingBottom:100}}>
                 <img src={leftWord} alt={''} style={{width:'80%'}} class={animationStyle}></img>
                 <img src={leftIcon} alt={''} style={{width:'90%'}} class={animationStyle}></img>
             </div>
@@ -165,13 +165,13 @@ const StudentGuidePage=()=>{
                         <Link to={'/guide/identity'} style={{textDecoration:'none'}}>
                             <Button style={{border:'1px solid lightgrey',color:'rgba(60,192,201,100%)',backgroundColor:'white',width:85,height:35,fontSize:16,borderRadius:3,display:"flex",justifyContent:'center',alignItems:'center'}}>返 回</Button>
                         </Link>
-                        <Link to={'/main/home'} style={{textDecoration:'none'}}>
+                        <Link to={'/guide/student_information'} style={{textDecoration:'none'}}>
                             <Button style={{color:'white',backgroundColor:'rgba(60,192,201,100%)',marginLeft:30,width:85,height:35,fontSize:16,borderRadius:3,display:"flex",justifyContent:'center',alignItems:'center'}}>完 成</Button>
                         </Link>
                     </div>
                 </div>
             </div>
-            <div style={{position:'absolute',top:0,bottom:0,left:'78%',right:0,backgroundColor:'#F0F4FF',textAlign:'center',paddingTop:100,paddingBottom:100}}>
+            <div style={{position:'fixed',top:'10%',bottom:0,left:'78%',right:0,textAlign:'center',paddingTop:100,paddingBottom:100}}>
                 <img src={rightIcon} alt={''} style={{width:'90%'}} class={animationStyle}></img>
                 <img src={rightWord} alt={''} style={{width:'70%'}} class={animationStyle}></img>
             </div>
