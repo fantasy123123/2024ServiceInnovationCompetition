@@ -203,14 +203,14 @@ const EditInformation =()=>{
                         <MyIdentity />
                     </div>
                     <FormItem style={{position:'absolute',bottom:'-18%',textAlign:'right'}}>
-                        <Button style={{width:80}} onClick={()=>{navigate('/main/personal')}}>取 消</Button>
+                        <Button style={{width:80}} onClick={()=>{navigate('/main/student_information')}}>取 消</Button>
                         <Button 
                             onClick={async () => {
                                 if (formRef.current) {
                                     try {
                                         await formRef.current.validate();
                                         Message.info('校验通过，提交成功！');
-                                        navigate('/main/personal')
+                                        navigate('/main/student_information')
                                     } catch (_) {
                                         Message.error('校验失败，请检查字段！');
                                     }

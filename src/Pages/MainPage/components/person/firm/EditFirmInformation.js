@@ -1,18 +1,11 @@
 import {Link} from "react-router-dom";
-import {Input, Button, Radio, Steps, Select} from "@arco-design/web-react";
+import {Input, Button,  Steps, Select} from "@arco-design/web-react";
 import {useState} from "react";
-import {IconCheck} from "@arco-design/web-react/icon";
-import leftWord from '../images/firstLeftWord.png'
-import leftIcon from '../images/firstLeftIcon.png'
-import rightWord from '../images/firstRightWord.png'
-import rightIcon from '../images/firstRightIcon.png'
-import '../style/guide.css'
 const TextArea = Input.TextArea;
 const options = ['大专','本科','硕士','博士'];
-const Step = Steps.Step;
 const Option=Select.Option
 
-const FirmGuidePage=()=>{
+const EditFirmInformation=()=>{
     const [name,setName]=useState('')
     const [job,setJob]=useState('')
     const [description,setDescription]=useState('')
@@ -22,23 +15,10 @@ const FirmGuidePage=()=>{
     const [address,setAddress]=useState('')
     const [link,setLink]=useState('')
 
-    const [animationStyle,setAnimationStyle]=useState('fadeInAnimation')
-    setTimeout(()=>{setAnimationStyle('')},1500)
-
     return (
         <>
-            <div style={{position:'fixed',top:'10%',bottom:0,left:0,right:'78%',textAlign:'center',paddingTop:100,paddingBottom:100}}>
-                <img src={leftWord} alt={''} style={{width:'90%'}} class={animationStyle}></img>
-                <img src={leftIcon} alt={''} style={{width:'90%'}} class={animationStyle}></img>
-            </div>
-            <div style={{position:'absolute',top:0,bottom:0,left:'22%',right:'22%',backgroundColor:'white',padding:'60px 100px 70px 100px'}}>
-                <div>
-                    <Steps current={2} style={{ width: 600, margin: '0 auto' }}>
-                        <Step title='身份' description='请选择您的身份' icon={<IconCheck style={{marginTop:4,marginLeft:1}}/>}/>
-                        <Step title='信息' description='请完善您的信息'/>
-                    </Steps>
-                </div>
-                <div style={{fontSize:25,fontWeight:'bold',marginTop:30}}>
+            <div style={{position:'absolute',zIndex:10,top:0,bottom:0,left:'22%',right:'22%',backgroundColor:'white',padding:'60px 50px 70px 100px'}}>
+                <div style={{fontSize:25,fontWeight:'bold'}}>
                     请填写公司信息和招聘要求
                 </div>
                 <div style={{marginTop:20,display:'flex',justifyContent:'space-between'}}>
@@ -111,29 +91,13 @@ const FirmGuidePage=()=>{
                     </div>
                 </div>
                 <div style={{display:'flex',marginTop:30,float:'right'}}>
-                    <Link to={'/guide/identity'} style={{textDecoration:'none'}}>
-                        <Button style={{border:'1px solid lightgrey',color:'rgba(60,192,201,100%)',backgroundColor:'white',width:85,height:35,fontSize:16,borderRadius:3,display:"flex",justifyContent:'center',alignItems:'center'}}>返 回</Button>
-                    </Link>
-                    <Link to={'/main/home'} style={{textDecoration:'none'}}>
+                    <Link to={'/main/firm_information'} style={{textDecoration:'none'}}>
                         <Button style={{color:'white',backgroundColor:'rgba(60,192,201,100%)',marginLeft:30,width:85,height:35,fontSize:16,borderRadius:3,display:"flex",justifyContent:'center',alignItems:'center'}}>完 成</Button>
                     </Link>
                 </div>
-            </div>
-            <div style={{
-                position:'fixed',
-                top:'10%',
-                bottom: 0,
-                left: '78%',
-                right: 0,
-                textAlign: 'center',
-                paddingTop: 100,
-                paddingBottom: 100
-            }}>
-                <img src={rightIcon} alt={''} style={{width: '90%'}} className={animationStyle}></img>
-                <img src={rightWord} alt={''} style={{width: '90%'}} className={animationStyle}></img>
             </div>
         </>
     )
 }
 
-export default FirmGuidePage
+export default EditFirmInformation

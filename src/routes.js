@@ -5,13 +5,15 @@ import ApplyForJobPage from "./Pages/MainPage/components/home/ApplyForJob/ApplyF
 import HomePage from "./Pages/MainPage/components/home/HomePage";
 import ProfessionConsultPage from "./Pages/MainPage/components/home/ProfessionConsultPage";
 import RecruitPage from "./Pages/MainPage/components/home/RecruitPage/RecruitPage";
-import PersonalInformationPage from "./Pages/MainPage/components/person/PersonalInformationPage";
-import EditInformation from "./Pages/MainPage/components/person/EditInformation";
+import PersonalInformationPage from "./Pages/MainPage/components/person/student/PersonalInformationPage";
+import EditInformation from "./Pages/MainPage/components/person/student/EditInformation";
 import GuidePage from "./Pages/GuidePage/GuidePage";
 import FirstGuidePage from "./Pages/GuidePage/components/FirstGuidePage";
 import StudentGuidePage from "./Pages/GuidePage/components/StudentGuidePage";
 import FirmGuidePage from "./Pages/GuidePage/components/FirmGuidePage";
 import SecondStudentGuidePage from "./Pages/GuidePage/components/SecondStudentGuidePage";
+import FirmInformation from "./Pages/MainPage/components/person/firm/FirmInformation";
+import EditFirmInformation from "./Pages/MainPage/components/person/firm/EditFirmInformation";
 
 const routes=[
     {
@@ -35,12 +37,22 @@ const routes=[
                 element: <ProfessionConsultPage/>
             },
             {
-                path: '/main/personal',
+                path: '/main/student_information',
                 element: <PersonalInformationPage/>,
                 children:[
                     {
-                        path:'/main/personal/edit',
+                        path:'/main/student_information/edit',
                         element:<EditInformation/>
+                    }
+                ]
+            },
+            {
+                path: '/main/firm_information',
+                element: <FirmInformation />,
+                children:[
+                    {
+                        path:'/main/firm_information/edit',
+                        element:<EditFirmInformation/>
                     }
                 ]
             }

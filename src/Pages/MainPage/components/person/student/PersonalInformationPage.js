@@ -1,8 +1,8 @@
 import {Avatar, Button, Upload} from "@arco-design/web-react";
 import {IconMan, IconUpload,IconWoman} from "@arco-design/web-react/icon";
 import { Link, Outlet } from "react-router-dom";
-import student from './image/student.png'
-import firm from './image/firm.png'
+import student from '../image/student.png'
+import firm from '../image/firm.png'
 
 const user={
     name:'DIONG',
@@ -18,9 +18,9 @@ const user={
 const PersonalInformationPage=()=>{
     return (
         <>
-        <Outlet />
+            <Outlet />
             <div style={{margin:'auto',marginTop:30,backgroundColor:'white',width:'50%',height:140,borderRadius:20,position:'relative'}}>
-                <Link to={'/main/personal/edit'} style={{textDecoration:'none'}}>
+                <Link to={'/main/student_information/edit'} style={{textDecoration:'none'}}>
                     <Button style={{zIndex:'1',display:'flex',justifyContent:'center',alignItems:'center',color:"white",fontSize:17,width:90,height:35,backgroundColor:'rgba(60,192,201,100%)',borderRadius:3,position:'absolute',right:30,top:15}}>
                         编 辑
                     </Button>

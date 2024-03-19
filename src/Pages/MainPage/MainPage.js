@@ -10,7 +10,7 @@ const Content = Layout.Content;
 
 const user={
     name:'DIONG',
-    identity:'student',
+    identity:'firm',
 }
 
 const noSelectedStyle={height:'100%',width:'25%',fontSize:21,backgroundColor:'rgba(56,56,56,100%)',color:'white',display:'flex',alignItems:'center',justifyContent:'center'}
@@ -119,7 +119,7 @@ const MainPage=()=>{
                             登录
                         </div>
                     </Link>  */}
-                    <Link to={'/main/personal'} style={{textDecoration:'none'}}>
+                    <Link to={user.identity==='student'?'/main/student_information':'/main/firm_information'} style={{textDecoration:'none'}}>
                         <div class={textStyle5}  style={buttonStyle5} onClick={()=>{
                             setTextStyle4(animationStyle)
                             setTextStyle2(animationStyle)
