@@ -1,4 +1,4 @@
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {Input, Button, Radio, Steps, Select} from "@arco-design/web-react";
 import {useState} from "react";
 import {IconCheck} from "@arco-design/web-react/icon";
@@ -13,6 +13,8 @@ const Step = Steps.Step;
 const Option=Select.Option
 
 const FirmGuidePage=()=>{
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const navigate=useNavigate()
     const [name,setName]=useState('')
     const [job,setJob]=useState('')
     const [description,setDescription]=useState('')
@@ -111,12 +113,8 @@ const FirmGuidePage=()=>{
                     </div>
                 </div>
                 <div style={{display:'flex',marginTop:30,float:'right'}}>
-                    <Link to={'/guide/identity'} style={{textDecoration:'none'}}>
-                        <Button style={{border:'1px solid lightgrey',color:'rgba(60,192,201,100%)',backgroundColor:'white',width:85,height:35,fontSize:16,borderRadius:3,display:"flex",justifyContent:'center',alignItems:'center'}}>返 回</Button>
-                    </Link>
-                    <Link to={'/main/home'} style={{textDecoration:'none'}}>
-                        <Button style={{color:'white',backgroundColor:'rgba(60,192,201,100%)',marginLeft:30,width:85,height:35,fontSize:16,borderRadius:3,display:"flex",justifyContent:'center',alignItems:'center'}}>完 成</Button>
-                    </Link>
+                    <Button onClick={()=>{navigate('/guide/identity')}} style={{border:'1px solid lightgrey',color:'rgba(60,192,201,100%)',backgroundColor:'white',width:85,height:35,fontSize:16,borderRadius:3,display:"flex",justifyContent:'center',alignItems:'center'}}>返 回</Button>
+                    <Button onClick={()=>{navigate('/main/home')}} style={{color:'white',backgroundColor:'rgba(60,192,201,100%)',marginLeft:30,width:85,height:35,fontSize:16,borderRadius:3,display:"flex",justifyContent:'center',alignItems:'center'}}>完 成</Button>
                 </div>
             </div>
             <div style={{

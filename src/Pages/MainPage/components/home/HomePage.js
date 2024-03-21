@@ -10,8 +10,10 @@ const HomePage=()=>{
         </div>
         <div  style={{textAlign:"center",marginTop:100}}>
             <Link to={'/guide/identity'}>新手指导</Link>
-            <br/>
+            <br/><br/>
             <Link to={'/signIn'}>登录界面</Link>
+            <br/><br/>
+            <Link to={'/main/firm_information'}>企业信息界面</Link>
         </div>
     </>
 }

@@ -1,6 +1,6 @@
 import {Button, Modal, Radio, Steps, Upload} from "@arco-design/web-react";
 import {IconCheck, IconUpload} from "@arco-design/web-react/icon";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {useState} from "react";
 import leftWord from '../images/studentLeftWord.png'
 import leftIcon from '../images/studentLeftIcon.png'
@@ -11,6 +11,8 @@ const RadioGroup = Radio.Group;
 const Step = Steps.Step;
 
 const StudentGuidePage=()=>{
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const navigate=useNavigate()
     const [visible, setVisible] = useState(false);
 
     const [animationStyle,setAnimationStyle]=useState('fadeInAnimation')
@@ -162,12 +164,8 @@ const StudentGuidePage=()=>{
                         </RadioGroup>
                     </div>
                     <div style={{display:'flex',marginTop:30,float:'right'}}>
-                        <Link to={'/guide/identity'} style={{textDecoration:'none'}}>
-                            <Button style={{border:'1px solid lightgrey',color:'rgba(60,192,201,100%)',backgroundColor:'white',width:85,height:35,fontSize:16,borderRadius:3,display:"flex",justifyContent:'center',alignItems:'center'}}>返 回</Button>
-                        </Link>
-                        <Link to={'/guide/student_information'} style={{textDecoration:'none'}}>
-                            <Button style={{color:'white',backgroundColor:'rgba(60,192,201,100%)',marginLeft:30,width:85,height:35,fontSize:16,borderRadius:3,display:"flex",justifyContent:'center',alignItems:'center'}}>完 成</Button>
-                        </Link>
+                        <Button onClick={()=>{navigate('/guide/identity')}} style={{border:'1px solid lightgrey',color:'rgba(60,192,201,100%)',backgroundColor:'white',width:85,height:35,fontSize:16,borderRadius:3,display:"flex",justifyContent:'center',alignItems:'center'}}>返 回</Button>
+                        <Button onClick={()=>{navigate('/guide/student_information')}} style={{color:'white',backgroundColor:'rgba(60,192,201,100%)',marginLeft:30,width:85,height:35,fontSize:16,borderRadius:3,display:"flex",justifyContent:'center',alignItems:'center'}}>完 成</Button>
                     </div>
                 </div>
             </div>

@@ -10,7 +10,7 @@ const Content = Layout.Content;
 
 const user={
     name:'DIONG',
-    identity:'firm',
+    identity:'student',
 }
 
 const noSelectedStyle={height:'100%',width:'25%',fontSize:21,backgroundColor:'rgba(56,56,56,100%)',color:'white',display:'flex',alignItems:'center',justifyContent:'center'}

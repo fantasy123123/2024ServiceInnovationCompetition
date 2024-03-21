@@ -6,7 +6,7 @@ import {useState} from "react";
 import '../style/guide.css'
 import {IconCheck, IconMinus} from "@arco-design/web-react/icon";
 import {Notification, Button, Input, Radio, Steps, Select} from "@arco-design/web-react";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 
 const TextArea=Input.TextArea
 const Step = Steps.Step;
@@ -18,6 +18,8 @@ const selectedStyle={width:50,height:31,display:'flex',justifyContent:'center',a
 const notSelectedStyle={width:50,height:31,display:'flex',justifyContent:'center',alignItems:'center',backgroundColor:'whitesmoke',color:'#4E5969'}
 
 const SecondStudentGuidePage=()=>{
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const navigate=useNavigate()
     const [animationStyle,setAnimationStyle]=useState('fadeInAnimation')
     setTimeout(()=>{setAnimationStyle('')},1500)
 
@@ -248,12 +250,8 @@ const SecondStudentGuidePage=()=>{
                     </div>
                 </div>
                 <div style={{display:'flex',margin:15,float:'right'}}>
-                    <Link to={'/guide/student_resume'} style={{textDecoration:'none'}}>
-                        <Button style={{border:'1px solid lightgrey',color:'rgba(60,192,201,100%)',backgroundColor:'white',width:85,height:35,fontSize:16,borderRadius:3,display:"flex",justifyContent:'center',alignItems:'center'}}>返 回</Button>
-                    </Link>
-                    <Link to={'/main/home'} style={{textDecoration:'none'}}>
-                        <Button style={{color:'white',backgroundColor:'rgba(60,192,201,100%)',marginLeft:30,width:85,height:35,fontSize:16,borderRadius:3,display:"flex",justifyContent:'center',alignItems:'center'}}>完 成</Button>
-                    </Link>
+                    <Button onClick={()=>{navigate('/guide/student_resume')}} style={{border:'1px solid lightgrey',color:'rgba(60,192,201,100%)',backgroundColor:'white',width:85,height:35,fontSize:16,borderRadius:3,display:"flex",justifyContent:'center',alignItems:'center'}}>返 回</Button>
+                    <Button onClick={()=>{navigate('/main/home')}} style={{color:'white',backgroundColor:'rgba(60,192,201,100%)',marginLeft:30,width:85,height:35,fontSize:16,borderRadius:3,display:"flex",justifyContent:'center',alignItems:'center'}}>完 成</Button>
                 </div>
             </div>
             <div style={{
