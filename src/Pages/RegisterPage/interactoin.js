@@ -3,7 +3,7 @@ import axios from "axios";
 export function registerWithAccount(name,psw,email){
     axios({
         method:'post',
-        url:'http://192.210.174.146:5000/accountRegister',
+        url:'/accountRegister',
         data:{
             "username": name,
             "email": email,
