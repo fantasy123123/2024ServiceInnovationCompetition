@@ -2,9 +2,10 @@
 
 import { Button, Checkbox, Form, Input, Message } from '@arco-design/web-react';
 import {IconEmail, IconUnlock, IconUser} from '@arco-design/web-react/icon';
-import { useEffect, useRef } from 'react';
+import {useEffect, useRef, useState} from 'react';
 import '../style/RegisterPage.css';
 import {useNavigate} from "react-router-dom";
+import {registerWithAccount} from "../interactoin";
 
 const FormItem = Form.Item;
 
@@ -13,6 +14,10 @@ const AccountRegister = () => {
     const navigate=useNavigate()
     // eslint-disable-next-line react-hooks/rules-of-hooks
   const formRef = useRef();
+
+    const [name,setName]=useState('')
+    const [password,setPassword]=useState('')
+    const [email,setEmail]=useState('')
 
   useEffect(() => {
     // @ts-expect-error
@@ -30,6 +35,7 @@ const AccountRegister = () => {
       <Form autoComplete="off" ref={formRef}>
         <FormItem field="用户名" rules={[{ required: true }]}>
           <Input
+              onChange={value=>{setName(value)}}
             placeholder="请输入用户名"
             prefix={<IconUser />}
             style={{
@@ -41,6 +47,7 @@ const AccountRegister = () => {
 
           <FormItem field="邮箱" rules={[{ required: true }]}>
               <Input
+                  onChange={value => {setEmail(value)}}
                   placeholder="请输入邮箱"
                   prefix={<IconEmail />}
                   style={{
@@ -52,6 +59,7 @@ const AccountRegister = () => {
 
         <FormItem field="密码" rules={[{ required: true }]}>
           <Input
+              onChange={value => {setPassword(value)}}
             placeholder="请输入密码（由6-20个字符组成）"
             prefix={<IconUnlock />}
             style={{
@@ -96,6 +104,7 @@ const AccountRegister = () => {
               if (formRef.current) {
                 try {
                   await formRef.current.validate();
+                  registerWithAccount(name,password,email);
                   Message.info('校验通过，提交成功！');
                   navigate('/signIn')
                 } catch (_) {

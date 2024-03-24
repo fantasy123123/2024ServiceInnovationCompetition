@@ -8,5 +8,10 @@ module.exports = function(app) {
             changeOrigin: true, //控制服务器接收到的请求头中host字段的值
             pathRewrite: {'^/accountLogin': ''} //去除请求前缀，保证交给后台服务器的是正常请求地址(必须配置)
         }),
+        proxy('/accountRegister', {
+            target: 'http://192.210.174.146//users/register-with-account', //配置转发目标地址(能返回数据的服务器地址)
+            changeOrigin: true, //控制服务器接收到的请求头中host字段的值
+            pathRewrite: {'^/accountRegister': ''} //去除请求前缀，保证交给后台服务器的是正常请求地址(必须配置)
+        }),
     )
 }
