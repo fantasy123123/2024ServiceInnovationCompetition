@@ -10,9 +10,9 @@ export function registerWithAccount(name,psw,email){
             "password": psw,
         }
     }).then(
-        res=>{console.log(111),
+        res=>{console.log(111)
             console.log(res)},
-        error=>{console.log(222),
+        error=>{console.log(222)
             console.log(error)}
     )
 }
