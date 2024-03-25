@@ -5,7 +5,7 @@ import {IconEmail, IconUnlock, IconUser} from '@arco-design/web-react/icon';
 import {useEffect, useRef, useState} from 'react';
 import '../style/RegisterPage.css';
 import {useNavigate} from "react-router-dom";
-import {registerWithAccount} from "../interactoin";
+import axios from "axios";
 
 const FormItem = Form.Item;
 
@@ -103,13 +103,40 @@ const AccountRegister = () => {
             onClick={async () => {
               if (formRef.current) {
                 try {
-                  await formRef.current.validate();
-                  registerWithAccount(name,password,email);
-                  Message.info('校验通过，提交成功！');
-                  navigate('/signIn')
+                    await formRef.current.validate();
+                    axios({
+                        method:'post',
+                        url:'http://192.210.174.146/users/register-with-account',
+                        data:{
+                            "username": name,
+                            "email": email,
+                            "password": password,
+                        }
+                    }).then(
+                        res=>{
+                            if(res.response.status===201){
+                                Message.info('注册成功！');
+                                navigate('/signIn');
+                            }
+                        },
+                        error=>{
+                            if(error.response){
+                                if(error.response.status===409){
+                                    Message.error('该账号已注册！');
+                                }
+                                else {
+                                    Message.error('Network Error!');
+                                }
+                            }
+                            else {
+                                Message.error('Network Error!');
+                            }
+                        }
+                    )
+
                 } catch (_) {
-                  console.log(formRef.current.getFieldsError());
-                  Message.error('校验失败，请检查字段！');
+                    console.log(formRef.current.getFieldsError());
+                    Message.error('仍有未填写字段！');
                 }
               }
             }}

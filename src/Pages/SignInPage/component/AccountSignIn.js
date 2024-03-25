@@ -4,7 +4,7 @@ import { Button, Form, Input, Message } from '@arco-design/web-react';
 import {IconSafe, IconUnlock, IconUser} from '@arco-design/web-react/icon';
 import {useEffect, useRef, useState} from 'react';
 import {Link, useNavigate} from "react-router-dom";
-import {checkAccount} from "../interaction";
+import axios from "axios";
 
 const FormItem = Form.Item;
 
@@ -75,9 +75,34 @@ const AccountSignIn = () => {
               if (formRef.current) {
                 try {
                   await formRef.current.validate();
-                  checkAccount(name,password)
-                  Message.info('校验通过，提交成功！');
-                  navigate('/main/home')
+                  axios({
+                      method:'post',
+                      url:'http://192.210.174.146/users/login-with-account',
+                      data:{
+                          "login": name,
+                          "password": password,
+                      }
+                  }).then(
+                      res=>{
+                          if(res.response.status===201){
+                              Message.info('登录成功！');
+                              navigate('/main/home');
+                          }
+                      },
+                      error=>{
+                          if(error.response){
+                              if(error.response.status===404){
+                                  Message.error('登录失败！请检查用户名与密码是否正确。');
+                              }
+                              else {
+                                  Message.error('Network Error!');
+                              }
+                          }
+                          else {
+                              Message.error('Network Error!');
+                          }
+                      }
+                  )
                 } catch (_) {
                   console.log(formRef.current.getFieldsError());
                   Message.error('仍有未填写字段！');
