@@ -11,6 +11,8 @@ const FormItem = Form.Item;
 const AccountSignIn = () => {
     const [name,setName]=useState('')
     const [password,setPassword]=useState('')
+    const [code,setCode]=useState('')
+
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const navigate=useNavigate()
   // eslint-disable-next-line react-hooks/rules-of-hooks
@@ -53,6 +55,7 @@ const AccountSignIn = () => {
 
         <FormItem field="验证码" rules={[{ required: true }]}>
           <Input
+              onChange={value=>{setCode(value)}}
               placeholder="请输入验证码"
               prefix={<IconSafe />}
               style={{
@@ -77,22 +80,29 @@ const AccountSignIn = () => {
                   await formRef.current.validate();
                   axios({
                       method:'post',
-                      url:'http://192.210.174.146/users/login-with-account',
+                      url:'http://192.210.174.146:5000/users/login-with-account',
                       data:{
                           "login": name,
                           "password": password,
+                          //图片验证码
                       }
                   }).then(
                       res=>{
                           if(res.response.status===201){
                               Message.info('登录成功！');
-                              navigate('/main/home');
+                              if(res.response.data.identity===null){
+                                  navigate('/guide/identity',{state:res.response.data})
+                              } else {
+                                  navigate('/main/home',{state:res.response.data});
+                              }
                           }
                       },
                       error=>{
                           if(error.response){
+                              //图片验证码
+                              //用户名、邮箱未注册
                               if(error.response.status===404){
-                                  Message.error('登录失败！请检查用户名与密码是否正确。');
+                                  Message.error('登录失败！请检查用户名/邮箱与密码是否正确。');
                               }
                               else {
                                   Message.error('Network Error!');

@@ -210,7 +210,6 @@ const RecruitPage=()=>{
                                 </div>
                             </div>
                         </div>
-                        <Button style={{color:'white',backgroundColor:'rgba(60,192,201,100%)',width:200,height:40,fontSize:18,borderRadius:5}}>添加至候选人名单</Button>
                     </div>
                     <div style={{height:'75%',margin:'10px 50px 10px 50px',display:'flex',justifyContent:'space-between'}}>
                         <div style={{width:'50%',height:'100%',position:'relative',overflowY:'auto'}}>
@@ -260,7 +259,6 @@ const RecruitPage=()=>{
                             </div>
                         </div>
                     </div>
-                    <Button style={{position:'absolute',bottom:20,right:20,color:'white',backgroundColor:'rgba(60,192,201,100%)',width:110,height:40,fontSize:18,borderRadius:5}}>邀约面试</Button>
                 </div>
             </div>
         </div>

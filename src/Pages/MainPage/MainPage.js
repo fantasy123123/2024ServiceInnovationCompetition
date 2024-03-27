@@ -1,17 +1,12 @@
 import {Layout, Button, Avatar} from '@arco-design/web-react';
 import './style/MainPage.css'
 import {useState} from "react";
-import {Link,  Outlet} from "react-router-dom";
+import {Link, Outlet, useLocation} from "react-router-dom";
 import logo from './image/logo.png'
 import student from "./components/person/image/student.png";
 import firm from "./components/person/image/firm.png";
 const Header = Layout.Header;
 const Content = Layout.Content;
-
-const user={
-    name:'DIONG',
-    identity:'student',
-}
 
 const noSelectedStyle={height:'100%',width:'25%',fontSize:21,backgroundColor:'rgba(56,56,56,100%)',color:'white',display:'flex',alignItems:'center',justifyContent:'center'}
 const selectedStyle={height:'100%',width:'25%',fontSize:21,backgroundColor:'rgba(56,56,56,100%)',color:'rgba(60,192,201,100%)',display:'flex',alignItems:'center',justifyContent:'center'}
@@ -27,6 +22,8 @@ const animationStyle2='animation'
 const notAnimationStyle2=' '
 
 const MainPage=()=>{
+    const user=useLocation()
+
     const [buttonStyle1,setButtonStyle1]=useState(selectedStyle)
     const [buttonStyle2,setButtonStyle2]=useState(noSelectedStyle)
     const [buttonStyle3,setButtonStyle3]=useState(noSelectedStyle)
@@ -109,7 +106,7 @@ const MainPage=()=>{
                             setButtonStyle1(noSelectedStyle)
                             setButtonStyle5(noSelectedStyle2)
                         }}>
-                            <div class={textStyle4}>行业咨询</div>
+                            <div class={textStyle4}>行业资讯</div>
                         </Button>
                     </Link>
                 </div>

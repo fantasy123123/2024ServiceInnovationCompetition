@@ -4,9 +4,10 @@ import { Button, Form, Input, Message } from '@arco-design/web-react';
 import { IconSafe, IconUnlock, IconUser } from '@arco-design/web-react/icon';
 import { useEffect, useRef, useState } from 'react';
 import {Link, useNavigate} from "react-router-dom";
+import axios from "axios";
 
 const FormItem = Form.Item;
-const verificationCodeSignIn = () => {
+const VerificationCodeSignIn = () => {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const navigate=useNavigate()
   // eslint-disable-next-line react-hooks/rules-of-hooks
@@ -24,36 +25,62 @@ const verificationCodeSignIn = () => {
 
   // @ts-expect-error
   function getMessageVerificationCode(e) {
-    e.stopPropagation();
-    const verification = document.getElementById('verification');
-    if (verificationMessage === '获取验证码') {
-      // @ts-expect-error
-      verification.style.color = 'grey';
-      let i = 60;
+    if(!/^(13[0-9]|14[01456879]|15[0-3,5-9]|16[2567]|17[0-8]|18[0-9]|19[0-3,5-9])d{8}$/.test(phone)){
+      Message.info('手机号格式错误！')
+    } else {
+      e.stopPropagation();
+      const verification = document.getElementById('verification');
+      if (verificationMessage === '获取验证码') {
+        // @ts-expect-error
+        verification.style.color = 'grey';
+        let i = 60;
 
-      const countDown = function () {
-        setVerificationMessage(`${i}秒后重新获取`);
-      };
-      countDown();
+        const countDown = function () {
+          setVerificationMessage(`${i}秒后重新获取`);
+        };
+        countDown();
 
-      const timer = setInterval(() => {
-        i--;
-        setVerificationMessage(`${i}秒后重新获取`);
-        if (i === 0) {
-          clearInterval(timer);
-          setVerificationMessage(`获取验证码`);
-          // @ts-expect-error
-          verification.style.color = '#0083ff';
-        }
-      }, 1000);
+        const timer = setInterval(() => {
+          i--;
+          setVerificationMessage(`${i}秒后重新获取`);
+          if (i === 0) {
+            clearInterval(timer);
+            setVerificationMessage(`获取验证码`);
+            // @ts-expect-error
+            verification.style.color = '#0083ff';
+          }
+        }, 1000);
+
+        axios({
+          method: 'post',
+          url: 'http://192.210.174.146:5000/sms/send',
+          data: {
+            "phone": phone,
+          }
+        }).then(
+            res => {
+              if (res.response.status === 200) {
+                Message.info('验证码发送成功！')
+              }
+            },
+            error => {
+              Message.error('验证码发送失败，请稍后重试。');
+            }
+        )
+      }
     }
   }
+
+  const [phone,setPhone]=useState('')
+  const [code,setCode]=useState('')
+  const [verify,setVerify]=useState('')
 
   return (
     <>
       <Form autoComplete="off" ref={formRef}>
         <FormItem field="手机号" rules={[{ required: true }]}>
           <Input
+              onChange={value => {setPhone(value)}}
             placeholder="请输入手机号"
             prefix={<IconUser />}
             style={{
@@ -65,6 +92,7 @@ const verificationCodeSignIn = () => {
 
         <FormItem field="短信验证码" rules={[{ required: true }]}>
           <Input
+              onChange={value => {setCode(value)}}
             placeholder="请输入短信验证码"
             prefix={<IconUnlock />}
             style={{
@@ -86,6 +114,7 @@ const verificationCodeSignIn = () => {
 
         <FormItem field="验证码" rules={[{ required: true }]}>
           <Input
+              onChange={value => {setVerify(value)}}
               placeholder="请输入验证码"
               prefix={<IconSafe />}
               style={{
@@ -110,11 +139,49 @@ const verificationCodeSignIn = () => {
               if (formRef.current) {
                 try {
                   await formRef.current.validate();
-                  Message.info('校验通过，提交成功！');
-                  navigate('/main/home')
+                  if(!/^(13[0-9]|14[01456879]|15[0-3,5-9]|16[2567]|17[0-8]|18[0-9]|19[0-3,5-9])d{8}$/.test(phone)){
+                    Message.info('您输入的电话有误！')
+                  } else {
+                    axios({
+                      method:'post',
+                      url:'http://192.210.174.146:5000/users/login-with-sms',
+                      data:{
+                        "phone": phone,
+                        "verificationCode": code,
+                        //图片验证码
+                      }
+                    }).then(
+                        res=>{
+                          if(res.response.status===201){
+                            Message.info('登录成功！');
+                            if(res.response.data.identity===null){
+                              navigate('/guide/identity',{state:res.response.data})
+                            } else {
+                              navigate('/main/home',{state:res.response.data});
+                            }
+                          }
+                        },
+                        error=>{
+                          if(error.response){
+                            //图片验证码错误
+                            if(error.response.status===400){
+                              Message.error('短信验证码错误！');
+                            }
+                            else if(error.response.status===404){
+                              Message.error('该手机号未注册！');
+                            }
+                            else {
+                              Message.error('Network Error!');
+                            }
+                          }
+                          else {
+                            Message.error('Network Error!');
+                          }
+                        }
+                    )
+                  }
                 } catch (_) {
-                  console.log(formRef.current.getFieldsError());
-                  Message.error('校验失败，请检查字段！');
+                  Message.error('仍有未填写字段！');
                 }
               }
             }}
@@ -139,4 +206,4 @@ const verificationCodeSignIn = () => {
   );
 };
 
-export default verificationCodeSignIn;
+export default VerificationCodeSignIn;

@@ -1,5 +1,5 @@
 const ProfessionConsultPage=()=>{
-    return <>行业咨询</>
+    return <></>
 }
 
 export default ProfessionConsultPage

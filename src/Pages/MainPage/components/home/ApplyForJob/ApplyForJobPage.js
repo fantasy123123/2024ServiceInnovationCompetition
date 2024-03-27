@@ -195,7 +195,6 @@ const ApplyForJobPage=()=>{
                                 </div>
                             </div>
                         </div>
-                        <Button style={{color:'white',backgroundColor:'rgba(60,192,201,100%)',width:110,height:40,fontSize:18,borderRadius:5}}>投递简历</Button>
                     </div>
                     <div style={{height:'80%',margin:'10px 50px 10px 50px',display:'flex',justifyContent:'space-between'}}>
                         <div style={{width:'50%',height:'100%',position:'relative'}}>

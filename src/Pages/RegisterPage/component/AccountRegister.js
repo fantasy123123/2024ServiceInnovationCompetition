@@ -17,6 +17,7 @@ const AccountRegister = () => {
 
     const [name,setName]=useState('')
     const [password,setPassword]=useState('')
+    const [again,setAgain]=useState('')
     const [email,setEmail]=useState('')
 
   useEffect(() => {
@@ -71,6 +72,7 @@ const AccountRegister = () => {
 
         <FormItem field="确认密码" rules={[{ required: true }]}>
           <Input
+              onChange={value => {setAgain(value)}}
             placeholder="请再次输入密码"
             prefix={<IconUnlock />}
             style={{
@@ -103,37 +105,40 @@ const AccountRegister = () => {
             onClick={async () => {
               if (formRef.current) {
                 try {
-                    await formRef.current.validate();
-                    axios({
-                        method:'post',
-                        url:'http://192.210.174.146/users/register-with-account',
-                        data:{
-                            "username": name,
-                            "email": email,
-                            "password": password,
-                        }
-                    }).then(
-                        res=>{
-                            if(res.response.status===201){
-                                Message.info('注册成功！');
-                                navigate('/signIn');
+                    if(again===password){
+                        await formRef.current.validate();
+                        axios({
+                            method:'post',
+                            url:'http://192.210.174.146:5000/users/register-with-account',
+                            data:{
+                                "username": name,
+                                "email": email,
+                                "password": password,
                             }
-                        },
-                        error=>{
-                            if(error.response){
-                                if(error.response.status===409){
-                                    Message.error('该账号已注册！');
+                        }).then(
+                            res=>{
+                                if(res.response.status===201){
+                                    Message.info('注册成功！');
+                                    navigate('/signIn');
+                                }
+                            },
+                            error=>{
+                                if(error.response){
+                                    if(error.response.status===409){
+                                        Message.error('该账号已注册！');
+                                    }
+                                    else {
+                                        Message.error('Network Error!');
+                                    }
                                 }
                                 else {
                                     Message.error('Network Error!');
                                 }
                             }
-                            else {
-                                Message.error('Network Error!');
-                            }
-                        }
-                    )
-
+                        )
+                    } else {
+                        Message.error('两次输入的密码不同！')
+                    }
                 } catch (_) {
                     console.log(formRef.current.getFieldsError());
                     Message.error('仍有未填写字段！');

@@ -8,11 +8,12 @@ import leftWord from '../images/firstLeftWord.png'
 import leftIcon from '../images/firstLeftIcon.png'
 import rightWord from '../images/firstRightWord.png'
 import rightIcon from '../images/firstRightIcon.png'
-import {Link} from "react-router-dom";
+import {Link, useLocation} from "react-router-dom";
 import '../style/guide.css'
 const Step = Steps.Step;
 const FirstGuidePage=()=>{
     const [ifStudentSelected,setIfStudentSelected]=useState(true)
+    const user=useLocation()
 
     const [animationStyle,setAnimationStyle]=useState('fadeInAnimation')
     setTimeout(()=>{setAnimationStyle('')},1500)
