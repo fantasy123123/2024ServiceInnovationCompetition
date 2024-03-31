@@ -1,159 +1,101 @@
 import {
-    Form,
     Input,
     Select,
     Button,
-    Radio,
-    InputNumber,
-    Upload,
-    DatePicker,
-    Progress,
-    Message
+    Radio, Notification, Message
 } from '@arco-design/web-react';
-import { IconPlus, IconEdit } from '@arco-design/web-react/icon';
-import {useRef, useEffect, useState} from 'react';
-import { useNavigate} from "react-router-dom";
-
+import {IconMinus} from '@arco-design/web-react/icon';
+import {useEffect, useState} from 'react';
+import {useLocation, useNavigate} from "react-router-dom";
+import axios from "axios";
+const TextArea=Input.TextArea
 const Option = Select.Option;
-const options1 = ['求职者','企业'];
-const options2 = ['专科','本科','研究生','博士'];
-const options3 = [2020,2021,2022,2023,2024,2025,2026,2027,2028,2029,2030];
-const FormItem = Form.Item;
+const options=['男','女']
+const educationSelection=['大专','本科','硕士','博士']
+const citySelection=['北京','上海','广州','深圳']
+
+const selectedStyle={width:50,height:31,display:'flex',justifyContent:'center',alignItems:'center',backgroundColor:'rgba(60,192,201,100%)',color:'white'}
+const notSelectedStyle={width:50,height:31,display:'flex',justifyContent:'center',alignItems:'center',backgroundColor:'whitesmoke',color:'#4E5969'}
 
 const EditInformation =()=>{
-    const [file, setFile] = useState();
-    const cs = `arco-upload-list-item${file && file.status === 'error' ? ' is-error' : ''}`;
-
-    const formRef = useRef();
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    useEffect(() => {
-        // @ts-expect-error
-        formRef.current.setFieldsValue({
-            rate: 5,
-        });
-    }, []);
-
-    // eslint-disable-next-line react-hooks/rules-of-hooks
     const navigate=useNavigate()
-    
-    const [identity,setIdentity]=useState(false)
+    const user=useLocation()
 
-    function MyIdentity(){
-        if(identity) {
-            return (
-                <div>
-                    <FormItem label='企业名称' field='企业名称' rules={[{ required: true }]}>
-                        <Input style={{width:'75%'}}/>
-                    </FormItem>
-                    <FormItem label='企业地址' field='企业地址' rules={[{ required: true }]}>
-                        <Input style={{width:'75%'}}/>
-                    </FormItem>
-                    <FormItem label='招聘链接' field='招聘链接' rules={[{ required: true }]}>
-                        <Input style={{width:'75%'}}/>
-                    </FormItem>
-            </div>
-            )
-        }
-        else {
-            return (
-                <div style={{ height:246, overflow: 'auto' }}>
-                    <FormItem label='学校名称' field='学校名称' rules={[{ required: true }]}>
-                        <Input style={{width:'79%'}}/>
-                    </FormItem>
-                    <FormItem label='学历' field='学历' rules={[{ required: true }]}>
-                        <Select style={{ width: '79%' }}>
-                            {options2.map((option, index) => (
-                                <Option key={option} value={option}>{option}</Option>
-                            ))}
-                        </Select>
-                    </FormItem>
-                    <FormItem label='专业' field='专业' rules={[{ required: true }]}>
-                        <Input style={{width:'79%'}}/>
-                    </FormItem>
-                    <FormItem label='毕业年份' field='毕业年份' rules={[{ required: true }]}>
-                        <Select style={{ width: '79%' }}>
-                            {options3.map((option, index) => (
-                                <Option key={option} value={option}>{option}</Option>
-                            ))}
-                        </Select>
-                    </FormItem>
-                    <FormItem label='期望职位' field='期望职业' rules={[{ required: true }]}>
-                        <Input style={{width:'79%'}}/>
-                    </FormItem>
-                </div>
-            )
-        }
-    }
+    const [name,setName]=useState('diong')
+    const [sex,setSex]=useState('男')
+    const [lowestSalary,setLowestSalary]=useState(8)
+    const [highestSalary,setHighestSalary]=useState(11)
+    const [phone,setPhone]=useState('11111111111')
+    const [education,setEducation]=useState('本科')
+    const [year,setYear]=useState(22)
+    const [intention,setIntention]=useState('后端工程师')
+    const [intentionCity,setIntentionCity]=useState('上海')
+    const [email,setEmail]=useState('1234567489@qq.com')
+    const [profession,setProfession]=useState('计算机科学与技术')
+    const [educationExperience,setEducationExperience]=useState('')
+    const [internship,setInternship]=useState('')
+    const [project,setProject]=useState('')
+    const [advantage,setAdvantage]=useState('')
+    const [tempYear,setTempYear]=useState(year.toString())
+
+    useEffect(() => {
+        axios({
+            method:'get',
+            url:'http://192.210.174.146:5000/students/get-info/'+user.user_id,
+            data:{
+                userId:user.user_id,
+            }
+        }).then(
+            res=>{
+                setName(res.response.data.name)
+                setSex(res.response.data.sex)
+                setLowestSalary(parseInt(res.response.data.lowestSalary))
+                setHighestSalary(parseInt(res.response.data.highestSalary))
+                setPhone(res.response.data.phone)
+                setEducation(res.response.data.education)
+                setYear(parseInt(res.response.data.year))
+                setIntention(res.response.data.intention)
+                setIntentionCity(res.response.data.intentionCity)
+                setInternship(res.response.data.internship)
+                setEmail(res.response.data.email)
+                setProfession(res.response.data.profession)
+                setEducationExperience(res.response.data.educationExperience)
+                setProject(res.response.data.project)
+                setAdvantage(res.response.data.advantage)
+            },
+            error=>{
+                Message.error('数据请求失败！')
+            }
+        )
+    }, []);
 
     return (
     <div style={{position:'absolute',top:0,bottom:0,left:0,right:0,backgroundColor:'rgba(0,0,0,0.3)',zIndex:'10',display:'flex',alignItems:'center',justifyContent:'center'}}>
-        <div style={{backgroundColor:'white',width:1000,height:450,padding:"30px 50px 50px 50px",borderRadius:5}}>
-            <div style={{fontSize:23,width:'100%'}}>
-                编辑个人信息
+        <div style={{width:750,height:510,backgroundColor:'white',padding:'30px 100px 30px 100px',margin:100,borderRadius:5}}>
+            <div style={{fontSize:25,fontWeight:'bold'}}>
+                请编辑您的信息
             </div>
-            <Form autoComplete='off' ref={formRef} layout="vertical" style={{width:'100%',height:'85%',marginTop:15,position:'relative'}}>
-                <div style={{width:'30%',position:'absolute',left:0,bottom:0}}>
-                    <Form.Item
-                        label='上传头像'
-                        field='头像'
-                    >
-                            <Upload
-                                style={{width:80,height:80}}
-                                action='/'
-                                fileList={file ? [file] : []}
-                                showUploadList={false}
-                                onChange={(_, currentFile) => {
-                                    setFile({
-                                        ...currentFile,
-                                        url: URL.createObjectURL(currentFile.originFile),
-                                    });
-                                }}
-                                onProgress={(currentFile) => {
-                                    setFile(currentFile);
-                                }}
-                            >
-                                <div className={cs} style={{width:80,height:80,position:'relative',bottom:12}}>
-                                    {file && file.url ? (
-                                        <div className='arco-upload-list-item-picture custom-upload-avatar'>
-                                            <img src={file.url} />
-                                            <div className='arco-upload-list-item-picture-mask'>
-                                                <IconEdit />
-                                            </div>
-                                            {file.status === 'uploading' && file.percent < 100 && (
-                                                <Progress
-                                                    percent={file.percent}
-                                                    type='circle'
-                                                    size='mini'
-                                                    style={{
-                                                        position: 'absolute',
-                                                        left: '50%',
-                                                        top: '50%',
-                                                        transform: 'translateX(-50%) translateY(-50%)',
-                                                    }}
-                                                />
-                                            )}
-                                        </div>
-                                    ) : (
-                                        <div className='arco-upload-trigger-picture'>
-                                            <div className='arco-upload-trigger-picture-text'>
-                                                <IconPlus />
-                                            </div>
-                                        </div>
-                                    )}
-                                </div>
-                            </Upload>
-                        </Form.Item>
-                        <FormItem label='姓名' field='姓名' rules={[{ required: true }]}>
-                            <Input style={{width:'75%'}}/>
-                        </FormItem>
-                        <FormItem label='性别' field='性别' rules={[{ required: true }]}>
-                            <Radio.Group name='button-radio-group'>
-                                {['男', '女',].map((item) => {
+            <div style={{overflow:"auto",height:'80%',paddingLeft:5,paddingRight:5,marginTop:15}}>
+                <div style={{display:'flex',justifyContent:'space-between'}}>
+                    <div style={{width:'45%'}}>
+                        <div>
+                            <div style={{fontSize:17,color:'grey'}}>
+                                <span style={{color:'red'}}>* </span>姓名
+                            </div>
+                            <Input defaultValue={name} style={{ marginBottom:17,marginTop:3,borderRadius:5 }} onChange={value=>{setName(value)}}/>
+                        </div>
+
+                        <div>
+                            <div style={{fontSize:17,color:'grey'}}>
+                                <span style={{color:'red'}}>* </span>性别
+                            </div>
+                            <Radio.Group defaultValue={sex} onChange={value=>{setSex(value)}} name='button-radio-group' style={{ marginBottom:15,marginTop:5,display:'flex'}}>
+                                {options.map((item) => {
                                     return (
                                         <Radio key={item} value={item}>
                                             {({ checked }) => {
                                                 return (
-                                                    <Button tabIndex={-1} key={item} style={checked?{width:80,background:'rgba(60,192,201,100%)',color:'white'}:{width:80,background:'white',border:'solid 1px grey'}}>
+                                                    <Button tabIndex={-1} key={item} style={checked ? selectedStyle : notSelectedStyle}>
                                                         {item}
                                                     </Button>
                                                 );
@@ -162,66 +104,221 @@ const EditInformation =()=>{
                                     );
                                 })}
                             </Radio.Group>
-                        </FormItem>
-                        <FormItem label='出生日期' field='出生日期' rules={[{ required: true }]}>
-                            <DatePicker style={{ width: '75%' }}/>
-                        </FormItem>
-                    </div>
-                    <div style={{width:'30%',position:'absolute',left:'35%',bottom:0}}>
-                        <FormItem label='年龄' field='年龄' rules={[{ required: true }]}>
-                            <InputNumber min={1} style={{ width: '75%' }}/>
-                        </FormItem>
-                        <FormItem label='电话' field='电话' rules={[{ required: true }]}>
-                            <Input style={{ width: '75%' }}/>
-                        </FormItem>
-                        <FormItem label='邮箱' field='邮箱'>
-                            <Input style={{ width: '75%' }}/>
-                        </FormItem>
-                        <FormItem label='微信号' field='微信号'>
-                            <Input style={{ width: '75%' }}/>
-                        </FormItem>
-                    </div>
-                    <div style={{width:'30%',position:'absolute',left:'70%',bottom:0}}>
-                        <FormItem label='我的身份' field='身份' initialValue={'求职者'} rules={[{ required: true }]}>
-                            <Select 
-                                style={{ width: '75%' }}
-                                defaultValue={'求职者'}
-                                onChange={(value) =>{
-                                    if(value==='求职者'){
-                                        setIdentity(false)
-                                    }
-                                    else if(value==='企业'){
-                                        setIdentity(true)
-                                    }
+                        </div>
+                        <div>
+                            <div style={{fontSize:17,color:'grey'}}>
+                                <span style={{color:'red'}}>* </span>期望薪资
+                            </div>
+                            <Input.Group style={{marginBottom:17,marginTop:3,borderRadius:5,display:'flex',alignItems:'center'}}>
+                                <Input
+                                    defaultValue={lowestSalary.toString()}
+                                    style={{ width: '24%', marginRight: 8 }}
+                                    onChange={value => {
+                                        setLowestSalary(parseInt(value))
+                                    }}
+                                />
+                                <IconMinus style={{ color: 'var(--color-text-1)' }} />
+                                <Input
+                                    defaultValue={highestSalary.toString()}
+                                    style={{ width: '24%', marginLeft: 8 }}
+                                    onChange={value => {
+                                        setHighestSalary(parseInt(value))
+                                    }}
+                                />
+                                &nbsp;&nbsp;<span style={{fontSize:16}}>K</span>
+                            </Input.Group>
+                        </div>
+                        <div>
+                            <div style={{fontSize:17,color:'grey'}}>
+                                <span style={{color:'red'}}>* </span>联系电话
+                            </div>
+                            <Input defaultValue={phone} style={{ marginBottom:17,marginTop:3,borderRadius:5 }} onChange={value=>{setPhone(value)}}/>
+                        </div>
+                        <div>
+                            <div style={{fontSize:17,color:'grey'}}>
+                                <span style={{color:'red'}}>* </span>学历
+                            </div>
+                            <Select
+                                defaultValue={education}
+                                style={{ marginBottom:17,marginTop:3,borderRadius:5,width:200}}
+                                onChange={value =>{
+                                    setEducation(value)
                                 }}
                             >
-                                {options1.map((option, index) => (
-                                    <Option key={option} value={option}>{option}</Option>
+                                {educationSelection.map((option, index) => (
+                                    <Option key={option} value={option}>
+                                        {option}
+                                    </Option>
                                 ))}
                             </Select>
-                        </FormItem>
-                        <MyIdentity />
+                        </div>
                     </div>
-                    <FormItem style={{position:'absolute',bottom:'-18%',textAlign:'right'}}>
-                        <Button style={{width:80}} onClick={()=>{navigate('/main/student_information')}}>取 消</Button>
-                        <Button 
-                            onClick={async () => {
-                                if (formRef.current) {
-                                    try {
-                                        await formRef.current.validate();
-                                        Message.info('校验通过，提交成功！');
-                                        navigate('/main/student_information')
-                                    } catch (_) {
-                                        Message.error('校验失败，请检查字段！');
+                    <div style={{width:'45%'}}>
+                        <div>
+                            <div style={{fontSize:17,color:'grey'}}>
+                                <span style={{color:'red'}}>* </span>年龄
+                            </div>
+                            <Input
+                                defaultValue={year.toString()}
+                                style={{ marginBottom:17,marginTop:3,borderRadius:5 }}
+                                onBlur={()=>{
+                                    const number=/^[0-9]{1,3}$/
+                                    if(number.test(tempYear)) {
+                                        setYear(parseInt(tempYear))
+                                    }
+                                    else {
+                                        Notification.error({
+                                            title: 'Error',
+                                            content: '请输入正确的年龄!',
+                                        })
+                                    }
+                                }}
+                                onChange={value=>{
+                                    setTempYear(value)
+                                }}
+                            />
+                        </div>
+
+                        <div>
+                            <div style={{fontSize:17,color:'grey'}}>
+                                <span style={{color:'red'}}>* </span>求职意向
+                            </div>
+                            <Input defaultValue={intention} style={{ marginBottom:17,marginTop:3,borderRadius:5 }} onChange={value=>{setIntention(value)}}/>
+                        </div>
+
+                        <div>
+                            <div style={{fontSize:17,color:'grey'}}>
+                                <span style={{color:'red'}}>* </span>意向城市
+                            </div>
+                            <Select
+                                defaultValue={intentionCity}
+                                style={{ marginBottom:17,marginTop:3,borderRadius:5,width:200}}
+                                onChange={value =>{
+                                    setIntentionCity(value)
+                                }}
+                            >
+                                {citySelection.map((option, index) => (
+                                    <Option key={option} value={option}>
+                                        {option}
+                                    </Option>
+                                ))}
+                            </Select>
+                        </div>
+
+                        <div>
+                            <div style={{fontSize:17,color:'grey'}}>
+                                电子邮箱（选填）
+                            </div>
+                            <Input defaultValue={email} style={{ marginBottom:17,marginTop:3,borderRadius:5 }} onChange={value=>{setEmail(value)}}/>
+                        </div>
+
+                        <div>
+                            <div style={{fontSize:17,color:'grey'}}>
+                                <span style={{color:'red'}}>* </span>专业
+                            </div>
+                            <Input defaultValue={profession} style={{ marginBottom:17,marginTop:3,borderRadius:5 }} onChange={value=>{setProfession(value)}}/>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div>
+                        <div style={{fontSize:17,color:'grey'}}>
+                            <span style={{color:'red'}}>* </span>教育经历
+                        </div>
+                        <TextArea
+                            autoSize={{ minRows: 2 }}
+                            defaultValue={educationExperience}
+                            style={{ marginBottom:17,marginTop:3,borderRadius:5 }}
+                            onChange={value=>{setEducationExperience(value)}}
+                        />
+                    </div>
+                    <div>
+                        <div style={{fontSize:17,color:'grey'}}>
+                            项目经历（选填）
+                        </div>
+                        <TextArea
+                            autoSize={{ minRows: 2 }}
+                            defaultValue={project}
+                            style={{ marginBottom:17,marginTop:3,borderRadius:5 }}
+                            onChange={value=>{setProject(value)}}
+                        />
+                    </div>
+                    <div>
+                        <div style={{fontSize:17,color:'grey'}}>
+                            实习经历（选填）
+                        </div>
+                        <TextArea
+                            autoSize={{ minRows: 2 }}
+                            defaultValue={internship}
+                            style={{ marginBottom:17,marginTop:3,borderRadius:5 }}
+                            onChange={value=>{setInternship(value)}}
+                        />
+                    </div>
+                    <div>
+                        <div style={{fontSize:17,color:'grey'}}>
+                            个人优势（选填）
+                        </div>
+                        <TextArea
+                            autoSize={{ minRows: 2 }}
+                            defaultValue={advantage}
+                            style={{marginTop:3,borderRadius:5 }}
+                            onChange={value=>{setAdvantage(value)}}
+                        />
+                    </div>
+                </div>
+            </div>
+            <div style={{display:'flex',margin:15,float:'right'}}>
+                <Button onClick={()=>{navigate('/main/student_information')}} style={{border:'1px solid lightgrey',color:'rgba(60,192,201,100%)',backgroundColor:'white',width:85,height:35,fontSize:16,borderRadius:3,display:"flex",justifyContent:'center',alignItems:'center'}}>返 回</Button>
+                <Button
+                    onClick={()=>{
+                        if(name.trim()!==''&&sex.trim()!==''&&lowestSalary!==0&&highestSalary!==0&&phone.trim()!==''&&education.trim()!==''&&intention.trim()!==''&&intentionCity.trim()!==''&&profession.trim()!==''&&educationExperience.trim()!==''){
+                            axios({
+                                method:'put',
+                                url:'http://192.210.174.146:5000/students/update-info',
+                                data:{
+                                    "userId": user.user_id,
+                                    "name": name,
+                                    "sex": sex,
+                                    "lowestSalary": lowestSalary,
+                                    "highestSalary": highestSalary,
+                                    "phone": phone,
+                                    "education": education,
+                                    "year": year,
+                                    "intention": intention,
+                                    "intentionCity": intentionCity,
+                                    "email": email,
+                                    "profession": profession,
+                                    "educationExperience": educationExperience,
+                                    "internship": internship,
+                                    "project": project,
+                                    "advantage": advantage,
+                                }
+                            }).then(
+                                res=>{
+                                    if(res.response.status===200){
+                                        Message.info('完善信息成功！')
+                                        navigate('/main/student_information',{state:user})
+                                    }
+                                },
+                                error=>{
+                                    if(error.response){
+                                        if(error.response.status===404){
+                                            Message.error('请求的资源错误！')
+                                        }
+                                        if (error.response.status===500){
+                                            Message.error('服务器内部错误！')
+                                        }
+                                    } else {
+                                        Message.error('Network Error!')
                                     }
                                 }
-                            }}
-                            style={{width:80,color:'white',marginLeft:30,marginRight:50,background:'rgba(60,192,201,100%)'}}
-                        >
-                            完 成
-                        </Button>
-                    </FormItem>
-                </Form>
+                            )
+                        } else {
+                            Message.error('仍有未填写项！')
+                        }
+                    }}
+                    style={{color:'white',backgroundColor:'rgba(60,192,201,100%)',marginLeft:30,width:85,height:35,fontSize:16,borderRadius:3,display:"flex",justifyContent:'center',alignItems:'center'}}>完 成</Button>
+            </div>
         </div>
     </div>
     )

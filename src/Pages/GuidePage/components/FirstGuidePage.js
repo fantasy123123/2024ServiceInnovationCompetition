@@ -1,4 +1,4 @@
-import {Button, Image, Steps} from "@arco-design/web-react";
+import {Button, Image, Message, Steps} from "@arco-design/web-react";
 import {useState} from "react";
 import firmNotSelected from '../images/firmNotSelected.png'
 import firmSelected from '../images/firmSelected.png'
@@ -8,12 +8,15 @@ import leftWord from '../images/firstLeftWord.png'
 import leftIcon from '../images/firstLeftIcon.png'
 import rightWord from '../images/firstRightWord.png'
 import rightIcon from '../images/firstRightIcon.png'
-import {Link, useLocation} from "react-router-dom";
+import { useLocation, useNavigate} from "react-router-dom";
 import '../style/guide.css'
+import axios from "axios";
+
 const Step = Steps.Step;
 const FirstGuidePage=()=>{
     const [ifStudentSelected,setIfStudentSelected]=useState(true)
     const user=useLocation()
+    const navigate=useNavigate()
 
     const [animationStyle,setAnimationStyle]=useState('fadeInAnimation')
     setTimeout(()=>{setAnimationStyle('')},1500)
@@ -52,9 +55,18 @@ const FirstGuidePage=()=>{
                          }}
                     ></img>
                 </div>
-                <Link to={ifStudentSelected?'/guide/student_resume':'/guide/firm'}>
-                    <Button style={{marginTop:50,float:'right',color:'white',backgroundColor:'rgba(60,192,201,100%)',width:100,height:35,fontSize:17,borderRadius:3}}>继 续</Button>
-                </Link>
+                <Button
+                    onClick={()=>{
+                        if(ifStudentSelected){
+                            navigate('/guide/student_resume',{state:user})
+                        } else {
+                            navigate('/guide/firm',{state:user})
+                        }
+                    }}
+                    style={{marginTop:50,float:'right',color:'white',backgroundColor:'rgba(60,192,201,100%)',width:100,height:35,fontSize:17,borderRadius:3}}
+                >
+                    继 续
+                </Button>
             </div>
             <div style={{position:'fixed',top:'10%',bottom:0,left:'78%',right:0,textAlign:'center',paddingTop:100,paddingBottom:100}}>
                 <img src={rightIcon} alt={''} style={{width:'90%'}} class={animationStyle}></img>

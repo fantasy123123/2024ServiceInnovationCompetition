@@ -2,11 +2,12 @@ import leftWord from '../images/firstLeftWord.png'
 import leftIcon from '../images/firstLeftIcon.png'
 import rightWord from '../images/firstRightWord.png'
 import rightIcon from '../images/firstRightIcon.png'
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import '../style/guide.css'
 import {IconCheck, IconMinus} from "@arco-design/web-react/icon";
-import {Notification, Button, Input, Radio, Steps, Select} from "@arco-design/web-react";
-import {Link, useNavigate} from "react-router-dom";
+import {Notification, Button, Input, Radio, Steps, Select, Message} from "@arco-design/web-react";
+import {useLocation, useNavigate} from "react-router-dom";
+import axios from "axios";
 
 const TextArea=Input.TextArea
 const Step = Steps.Step;
@@ -18,27 +19,60 @@ const selectedStyle={width:50,height:31,display:'flex',justifyContent:'center',a
 const notSelectedStyle={width:50,height:31,display:'flex',justifyContent:'center',alignItems:'center',backgroundColor:'whitesmoke',color:'#4E5969'}
 
 const SecondStudentGuidePage=()=>{
+    const user=useLocation()
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const navigate=useNavigate()
     const [animationStyle,setAnimationStyle]=useState('fadeInAnimation')
     setTimeout(()=>{setAnimationStyle('')},1500)
 
-    const [name,setName]=useState('diong')
-    const [sex,setSex]=useState('男')
-    const [lowestSalary,setLowestSalary]=useState(8)
-    const [highestSalary,setHighestSalary]=useState(11)
-    const [phone,setPhone]=useState('11111111111')
-    const [education,setEducation]=useState('本科')
-    const [year,setYear]=useState(22)
-    const [intention,setIntention]=useState('后端工程师')
-    const [intentionCity,setIntentionCity]=useState('上海')
-    const [email,setEmail]=useState('1234567489@qq.com')
-    const [profession,setProfession]=useState('计算机科学与技术')
+    const [name,setName]=useState('')
+    const [sex,setSex]=useState('')
+    const [lowestSalary,setLowestSalary]=useState(0)
+    const [highestSalary,setHighestSalary]=useState(0)
+    const [phone,setPhone]=useState('')
+    const [education,setEducation]=useState('')
+    const [year,setYear]=useState(0)
+    const [intention,setIntention]=useState('')
+    const [intentionCity,setIntentionCity]=useState('')
+    const [email,setEmail]=useState('')
+    const [profession,setProfession]=useState('')
     const [educationExperience,setEducationExperience]=useState('')
     const [internship,setInternship]=useState('')
     const [project,setProject]=useState('')
     const [advantage,setAdvantage]=useState('')
     const [tempYear,setTempYear]=useState(year.toString())
+
+    useEffect(() => {
+        axios({
+            method:'get',
+            url:'http://192.210.174.146:5000/students/get-info/'+user.user_id,
+            data:{
+                userId:user.user_id,
+            }
+        }).then(
+            res=>{
+                setName(res.response.data.name)
+                setSex(res.response.data.sex)
+                setLowestSalary(parseInt(res.response.data.lowestSalary))
+                setHighestSalary(parseInt(res.response.data.highestSalary))
+                setPhone(res.response.data.phone)
+                setEducation(res.response.data.education)
+                setYear(parseInt(res.response.data.year))
+                setIntention(res.response.data.intention)
+                setIntentionCity(res.response.data.intentionCity)
+                setInternship(res.response.data.internship)
+                setEmail(res.response.data.email)
+                setProfession(res.response.data.profession)
+                setEducationExperience(res.response.data.educationExperience)
+                setProject(res.response.data.project)
+                setAdvantage(res.response.data.advantage)
+            },
+            error=>{
+                Message.error('数据请求失败！')
+            }
+        )
+    }, []);
+
 
     return (
         <>
@@ -251,7 +285,55 @@ const SecondStudentGuidePage=()=>{
                 </div>
                 <div style={{display:'flex',margin:15,float:'right'}}>
                     <Button onClick={()=>{navigate('/guide/student_resume')}} style={{border:'1px solid lightgrey',color:'rgba(60,192,201,100%)',backgroundColor:'white',width:85,height:35,fontSize:16,borderRadius:3,display:"flex",justifyContent:'center',alignItems:'center'}}>返 回</Button>
-                    <Button onClick={()=>{navigate('/main/home')}} style={{color:'white',backgroundColor:'rgba(60,192,201,100%)',marginLeft:30,width:85,height:35,fontSize:16,borderRadius:3,display:"flex",justifyContent:'center',alignItems:'center'}}>完 成</Button>
+                    <Button
+                        onClick={()=>{
+                            if(name.trim()!==''&&sex.trim()!==''&&lowestSalary!==0&&highestSalary!==0&&phone.trim()!==''&&education.trim()!==''&&intention.trim()!==''&&intentionCity.trim()!==''&&profession.trim()!==''&&educationExperience.trim()!==''){
+                                axios({
+                                    method:'put',
+                                    url:'http://192.210.174.146:5000/students/update-info',
+                                    data:{
+                                        "userId": user.user_id,
+                                        "name": name,
+                                        "sex": sex,
+                                        "lowestSalary": lowestSalary,
+                                        "highestSalary": highestSalary,
+                                        "phone": phone,
+                                        "education": education,
+                                        "year": year,
+                                        "intention": intention,
+                                        "intentionCity": intentionCity,
+                                        "email": email,
+                                        "profession": profession,
+                                        "educationExperience": educationExperience,
+                                        "internship": internship,
+                                        "project": project,
+                                        "advantage": advantage,
+                                    }
+                                }).then(
+                                    res=>{
+                                        if(res.response.status===200){
+                                            Message.info('完善信息成功！')
+                                            navigate('/main/home',{state:user})
+                                        }
+                                    },
+                                    error=>{
+                                        if(error.response){
+                                            if(error.response.status===404){
+                                                Message.error('请求的资源错误！')
+                                            }
+                                            if (error.response.status===500){
+                                                Message.error('服务器内部错误！')
+                                            }
+                                        } else {
+                                            Message.error('Network Error!')
+                                        }
+                                    }
+                                )
+                            } else {
+                                Message.error('仍有未填写项！')
+                            }
+                        }}
+                        style={{color:'white',backgroundColor:'rgba(60,192,201,100%)',marginLeft:30,width:85,height:35,fontSize:16,borderRadius:3,display:"flex",justifyContent:'center',alignItems:'center'}}>完 成</Button>
                 </div>
             </div>
             <div style={{

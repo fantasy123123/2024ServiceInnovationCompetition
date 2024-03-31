@@ -44,7 +44,7 @@ const MainPage=()=>{
                     <img src={logo} alt={'logo'} height={'70%'}/>
                 </div>
                 <div id={'buttonGroup'} style={{display:'flex',fontSize:25,width:'40%',height:'100%',justifyContent:'space-around'}}>
-                    <Link to={'/main/home'}>
+                    <Link to={'/main/home'} state={user}>
                         <Button style={buttonStyle1} onClick={()=>{
                             setTextStyle1(notAnimationStyle)
                             setTextStyle2(animationStyle)
@@ -61,7 +61,7 @@ const MainPage=()=>{
                             <div class={textStyle1}>首页</div>
                         </Button>
                     </Link>
-                    <Link to={'/main/job'}>
+                    <Link to={'/main/job'} state={user}>
                         <Button style={buttonStyle2} onClick={()=>{
                             setTextStyle2(notAnimationStyle)
                             setTextStyle1(animationStyle)
@@ -77,7 +77,7 @@ const MainPage=()=>{
                             <div class={textStyle2}>我要求职</div>
                         </Button>
                     </Link>
-                    <Link to={'/main/recruit'}>
+                    <Link to={'/main/recruit'} state={user}>
                         <Button style={buttonStyle3} onClick={()=>{
                             setTextStyle3(notAnimationStyle)
                             setTextStyle2(animationStyle)
@@ -93,7 +93,7 @@ const MainPage=()=>{
                            <div class={textStyle3}>我要招聘</div>
                         </Button>
                     </Link>
-                    <Link to={'/main/consult'}>
+                    <Link to={'/main/consult'} state={user}>
                         <Button style={buttonStyle4} onClick={()=>{
                             setTextStyle4(notAnimationStyle)
                             setTextStyle2(animationStyle)
@@ -116,7 +116,12 @@ const MainPage=()=>{
                             登录
                         </div>
                     </Link>  */}
-                    <Link to={user.identity==='student'?'/main/student_information':'/main/firm_information'} style={{textDecoration:'none'}}>
+                    <Link
+                        // to={user.identity==='student'?'/main/student_information':'/main/firm_information'}
+                        to={'/main/student_information'}
+                        style={{textDecoration:'none'}}
+                        state={user}
+                    >
                         <div class={textStyle5}  style={buttonStyle5} onClick={()=>{
                             setTextStyle4(animationStyle)
                             setTextStyle2(animationStyle)

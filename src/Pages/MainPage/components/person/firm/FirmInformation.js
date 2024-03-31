@@ -1,4 +1,4 @@
-import { Outlet, useNavigate} from "react-router-dom";
+import {Outlet, useLocation, useNavigate} from "react-router-dom";
 import {Button, Card} from "@arco-design/web-react";
 const data=[
     {
@@ -56,6 +56,7 @@ const data=[
 const FirmInformation = () => {
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const navigate=useNavigate()
+    const user=useLocation()
 
     function ButtonGroup(){
         return (<div style={{display:'flex',alignItems:'center'}}>
@@ -88,7 +89,7 @@ const FirmInformation = () => {
                 <div style={{fontSize:25,fontWeight:'bold',textAlign:'center'}}>
                     招聘信息
                 </div>
-                <Button onClick={()=>{navigate('/main/firm_information/edit')}} style={{marginLeft:150,marginTop:10,color:'white',backgroundColor:'rgba(60,192,201,100%)',width:125,height:35,fontSize:16,borderRadius:3,display:"flex",justifyContent:'center',alignItems:'center'}}>新增招聘信息</Button>
+                <Button onClick={()=>{navigate('/main/firm_information/edit',{state:user})}} style={{marginLeft:150,marginTop:10,color:'white',backgroundColor:'rgba(60,192,201,100%)',width:125,height:35,fontSize:16,borderRadius:3,display:"flex",justifyContent:'center',alignItems:'center'}}>新增招聘信息</Button>
                 <div style={{overflow:'auto',maxHeight:'80%',position:'relative',left:'1%',marginLeft:150,marginTop:5,marginRight:150,display:'flex',flexWrap:'wrap',justifyContent:'flex-start'}}>
                     <CardList/>
                 </div>

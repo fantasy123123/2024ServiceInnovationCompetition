@@ -1,22 +1,27 @@
-import {Button, Modal, Radio, Steps, Upload} from "@arco-design/web-react";
+import {Button, Message, Modal, Radio, Steps, Upload} from "@arco-design/web-react";
 import {IconCheck, IconUpload} from "@arco-design/web-react/icon";
-import {Link, useNavigate} from "react-router-dom";
+import {Link, useLocation, useNavigate} from "react-router-dom";
 import {useState} from "react";
 import leftWord from '../images/studentLeftWord.png'
 import leftIcon from '../images/studentLeftIcon.png'
 import rightWord from '../images/studentRightWord.png'
 import rightIcon from '../images/studentRightIcon.png'
 import '../style/guide.css'
+import axios from "axios";
 const RadioGroup = Radio.Group;
 const Step = Steps.Step;
 
 const StudentGuidePage=()=>{
+    const user=useLocation()
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const navigate=useNavigate()
     const [visible, setVisible] = useState(false);
 
     const [animationStyle,setAnimationStyle]=useState('fadeInAnimation')
     setTimeout(()=>{setAnimationStyle('')},1500)
+
+    const [file, setFile] = useState();
+    const [privacy,setPrivacy]=useState('')
 
     function Title(){
         return <p style={{fontWeight:'bold',fontSize:25}}>“慧职通”招聘门户网站 - 隐私政策</p>
@@ -42,8 +47,13 @@ const StudentGuidePage=()=>{
                 <div style={{marginTop:20,backgroundColor:'white',width:'100%',borderRadius:20,marginBottom:10}}>
                     <Upload
                         drag
-                        multiple
                         action='/'
+                        onChange={(_, currentFile) => {
+                            setFile({
+                                ...currentFile,
+                                url: URL.createObjectURL(currentFile.originFile),
+                            });
+                        }}
                     />
                 </div>
                 <div style={{marginTop:15}}>
@@ -157,7 +167,7 @@ const StudentGuidePage=()=>{
                         </Modal>
                     </div>
                     <div style={{marginTop:10}}>
-                        <RadioGroup defaultValue='不公开'>
+                        <RadioGroup onChange={value => {setPrivacy(value)}}>
                             <Radio value='不公开'>不公开</Radio>
                             <Radio value='仅投递企业可见'>仅投递企业可见</Radio>
                             <Radio value='公开'>公开</Radio>
@@ -165,7 +175,40 @@ const StudentGuidePage=()=>{
                     </div>
                     <div style={{display:'flex',marginTop:30,float:'right'}}>
                         <Button onClick={()=>{navigate('/guide/identity')}} style={{border:'1px solid lightgrey',color:'rgba(60,192,201,100%)',backgroundColor:'white',width:85,height:35,fontSize:16,borderRadius:3,display:"flex",justifyContent:'center',alignItems:'center'}}>返 回</Button>
-                        <Button onClick={()=>{navigate('/guide/student_information')}} style={{color:'white',backgroundColor:'rgba(60,192,201,100%)',marginLeft:30,width:85,height:35,fontSize:16,borderRadius:3,display:"flex",justifyContent:'center',alignItems:'center'}}>完 成</Button>
+                        <Button onClick={()=>{
+                            if(privacy!=='') {
+                                axios({
+                                    method:'post',
+                                    url:'http://192.210.174.146:5000/resume/upload',
+                                    data:{
+                                        "userId": user.user_id,
+                                        "privacySetting":privacy,
+                                        "file":file,
+                                    }
+                                }).then(
+                                    res=>{
+                                        if(res.response.status===200){
+                                            navigate('/guide/student_information',{state:user})
+                                        }
+                                    },
+                                    error=>{
+                                        if(error.response){
+                                            if(error.response===400){
+                                                Message.error('请求的资源错误！')
+                                            }
+                                            if(error.response===500){
+                                                Message.error('服务器内部错误！')
+                                            }
+                                        } else {
+                                            Message.error('Network Error!')
+                                        }
+                                    }
+                                )
+                            } else {
+                                navigate('/guide/student_information',{state:user})
+                                Message.error('请先完善信息！')
+                            }
+                        }} style={{color:'white',backgroundColor:'rgba(60,192,201,100%)',marginLeft:30,width:85,height:35,fontSize:16,borderRadius:3,display:"flex",justifyContent:'center',alignItems:'center'}}>继 续</Button>
                     </div>
                 </div>
             </div>

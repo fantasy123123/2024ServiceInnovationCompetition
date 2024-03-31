@@ -1,18 +1,21 @@
-import {Link, useNavigate} from "react-router-dom";
-import {Input, Button, Radio, Steps, Select} from "@arco-design/web-react";
+import {Link, useLocation, useNavigate} from "react-router-dom";
+import {Input, Button, Radio, Steps, Select, Message} from "@arco-design/web-react";
 import {useState} from "react";
-import {IconCheck} from "@arco-design/web-react/icon";
+import {IconCheck, IconMinus} from "@arco-design/web-react/icon";
 import leftWord from '../images/firstLeftWord.png'
 import leftIcon from '../images/firstLeftIcon.png'
 import rightWord from '../images/firstRightWord.png'
 import rightIcon from '../images/firstRightIcon.png'
 import '../style/guide.css'
+import axios from "axios";
 const TextArea = Input.TextArea;
 const options = ['大专','本科','硕士','博士'];
 const Step = Steps.Step;
 const Option=Select.Option
 
 const FirmGuidePage=()=>{
+    const user=useLocation();
+
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const navigate=useNavigate()
     const [name,setName]=useState('')
@@ -20,7 +23,8 @@ const FirmGuidePage=()=>{
     const [description,setDescription]=useState('')
     const [education,setEducation]=useState('')
     const [manager,setManager]=useState('')
-    const [salary,setSalary]=useState('')
+    const [lowestSalary,setLowestSalary]=useState(0)
+    const [highestSalary,setHighestSalary]=useState(0)
     const [address,setAddress]=useState('')
     const [link,setLink]=useState('')
 
@@ -94,7 +98,24 @@ const FirmGuidePage=()=>{
                             <div style={{fontSize:17,color:'grey'}}>
                                 <span style={{color:'red'}}>* </span>月薪
                             </div>
-                            <Input style={{ marginBottom:17,marginTop:3,borderRadius:5 }} onChange={value=>{setSalary(value)}}/>
+                            <Input.Group style={{marginBottom:17,marginTop:3,borderRadius:5,display:'flex',alignItems:'center'}}>
+                                <Input
+                                    defaultValue={lowestSalary.toString()}
+                                    style={{ width: '24%', marginRight: 8 }}
+                                    onChange={value => {
+                                        setLowestSalary(parseInt(value))
+                                    }}
+                                />
+                                <IconMinus style={{ color: 'var(--color-text-1)' }} />
+                                <Input
+                                    defaultValue={highestSalary.toString()}
+                                    style={{ width: '24%', marginLeft: 8 }}
+                                    onChange={value => {
+                                        setHighestSalary(parseInt(value))
+                                    }}
+                                />
+                                &nbsp;&nbsp;<span style={{fontSize:16}}>K</span>
+                            </Input.Group>
                         </div>
 
                         <div>
@@ -114,7 +135,50 @@ const FirmGuidePage=()=>{
                 </div>
                 <div style={{display:'flex',marginTop:30,float:'right'}}>
                     <Button onClick={()=>{navigate('/guide/identity')}} style={{border:'1px solid lightgrey',color:'rgba(60,192,201,100%)',backgroundColor:'white',width:85,height:35,fontSize:16,borderRadius:3,display:"flex",justifyContent:'center',alignItems:'center'}}>返 回</Button>
-                    <Button onClick={()=>{navigate('/main/home')}} style={{color:'white',backgroundColor:'rgba(60,192,201,100%)',marginLeft:30,width:85,height:35,fontSize:16,borderRadius:3,display:"flex",justifyContent:'center',alignItems:'center'}}>完 成</Button>
+                    <Button
+                        onClick={()=>{
+                            if(name.trim()!==''&&job.trim()!==''&&description.trim()!==''&&education.trim()!==''&&manager.trim()!==''&&lowestSalary!==0&&highestSalary!==0&&address.trim()!==''&&link.trim()!==''){
+                                axios({
+                                    method:'post',
+                                    url:'http://192.210.174.146:5000/companies/create-info',
+                                    data:{
+                                        "userId": user.user_id,
+                                        "name": name,
+                                        "job": job,
+                                        "description": description,
+                                        "education": education,
+                                        "manager": manager,
+                                        "salary": `${lowestSalary}-${highestSalary}K`,
+                                        "address": address,
+                                        "link": link
+                                    }
+                                }).then(
+                                    res=>{
+                                        if (res.response.status=== 200){
+                                            Message.info('完善信息成功！')
+                                            navigate('/main/home',{state:user})
+                                        }
+                                    },
+                                    error=>{
+                                        if(error.response){
+                                            if (error.response.status===500){
+                                                Message.error('服务器错误！')
+                                            } else {
+                                                Message.error('网络错误！请稍后重试。')
+                                            }
+                                        } else {
+                                            Message.error('Network Error！')
+                                        }
+                                    }
+                                )
+                            } else {
+                                Message.error('仍有未填写信息！')
+                            }
+                        }}
+                        style={{color:'white',backgroundColor:'rgba(60,192,201,100%)',marginLeft:30,width:85,height:35,fontSize:16,borderRadius:3,display:"flex",justifyContent:'center',alignItems:'center'}}
+                    >
+                        完 成
+                    </Button>
                 </div>
             </div>
             <div style={{

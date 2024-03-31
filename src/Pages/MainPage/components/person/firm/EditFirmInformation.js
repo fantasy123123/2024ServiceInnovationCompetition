@@ -1,7 +1,8 @@
-import {Link, useNavigate} from "react-router-dom";
-import {Input, Button,  Steps, Select} from "@arco-design/web-react";
+import {Link, useLocation, useNavigate} from "react-router-dom";
+import {Input, Button, Steps, Select, Message} from "@arco-design/web-react";
 import {useState} from "react";
 import {IconMinus} from "@arco-design/web-react/icon";
+import axios from "axios";
 const TextArea = Input.TextArea;
 const options = ['大专','本科','硕士','博士'];
 const Option=Select.Option
@@ -9,6 +10,7 @@ const Option=Select.Option
 const EditFirmInformation=()=>{
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const navigate=useNavigate()
+    const user=useLocation()
 
     const [name,setName]=useState('')
     const [job,setJob]=useState('')
@@ -115,7 +117,50 @@ const EditFirmInformation=()=>{
                     </div>
                     <div style={{display:'flex',marginTop:30,float:'right'}}>
                         <Button onClick={()=>{navigate('/main/firm_information')}} style={{width:85,height:35,fontSize:16,borderRadius:3}}>取 消</Button>
-                        <Button onClick={()=>{navigate('/main/firm_information')}} style={{color:'white',backgroundColor:'rgba(60,192,201,100%)',marginLeft:30,width:85,height:35,fontSize:16,borderRadius:3,display:"flex",justifyContent:'center',alignItems:'center'}}>完 成</Button>
+                        <Button
+                            onClick={()=>{
+                                if(name.trim()!==''&&job.trim()!==''&&description.trim()!==''&&education.trim()!==''&&manager.trim()!==''&&lowestSalary!==0&&highestSalary!==0&&address.trim()!==''&&link.trim()!==''){
+                                    axios({
+                                        method:'post',
+                                        url:'http://192.210.174.146:5000/companies/create-info',
+                                        data:{
+                                            "userId": user.user_id,
+                                            "name": name,
+                                            "job": job,
+                                            "description": description,
+                                            "education": education,
+                                            "manager": manager,
+                                            "salary": `${lowestSalary}-${highestSalary}K`,
+                                            "address": address,
+                                            "link": link
+                                        }
+                                    }).then(
+                                        res=>{
+                                            if (res.response.status=== 200){
+                                                Message.info('修改成功！')
+                                                navigate('/main/firm_information')
+                                            }
+                                        },
+                                        error=>{
+                                            if(error.response){
+                                                if (error.response.status===500){
+                                                    Message.error('服务器错误！')
+                                                } else {
+                                                    Message.error('网络错误！请稍后重试。')
+                                                }
+                                            } else {
+                                                Message.error('Network Error！')
+                                            }
+                                        }
+                                    )
+                                } else {
+                                    Message.error('仍有未填写信息！')
+                                }
+                            }}
+                            style={{color:'white',backgroundColor:'rgba(60,192,201,100%)',marginLeft:30,width:85,height:35,fontSize:16,borderRadius:3,display:"flex",justifyContent:'center',alignItems:'center'}}
+                        >
+                            完 成
+                        </Button>
                     </div>
                 </div>
             </div>
