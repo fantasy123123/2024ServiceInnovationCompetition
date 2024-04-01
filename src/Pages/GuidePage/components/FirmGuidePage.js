@@ -143,6 +143,7 @@ const FirmGuidePage=()=>{
                                     url:'http://192.210.174.146:5000/companies/create-info',
                                     data:{
                                         "userId": user.user_id,
+                                        "identity":'firm',
                                         "name": name,
                                         "job": job,
                                         "description": description,

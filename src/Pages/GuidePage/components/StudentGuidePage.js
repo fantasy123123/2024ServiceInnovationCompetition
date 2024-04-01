@@ -43,7 +43,6 @@ const StudentGuidePage=()=>{
                 <div style={{fontSize:25,fontWeight:'bold',marginTop:30}}>
                     请上传您的简历
                 </div>
-                <Button style={{marginTop:30,color:'white',backgroundColor:'rgba(60,192,201,100%)',height:35,fontSize:16,borderRadius:3,display:"flex",justifyContent:'center',alignItems:'center'}}><IconUpload />上传文件</Button>
                 <div style={{marginTop:20,backgroundColor:'white',width:'100%',borderRadius:20,marginBottom:10}}>
                     <Upload
                         drag
@@ -182,6 +181,7 @@ const StudentGuidePage=()=>{
                                     url:'http://192.210.174.146:5000/resume/upload',
                                     data:{
                                         "userId": user.user_id,
+                                        "identity":'student',
                                         "privacySetting":privacy,
                                         "file":file,
                                     }
@@ -195,6 +195,9 @@ const StudentGuidePage=()=>{
                                         if(error.response){
                                             if(error.response===400){
                                                 Message.error('请求的资源错误！')
+                                            }
+                                            if(error.response.status===422){
+                                                Message.error('文件格式不正确，请上传pdf文件')
                                             }
                                             if(error.response===500){
                                                 Message.error('服务器内部错误！')

@@ -28,17 +28,6 @@ const PersonalInformationPage=()=>{
                 <div style={{fontSize: 25, fontWeight: 'bold', marginTop: 10}}>
                     请上传您的简历
                 </div>
-                <Button style={{
-                    marginTop: 30,
-                    color: 'white',
-                    backgroundColor: 'rgba(60,192,201,100%)',
-                    height: 35,
-                    fontSize: 16,
-                    borderRadius: 3,
-                    display: "flex",
-                    justifyContent: 'center',
-                    alignItems: 'center'
-                }}><IconUpload/>上传文件</Button>
                 <div style={{
                     marginTop: 20,
                     backgroundColor: 'white',
