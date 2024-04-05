@@ -1,5 +1,5 @@
-import {Button, Radio} from "@arco-design/web-react";
-import {useState} from "react";
+import {Button, Message, Radio} from "@arco-design/web-react";
+import {useEffect, useState} from "react";
 import './style/RecruitPage.css'
 import crosshair from './image/crosshair.png'
 import email from './image/email.png'
@@ -7,86 +7,22 @@ import female from './image/female.png'
 import male from './image/male.png'
 import graduation from './image/graduation.png'
 import phone from './image/phone.png'
+import axios from "axios";
+import {useLocation} from "react-router-dom";
 
 const RadioGroup = Radio.Group;
-const person=[{
-    name:'diong',
-    sex:1,
-    education:'本科',
-    keyWord: ['html','css','能力'],
-    intention:'前端工程师',
-    year:22,
-    phone:18511115555,
-    email:'12345678@qq.com',
-    educationExperience:'description',
-    projectExperience:'description',
-    advantage:'description',
-    internship:'description'
-},{
-    name:'diong',
-    sex:1,
-    education:'本科',
-    keyWord: ['html','css','能力'],
-    intention:'前端工程师',
-    year:22,
-    phone:18511115555,
-    email:'12345678@qq.com',
-    educationExperience:'description',
-    projectExperience:'description',
-    advantage:'description',
-    internship:'description'
-},{
-    name:'diong',
-    sex:1,
-    education:'本科',
-    keyWord: ['html','css','能力'],
-    intention:'前端工程师',
-    year:22,
-    phone:18511115555,
-    email:'12345678@qq.com',
-    educationExperience:'description',
-    projectExperience:'description',
-    advantage:'description',
-    internship:'description'
-},{
-    name:'diong',
-    sex:1,
-    education:'本科',
-    keyWord: ['html','css','能力'],
-    intention:'前端工程师',
-    year:22,
-    phone:18511115555,
-    email:'12345678@qq.com',
-    educationExperience:'description',
-    projectExperience:'description',
-    advantage:'description',
-    internship:'description'
-},{
-    name:'diong',
-    sex:1,
-    education:'本科',
-    keyWord: ['html','css','能力'],
-    intention:'前端工程师',
-    year:22,
-    phone:18511115555,
-    email:'12345678@qq.com',
-    educationExperience:'description',
-    projectExperience:'description',
-    advantage:'description',
-    internship:'description'
-},]
 
 const selectedCardStyle={width:300,height:130,borderRadius:15,marginBottom:20,backgroundColor:'white',position:'relative',border:'1px solid rgba(60,192,201,100%)'}
 const notSelectedCardStyle={width:300,height:130,borderRadius:15,marginBottom:20,backgroundColor:'white',position:'relative'}
 const RecruitPage=()=>{
-
+    const user=useLocation()
     const [selectedPerson,setSelectedPerson]=useState(
         {
-            name:'diong',
+            name:'',
             sex:1,
-            education:'本科',
+            education:'',
             keyWord: ['html','css','能力'],
-            intention:'前端工程师',
+            intention:'',
             year:22,
             phone:11122223333,
             email:'12345678@qq.com',
@@ -96,6 +32,91 @@ const RecruitPage=()=>{
             internship:'description1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111'
         },
     )
+
+    const [person,setPerson]=useState([{
+        name:'diong',
+        sex:1,
+        education:'本科',
+        keyWord: ['html','css','能力'],
+        intention:'前端工程师',
+        year:22,
+        phone:18511115555,
+        email:'12345678@qq.com',
+        educationExperience:'description',
+        projectExperience:'description',
+        advantage:'description',
+        internship:'description'
+    },{
+        name:'diong',
+        sex:1,
+        education:'本科',
+        keyWord: ['html','css','能力'],
+        intention:'前端工程师',
+        year:22,
+        phone:18511115555,
+        email:'12345678@qq.com',
+        educationExperience:'description',
+        projectExperience:'description',
+        advantage:'description',
+        internship:'description'
+    },{
+        name:'diong',
+        sex:1,
+        education:'本科',
+        keyWord: ['html','css','能力'],
+        intention:'前端工程师',
+        year:22,
+        phone:18511115555,
+        email:'12345678@qq.com',
+        educationExperience:'description',
+        projectExperience:'description',
+        advantage:'description',
+        internship:'description'
+    },{
+        name:'diong',
+        sex:1,
+        education:'本科',
+        keyWord: ['html','css','能力'],
+        intention:'前端工程师',
+        year:22,
+        phone:18511115555,
+        email:'12345678@qq.com',
+        educationExperience:'description',
+        projectExperience:'description',
+        advantage:'description',
+        internship:'description'
+    },{
+        name:'diong',
+        sex:1,
+        education:'本科',
+        keyWord: ['html','css','能力'],
+        intention:'前端工程师',
+        year:22,
+        phone:18511115555,
+        email:'12345678@qq.com',
+        educationExperience:'description',
+        projectExperience:'description',
+        advantage:'description',
+        internship:'description'
+    },])
+
+    useEffect(() => {
+        axios({
+            method:'get',
+            url:'http://192.210.174.146:5000/talents/recommended/'+user.user_id,
+        }).then(
+            res=>{
+                setPerson(res.response.data)
+            },
+            error=>{
+                if(error.response){
+                    Message.error('未找到推荐人才！')
+                } else {
+                    Message.error('Network Error!')
+                }
+            }
+        )
+    },[])
 
     function KeyWordList({value}){
         return <div style={{display:'flex'}}>
@@ -158,9 +179,25 @@ const RecruitPage=()=>{
                 推荐候选人
             </div>
             <div style={{marginLeft:'3%'}}>
-                <RadioGroup>
-                    <Radio key={1} value='学历优先'>学历优先</Radio>
-                    <Radio key={2} value='能力优先'>能力优先</Radio>
+                <RadioGroup onChange={value => {
+                    axios({
+                        method:'get',
+                        url:'http://192.210.174.146:5000/talents/sort/'+value,
+                    }).then(
+                        res=>{
+                            setPerson(res.response.data)
+                        },
+                        error=>{
+                            if (error.response){
+                                Message.error('未找到推荐人才！')
+                            } else {
+                                Message.error('Network Error!')
+                            }
+                        }
+                    )
+                }}>
+                    <Radio key={1} value='education'>学历优先</Radio>
+                    <Radio key={2} value='skills'>能力优先</Radio>
                 </RadioGroup>
             </div>
         </div>
@@ -170,6 +207,28 @@ const RecruitPage=()=>{
             </div>
             <div style={{width:'75%',display:'flex',justifyContent:'center',alignItems:'center'}}>
                 <div style={{width:'90%',height:'90%',backgroundColor:'white',borderRadius:10,position:'relative'}}>
+                    <Button
+                        onClick={()=>{
+                            axios({
+                                method:'get',
+                                url:'http://192.210.174.146:5000/resumes/view/'+user.user_id
+                            }).then(
+                                res=>{
+                                    window.open(`/resumes/view/${user.user_id}`,'_blank')
+                                },
+                                error=>{
+                                    if(error.response){
+                                        Message.error('简历未找到！')
+                                    } else {
+                                        Message.error('Network Error!')
+                                    }
+                                }
+                            )
+                        }}
+                        style={{color:'white',backgroundColor:'rgba(60,192,201,100%)',width:110,height:40,fontSize:18,borderRadius:5,position:'absolute',top:20,right:50}}
+                    >
+                        查看简历
+                    </Button>
                     <div style={{height:'15%',margin:'15px 50px 20px 50px',display:'flex',justifyContent:'space-between'}}>
                         <div>
                             <div style={{fontSize:23,fontWeight:'bold'}}>

@@ -1,78 +1,99 @@
-import {Button, Radio} from "@arco-design/web-react";
-import {useState} from "react";
+import {Button, Message, Radio} from "@arco-design/web-react";
+import {useEffect, useState} from "react";
 import './style/ApplyForJob.css'
 import pin from './image/pin.png'
 import clock from './image/clock.png'
 import link from './image/link.png'
 import proFile from './image/profile.png'
 import graduation from './image/graduation.png'
+import axios from "axios";
+import {useLocation} from "react-router-dom";
 
 const RadioGroup = Radio.Group;
-const job=[{
-    name:'前端开发工程师',
-    salary:'2-3K',
-    city:'城市',
-    firm:'公司名称',
-    keyWord:['大专','CSS','关键词'],
-    description:'description',
-    education:'学历',
-    lastActive:'lastActive',
-    manager:'招聘经理',
-    address:'工作地点',
-    link:'招聘链接',
-},{
-    name:'前端开发工程师',
-    salary:'4-5K',
-    city:'城市',
-    firm:'公司名称',
-    keyWord:['大专','CSS','关键词'],
-    description:'description',
-    education:'学历',
-    lastActive:'lastActive',
-    manager:'招聘经理',
-    address:'工作地点',
-    link:'招聘链接',
-},{
-    name:'前端开发工程师',
-    salary:'4-5K',
-    city:'城市',
-    firm:'公司名称',
-    keyWord:['大专','CSS','关键词'],
-    description:'description',
-    education:'学历',
-    lastActive:'lastActive',
-    manager:'招聘经理',
-    address:'工作地点',
-    link:'招聘链接',
-},{
-    name:'前端开发工程师',
-    salary:'4-5K',
-    city:'城市',
-    firm:'公司名称',
-    keyWord:['大专','CSS','关键词'],
-    description:'description',
-    education:'学历',
-    lastActive:'lastActive',
-    manager:'招聘经理',
-    address:'工作地点',
-    link:'招聘链接',
-},{
-    name:'前端开发工程师',
-    salary:'4-5K',
-    city:'城市',
-    firm:'公司名称',
-    keyWord:['大专','CSS','关键词'],
-    description:'description',
-    education:'学历',
-    lastActive:'lastActive',
-    manager:'招聘经理',
-    address:'工作地点',
-    link:'招聘链接',
-}]
 
 const selectedCardStyle={width:300,height:130,borderRadius:15,marginBottom:20,backgroundColor:'white',position:'relative',border:'1px solid rgba(60,192,201,100%)'}
 const notSelectedCardStyle={width:300,height:130,borderRadius:15,marginBottom:20,backgroundColor:'white',position:'relative'}
 const ApplyForJobPage=()=>{
+    const user=useLocation()
+    useEffect(() => {
+        axios({
+            method:'get',
+            url:'http://192.210.174.146:5000/jobs/recommended/'+user.user_id,
+        }).then(
+            res=>{
+                setJob(res.response.data)
+            },
+            error=>{
+                if(error.response){
+                    Message.error('未找到推荐职位！')
+                } else {
+                    Message.error('Network Error!')
+                }
+            }
+        )
+    },[])
+
+    const [job,setJob]=useState([{
+        name:'前端开发工程师',
+        salary:'2-3K',
+        city:'城市',
+        firm:'公司名称',
+        keyWord:['大专','CSS','关键词'],
+        description:'description',
+        education:'学历',
+        lastActive:'lastActive',
+        manager:'招聘经理',
+        address:'工作地点',
+        link:'招聘链接',
+    },{
+        name:'前端开发工程师',
+        salary:'4-5K',
+        city:'城市',
+        firm:'公司名称',
+        keyWord:['大专','CSS','关键词'],
+        description:'description',
+        education:'学历',
+        lastActive:'lastActive',
+        manager:'招聘经理',
+        address:'工作地点',
+        link:'招聘链接',
+    },{
+        name:'前端开发工程师',
+        salary:'4-5K',
+        city:'城市',
+        firm:'公司名称',
+        keyWord:['大专','CSS','关键词'],
+        description:'description',
+        education:'学历',
+        lastActive:'lastActive',
+        manager:'招聘经理',
+        address:'工作地点',
+        link:'招聘链接',
+    },{
+        name:'前端开发工程师',
+        salary:'4-5K',
+        city:'城市',
+        firm:'公司名称',
+        keyWord:['大专','CSS','关键词'],
+        description:'description',
+        education:'学历',
+        lastActive:'lastActive',
+        manager:'招聘经理',
+        address:'工作地点',
+        link:'招聘链接',
+    },{
+        name:'前端开发工程师',
+        salary:'4-5K',
+        city:'城市',
+        firm:'公司名称',
+        keyWord:['大专','CSS','关键词'],
+        description:'description',
+        education:'学历',
+        lastActive:'lastActive',
+        manager:'招聘经理',
+        address:'工作地点',
+        link:'招聘链接',
+    }])
 
     const [selectedJob,setSelectedJob]=useState({
         name:'前端开发工程师',
@@ -146,11 +167,27 @@ const ApplyForJobPage=()=>{
                 推荐职位
             </div>
             <div style={{marginLeft:'3%',width:'30%'}}>
-                <RadioGroup>
-                    <Radio key={1} value='学历优先'>学历优先</Radio>
-                    <Radio key={2} value='地址优先'>地址优先</Radio>
-                    <Radio key={3} value='薪资优先'>薪资优先</Radio>
-                    <Radio key={4} value='能力优先'>能力优先</Radio>
+                <RadioGroup onChange={value => {
+                    axios({
+                        method:'get',
+                        url:'http://192.210.174.146:5000/jobs/sort/'+value,
+                    }).then(
+                        res=>{
+                            setJob(res.response.data)
+                        },
+                        error=>{
+                            if (error.response){
+                                Message.error('未找到推荐职位！')
+                            } else {
+                                Message.error('Network Error!')
+                            }
+                        }
+                    )
+                }}>
+                    <Radio key={1} value='education'>学历优先</Radio>
+                    <Radio key={2} value='location'>地址优先</Radio>
+                    <Radio key={3} value='salary'>薪资优先</Radio>
+                    <Radio key={4} value='skills'>能力优先</Radio>
                 </RadioGroup>
             </div>
             <div style={{marginLeft:'20%'}}>

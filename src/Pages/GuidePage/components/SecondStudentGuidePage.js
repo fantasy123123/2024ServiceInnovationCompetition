@@ -46,9 +46,6 @@ const SecondStudentGuidePage=()=>{
         axios({
             method:'get',
             url:'http://192.210.174.146:5000/students/get-info/'+user.user_id,
-            data:{
-                userId:user.user_id,
-            }
         }).then(
             res=>{
                 setName(res.response.data.name)

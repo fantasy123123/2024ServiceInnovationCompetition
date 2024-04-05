@@ -1,6 +1,6 @@
 import {Link, useLocation, useNavigate} from "react-router-dom";
 import {Input, Button, Steps, Select, Message} from "@arco-design/web-react";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {IconMinus} from "@arco-design/web-react/icon";
 import axios from "axios";
 const TextArea = Input.TextArea;
@@ -21,6 +21,32 @@ const EditFirmInformation=()=>{
     const [highestSalary,setHighestSalary]=useState(0)
     const [address,setAddress]=useState('')
     const [link,setLink]=useState('')
+
+    useEffect(() => {
+        axios({
+            method:'get',
+            url:'http://192.210.174.146:5000/companies/get-info/'+user.user_id,
+        }).then(
+            res=>{
+                setName(res.response.data.name)
+                setJob(res.response.data.job)
+                setDescription(res.response.data.description)
+                setEducation(res.response.data.education)
+                setManager(res.response.data.manager)
+                setLowestSalary(res.response.data.lowestSalary)
+                setHighestSalary(res.response.data.highestSalary)
+                setAddress(res.response.data.address)
+                setLink(res.response.data.link)
+            },
+            error=>{
+                if(error.response){
+                    Message.error('数据请求失败！')
+                } else {
+                    Message.error('Network Error!')
+                }
+            }
+        )
+    }, []);
 
     return (
         <>
@@ -131,6 +157,8 @@ const EditFirmInformation=()=>{
                                             "education": education,
                                             "manager": manager,
                                             "salary": `${lowestSalary}-${highestSalary}K`,
+                                            "lowestSalary":lowestSalary,
+                                            "highestSalary":highestSalary,
                                             "address": address,
                                             "link": link
                                         }
