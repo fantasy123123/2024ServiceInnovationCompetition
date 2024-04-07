@@ -152,12 +152,12 @@ const VerificationCodeSignIn = () => {
                       }
                     }).then(
                         res=>{
-                          if(res.response.status===200){
+                          if(res.status===200){
                             Message.info('登录成功！');
-                            if(res.response.data.identity===null){
-                              navigate('/guide/identity',{state:res.response.data})
+                            if(res.data.identity===null){
+                              navigate('/guide/identity',{state:res.data})
                             } else {
-                              navigate('/main/home',{state:res.response.data});
+                              navigate('/main/home',{state:res.data});
                             }
                           }
                         },

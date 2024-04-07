@@ -47,21 +47,21 @@ const EditInformation =()=>{
             }
         }).then(
             res=>{
-                setName(res.response.data.name)
-                setSex(res.response.data.sex)
-                setLowestSalary(parseInt(res.response.data.lowestSalary))
-                setHighestSalary(parseInt(res.response.data.highestSalary))
-                setPhone(res.response.data.phone)
-                setEducation(res.response.data.education)
-                setYear(parseInt(res.response.data.year))
-                setIntention(res.response.data.intention)
-                setIntentionCity(res.response.data.intentionCity)
-                setInternship(res.response.data.internship)
-                setEmail(res.response.data.email)
-                setProfession(res.response.data.profession)
-                setEducationExperience(res.response.data.educationExperience)
-                setProject(res.response.data.project)
-                setAdvantage(res.response.data.advantage)
+                setName(res.data.name)
+                setSex(res.data.sex)
+                setLowestSalary(parseInt(res.data.lowestSalary))
+                setHighestSalary(parseInt(res.data.highestSalary))
+                setPhone(res.data.phone)
+                setEducation(res.data.education)
+                setYear(parseInt(res.data.year))
+                setIntention(res.data.intention)
+                setIntentionCity(res.data.intentionCity)
+                setInternship(res.data.internship)
+                setEmail(res.data.email)
+                setProfession(res.data.profession)
+                setEducationExperience(res.data.educationExperience)
+                setProject(res.data.project)
+                setAdvantage(res.data.advantage)
             },
             error=>{
                 Message.error('数据请求失败！')
@@ -295,7 +295,7 @@ const EditInformation =()=>{
                                 }
                             }).then(
                                 res=>{
-                                    if(res.response.status===200){
+                                    if(res.status===200){
                                         Message.info('完善信息成功！')
                                         navigate('/main/student_information',{state:user})
                                     }

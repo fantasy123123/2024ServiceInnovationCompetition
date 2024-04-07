@@ -10,7 +10,6 @@ import rightWord from '../images/firstRightWord.png'
 import rightIcon from '../images/firstRightIcon.png'
 import { useLocation, useNavigate} from "react-router-dom";
 import '../style/guide.css'
-import axios from "axios";
 
 const Step = Steps.Step;
 const FirstGuidePage=()=>{

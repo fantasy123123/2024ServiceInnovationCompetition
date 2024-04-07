@@ -117,7 +117,7 @@ const AccountRegister = () => {
                             }
                         }).then(
                             res=>{
-                                if(res.response.status===201){
+                                if(res.status===201){
                                     Message.info('注册成功！');
                                     navigate('/signIn');
                                 }

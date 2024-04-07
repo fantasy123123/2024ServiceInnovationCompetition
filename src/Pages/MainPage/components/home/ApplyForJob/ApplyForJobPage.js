@@ -36,7 +36,7 @@ const ApplyForJobPage=()=>{
             url:'http://192.210.174.146:5000/jobs/recommended/'+user.user_id,
         }).then(
             res=>{
-                setJob(res.response.data)
+                setJob(res.data)
             },
             error=>{
                 if(error.response){
@@ -130,7 +130,7 @@ const ApplyForJobPage=()=>{
             url:`http://192.210.174.146:5000/jobs/evaluation/${user.user_id}/${selectedJob.id}`
         }).then(
             res=>{
-                setEvaluation(res.response.data)
+                setEvaluation(res.data)
                 setLoading(false)
             },
             err=>{setLoading(false)}
@@ -207,7 +207,7 @@ const ApplyForJobPage=()=>{
                         url:'http://192.210.174.146:5000/jobs/sort/'+value,
                     }).then(
                         res=>{
-                            setJob(res.response.data)
+                            setJob(res.data)
                         },
                         error=>{
                             if (error.response){

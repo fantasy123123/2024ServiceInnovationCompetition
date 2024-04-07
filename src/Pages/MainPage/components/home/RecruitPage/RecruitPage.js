@@ -109,7 +109,7 @@ const RecruitPage=()=>{
             url:'http://192.210.174.146:5000/talents/recommended/'+user.user_id,
         }).then(
             res=>{
-                setPerson(res.response.data)
+                setPerson(res.data)
             },
             error=>{
                 if(error.response){
@@ -196,7 +196,7 @@ const RecruitPage=()=>{
                         url:'http://192.210.174.146:5000/talents/sort/'+value,
                     }).then(
                         res=>{
-                            setPerson(res.response.data)
+                            setPerson(res.data)
                         },
                         error=>{
                             if (error.response){

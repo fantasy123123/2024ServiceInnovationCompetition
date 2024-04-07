@@ -157,7 +157,7 @@ const FirmGuidePage=()=>{
                                     }
                                 }).then(
                                     res=>{
-                                        if (res.response.status=== 200){
+                                        if (res.status=== 200){
                                             Message.info('完善信息成功！')
                                             navigate('/main/home',{state:user})
                                         }

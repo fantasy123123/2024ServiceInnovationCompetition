@@ -187,19 +187,19 @@ const StudentGuidePage=()=>{
                                     }
                                 }).then(
                                     res=>{
-                                        if(res.response.status===200){
+                                        if(res.status===200){
                                             navigate('/guide/student_information',{state:user})
                                         }
                                     },
                                     error=>{
                                         if(error.response){
-                                            if(error.response===400){
+                                            if(error.response.status===400){
                                                 Message.error('请求的资源错误！')
                                             }
                                             if(error.response.status===422){
                                                 Message.error('文件格式不正确，请上传pdf文件')
                                             }
-                                            if(error.response===500){
+                                            if(error.response.status===500){
                                                 Message.error('服务器内部错误！')
                                             }
                                         } else {
