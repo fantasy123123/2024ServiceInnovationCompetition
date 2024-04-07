@@ -8,11 +8,28 @@ import proFile from './image/profile.png'
 import graduation from './image/graduation.png'
 import axios from "axios";
 import {useLocation} from "react-router-dom";
+import {click} from "@testing-library/user-event/dist/click";
 
 const RadioGroup = Radio.Group;
 
-const selectedCardStyle={width:300,height:130,borderRadius:15,marginBottom:20,backgroundColor:'white',position:'relative',border:'1px solid rgba(60,192,201,100%)'}
-const notSelectedCardStyle={width:300,height:130,borderRadius:15,marginBottom:20,backgroundColor:'white',position:'relative'}
+const selectedCardStyle={
+    width:300,
+    height:130,
+    borderRadius:15,
+    marginBottom:20,
+    backgroundColor:'white',
+    position:'relative',
+    border:'1px solid rgba(60,192,201,100%)',
+    color:'rgba(60,192,201,100%)'
+}
+const notSelectedCardStyle={
+    width:300,
+    height:130,
+    borderRadius:15,
+    marginBottom:20,
+    backgroundColor:'white',
+    position:'relative'
+}
 const ApplyForJobPage=()=>{
     const user=useLocation()
     useEffect(() => {
@@ -34,7 +51,7 @@ const ApplyForJobPage=()=>{
     },[])
 
     const [job,setJob]=useState([{
-        name:'前端开发工程师',
+        name:'前端开发工程师1',
         salary:'2-3K',
         city:'城市',
         firm:'公司名称',
@@ -45,6 +62,33 @@ const ApplyForJobPage=()=>{
         manager:'招聘经理',
         address:'工作地点',
         link:'招聘链接',
+        match:92
+    },{
+        name:'前端开发工程师2',
+        salary:'4-5K',
+        city:'城市',
+        firm:'公司名称',
+        keyWord:['大专','CSS','关键词'],
+        description:'description',
+        education:'学历',
+        lastActive:'lastActive',
+        manager:'招聘经理',
+        address:'工作地点',
+        link:'招聘链接',
+        match:92
+    },{
+        name:'前端开发工程师3',
+        salary:'4-5K',
+        city:'城市',
+        firm:'公司名称',
+        keyWord:['大专','CSS','关键词'],
+        description:'description',
+        education:'学历',
+        lastActive:'lastActive',
+        manager:'招聘经理',
+        address:'工作地点',
+        link:'招聘链接',
+        match:92
     },{
         name:'前端开发工程师',
         salary:'4-5K',
@@ -57,6 +101,7 @@ const ApplyForJobPage=()=>{
         manager:'招聘经理',
         address:'工作地点',
         link:'招聘链接',
+        match:92
     },{
         name:'前端开发工程师',
         salary:'4-5K',
@@ -69,45 +114,10 @@ const ApplyForJobPage=()=>{
         manager:'招聘经理',
         address:'工作地点',
         link:'招聘链接',
-    },{
-        name:'前端开发工程师',
-        salary:'4-5K',
-        city:'城市',
-        firm:'公司名称',
-        keyWord:['大专','CSS','关键词'],
-        description:'description',
-        education:'学历',
-        lastActive:'lastActive',
-        manager:'招聘经理',
-        address:'工作地点',
-        link:'招聘链接',
-    },{
-        name:'前端开发工程师',
-        salary:'4-5K',
-        city:'城市',
-        firm:'公司名称',
-        keyWord:['大专','CSS','关键词'],
-        description:'description',
-        education:'学历',
-        lastActive:'lastActive',
-        manager:'招聘经理',
-        address:'工作地点',
-        link:'招聘链接',
+        match:92
     }])
 
-    const [selectedJob,setSelectedJob]=useState({
-        name:'前端开发工程师',
-        salary:'2-3K',
-        city:'城市',
-        firm:'公司名称',
-        keyWord:['大专','CSS','关键词'],
-        description:'description',
-        education:'学历',
-        lastActive:'lastActive',
-        manager:'招聘经理',
-        address:'工作地点',
-        link:'招聘链接',
-    })
+     const [selectedJob,setSelectedJob]=useState(job[0])
 
     function KeyWordList({value}){
         return <div style={{display:'flex'}}>
@@ -120,18 +130,23 @@ const ApplyForJobPage=()=>{
     }
 
     function CardList(){
-
         return (<Radio.Group>
             {job.map((value)=>{
                 return (
                     <Radio key={value} value={value}>
                         {({checked})=>{
                             return (
-                                <Button id='cardButton' style={checked?selectedCardStyle:notSelectedCardStyle}>
+                                <Button
+                                    id='cardButton'
+                                    style={value===selectedJob?selectedCardStyle:notSelectedCardStyle}
+                                    onClick={()=>{
+                                        setSelectedJob(value)
+                                    }}
+                                >
                                     <div style={{fontSize:16}}>
                                         <div style={{position:'absolute',top:'7%',left:'6%',textAlign:'left'}}>
                                             <div style={{marginBottom:5}}>
-                                                <span style={checked?{color:'rgba(60,192,201,100%)'}:{}}>{value.name}</span>
+                                                <span>{value.name}</span>
                                             </div>
                                             <KeyWordList value={value.keyWord} />
                                         </div>
@@ -145,10 +160,10 @@ const ApplyForJobPage=()=>{
                                         </div>
                                         <div style={{position:'absolute',bottom:'5%',right:'5%'}}>
                                             <div>
-                                                <span style={checked?{color:'rgba(60,192,201,100%)'}:{}}>匹配度：</span>
+                                                <span>匹配度：</span>
                                             </div>
                                             <div style={{fontSize:21,fontWeight:'bold',color:'red'}}>
-                                                98%
+                                                {value.match}%
                                             </div>
                                         </div>
                                     </div>

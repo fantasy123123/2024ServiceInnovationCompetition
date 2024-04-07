@@ -12,29 +12,29 @@ import {useLocation} from "react-router-dom";
 
 const RadioGroup = Radio.Group;
 
-const selectedCardStyle={width:300,height:130,borderRadius:15,marginBottom:20,backgroundColor:'white',position:'relative',border:'1px solid rgba(60,192,201,100%)'}
-const notSelectedCardStyle={width:300,height:130,borderRadius:15,marginBottom:20,backgroundColor:'white',position:'relative'}
+const selectedCardStyle={
+    width:300,
+    height:130,
+    borderRadius:15,
+    marginBottom:20,
+    backgroundColor:'white',
+    position:'relative',
+    border:'1px solid rgba(60,192,201,100%)',
+    color:'rgba(60,192,201,100%)'
+}
+const notSelectedCardStyle={
+    width:300,
+    height:130,
+    borderRadius:15,
+    marginBottom:20,
+    backgroundColor:'white',
+    position:'relative'
+}
 const RecruitPage=()=>{
     const user=useLocation()
-    const [selectedPerson,setSelectedPerson]=useState(
-        {
-            name:'',
-            sex:1,
-            education:'',
-            keyWord: ['html','css','能力'],
-            intention:'',
-            year:22,
-            phone:11122223333,
-            email:'12345678@qq.com',
-            educationExperience:'description',
-            projectExperience:'description',
-            advantage:'description2222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222',
-            internship:'description1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111'
-        },
-    )
 
     const [person,setPerson]=useState([{
-        name:'diong',
+        name:'diong1',
         sex:1,
         education:'本科',
         keyWord: ['html','css','能力'],
@@ -45,7 +45,50 @@ const RecruitPage=()=>{
         educationExperience:'description',
         projectExperience:'description',
         advantage:'description',
-        internship:'description'
+        internship:'description',
+        match:92
+    },{
+        name:'diong2',
+        sex:1,
+        education:'本科',
+        keyWord: ['html','css','能力'],
+        intention:'前端工程师',
+        year:22,
+        phone:18511115555,
+        email:'12345678@qq.com',
+        educationExperience:'description',
+        projectExperience:'description',
+        advantage:'description',
+        internship:'description',
+        match:92
+    },{
+        name:'diong3',
+        sex:1,
+        education:'本科',
+        keyWord: ['html','css','能力'],
+        intention:'前端工程师',
+        year:22,
+        phone:18511115555,
+        email:'12345678@qq.com',
+        educationExperience:'description',
+        projectExperience:'',
+        advantage:'description',
+        internship:'description',
+        match:92
+    },{
+        name:'diong',
+        sex:1,
+        education:'本科',
+        keyWord: ['html','css','能力'],
+        intention:'前端工程师',
+        year:22,
+        phone:18511115555,
+        email:'12345678@qq.com',
+        educationExperience:'',
+        projectExperience:'',
+        advantage:'',
+        internship:'',
+        match:92
     },{
         name:'diong',
         sex:1,
@@ -58,46 +101,8 @@ const RecruitPage=()=>{
         educationExperience:'description',
         projectExperience:'description',
         advantage:'description',
-        internship:'description'
-    },{
-        name:'diong',
-        sex:1,
-        education:'本科',
-        keyWord: ['html','css','能力'],
-        intention:'前端工程师',
-        year:22,
-        phone:18511115555,
-        email:'12345678@qq.com',
-        educationExperience:'description',
-        projectExperience:'description',
-        advantage:'description',
-        internship:'description'
-    },{
-        name:'diong',
-        sex:1,
-        education:'本科',
-        keyWord: ['html','css','能力'],
-        intention:'前端工程师',
-        year:22,
-        phone:18511115555,
-        email:'12345678@qq.com',
-        educationExperience:'description',
-        projectExperience:'description',
-        advantage:'description',
-        internship:'description'
-    },{
-        name:'diong',
-        sex:1,
-        education:'本科',
-        keyWord: ['html','css','能力'],
-        intention:'前端工程师',
-        year:22,
-        phone:18511115555,
-        email:'12345678@qq.com',
-        educationExperience:'description',
-        projectExperience:'description',
-        advantage:'description',
-        internship:'description'
+        internship:'description',
+        match:92
     },])
 
     useEffect(() => {
@@ -118,6 +123,8 @@ const RecruitPage=()=>{
         )
     },[])
 
+    const [selectedPerson,setSelectedPerson]=useState(person[0])
+
     function KeyWordList({value}){
         return <div style={{display:'flex'}}>
             {
@@ -135,20 +142,26 @@ const RecruitPage=()=>{
                     <Radio key={value} value={value}>
                         {({checked})=>{
                             return (
-                                <Button id='cardButton' style={checked?selectedCardStyle:notSelectedCardStyle}>
+                                <Button
+                                    id='cardButton'
+                                    style={value===selectedPerson?selectedCardStyle:notSelectedCardStyle}
+                                    onClick={()=>{
+                                        setSelectedPerson(value)
+                                    }}
+                                >
                                     <div style={{fontSize:16}}>
                                         <div style={{position:'absolute',top:'7%',left:'6%',textAlign:'left'}}>
                                             <div style={{marginBottom:5}}>
-                                                <span style={checked?{color:'rgba(60,192,201,100%)'}:{}}>{value.name}</span>
+                                                {value.name}
                                             </div>
                                             <KeyWordList value={value.keyWord} />
                                             <div style={{display:'flex',marginTop:8}}>
-                                                <div style={{marginRight:10,backgroundColor:"rgb(220,248,255)",color:'rgb(0,167,176)',padding:'1px 10px 1px 10px',fontSize:12,borderRadius:3}}>有项目经历</div>
-                                                <div style={{marginRight:10,backgroundColor:"rgb(220,248,255)",color:'rgb(0,167,176)',padding:'1px 10px 1px 10px',fontSize:12,borderRadius:3}}>有实习经历</div>
+                                                {value.projectExperience.trim()===''?null:<div style={{marginRight:10,backgroundColor:"rgb(220,248,255)",color:'rgb(0,167,176)',padding:'1px 10px 1px 10px',fontSize:12,borderRadius:3}}>有项目经历</div>}
+                                                {value.internship.trim()===''?null:<div style={{marginRight:10,backgroundColor:"rgb(220,248,255)",color:'rgb(0,167,176)',padding:'1px 10px 1px 10px',fontSize:12,borderRadius:3}}>有实习经历</div>}
                                             </div>
                                         </div>
                                         <div style={{position:'absolute',top:'7%',right:'6%'}}>
-                                            <span style={checked?{color:'rgba(60,192,201,100%)'}:{}}>{value.education}</span>
+                                            {value.education}
                                         </div>
                                     </div>
                                     <div>
@@ -157,10 +170,10 @@ const RecruitPage=()=>{
                                         </div>
                                         <div style={{position:'absolute',bottom:'5%',right:'5%'}}>
                                             <div>
-                                                <span style={checked?{color:'rgba(60,192,201,100%)'}:{}}>匹配度：</span>
+                                                匹配度：
                                             </div>
                                             <div style={{fontSize:21,fontWeight:'bold',color:'red'}}>
-                                                98%
+                                                {value.match}%
                                             </div>
                                         </div>
                                     </div>
