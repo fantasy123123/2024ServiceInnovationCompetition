@@ -3,7 +3,7 @@
 import { Button, Form, Input, Message } from '@arco-design/web-react';
 import {IconSafe, IconUnlock, IconUser} from '@arco-design/web-react/icon';
 import {useEffect, useRef, useState} from 'react';
-import {Link, useNavigate} from "react-router-dom";
+import { useNavigate} from "react-router-dom";
 import axios from "axios";
 
 const FormItem = Form.Item;
@@ -88,7 +88,7 @@ const AccountSignIn = () => {
                       }
                   }).then(
                       res=>{
-                          if(res.status===201){
+                          if(res.status===200){
                               Message.info('登录成功！');
                               if(res.response.data.identity===null){
                                   navigate('/guide/identity',{state:res.response.data})

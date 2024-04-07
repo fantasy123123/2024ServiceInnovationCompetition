@@ -152,7 +152,7 @@ const VerificationCodeSignIn = () => {
                       }
                     }).then(
                         res=>{
-                          if(res.response.status===201){
+                          if(res.response.status===200){
                             Message.info('登录成功！');
                             if(res.response.data.identity===null){
                               navigate('/guide/identity',{state:res.response.data})
