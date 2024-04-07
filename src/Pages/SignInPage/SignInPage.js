@@ -4,6 +4,7 @@ import './style/SignInPage.css';
 import { Select, Divider, Tabs, Typography } from '@arco-design/web-react';
 import AccountSignIn from './component/AccountSignIn';
 import VerificationCodeSignIn from './component/VerificationCodeSignIn';
+import {Link} from "react-router-dom";
 
 const { TabPane } = Tabs;
 
@@ -36,7 +37,7 @@ const SignInPage = () => {
             textAlign: 'center',
           }}
         >
-          <Tabs defaultActiveTab="accountSignIn" size={'large'} type={'text'}>
+          <Tabs defaultActiveTab="accountSignIn" size={'large'} type={'text'} style={{height:'90%',width:'100%'}}>
             <TabPane key="accountSignIn" title="账号登录">
               <Typography.Paragraph
                 style={{
@@ -59,15 +60,18 @@ const SignInPage = () => {
               <VerificationCodeSignIn />
             </TabPane>
           </Tabs>
-        </div>
-        <div id="otherSignIn">
-          <span id="otherSignInText">其他登录方式</span>
-          <a href="about:blank">
-            <div id="qq" />
-          </a>
-          <a href="about:blank">
-            <div id="wechat" />
-          </a>
+            <div className="accountWrapper">
+                <div className="box">
+                    <a href="about:blank" style={{ textDecoration: 'none' }}>
+                        <div className="item1">忘记密码</div>
+                    </a>
+                </div>
+                <div className="box">
+                    <Link to="/register" style={{ textDecoration: 'none' }}>
+                        <div className="item2">注册账号</div>
+                    </Link>
+                </div>
+            </div>
         </div>
       </div>
     </div>

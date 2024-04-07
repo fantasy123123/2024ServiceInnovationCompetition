@@ -13,20 +13,18 @@ import {useLocation} from "react-router-dom";
 const RadioGroup = Radio.Group;
 
 const selectedCardStyle={
-    width:300,
-    height:130,
+    width: '100%',
+    height: '100%',
     borderRadius:15,
-    marginBottom:20,
     backgroundColor:'white',
     position:'relative',
     border:'1px solid rgba(60,192,201,100%)',
     color:'rgba(60,192,201,100%)'
 }
 const notSelectedCardStyle={
-    width:300,
-    height:130,
+    width: '100%',
+    height: '100%',
     borderRadius:15,
-    marginBottom:20,
     backgroundColor:'white',
     position:'relative'
 }
@@ -139,7 +137,7 @@ const RecruitPage=()=>{
         return (<Radio.Group>
             {person.map((value)=>{
                 return (
-                    <Radio key={value} value={value}>
+                    <Radio key={value} value={value} style={{width:300, height:130, marginBottom:20}}>
                         {({checked})=>{
                             return (
                                 <Button

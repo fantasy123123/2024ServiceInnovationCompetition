@@ -8,25 +8,23 @@ import proFile from './image/profile.png'
 import graduation from './image/graduation.png'
 import axios from "axios";
 import {useLocation} from "react-router-dom";
-import {click} from "@testing-library/user-event/dist/click";
+import {marked} from "marked";
 
 const RadioGroup = Radio.Group;
 
 const selectedCardStyle={
-    width:300,
-    height:130,
+    width: '100%',
+    height: '100%',
     borderRadius:15,
-    marginBottom:20,
     backgroundColor:'white',
     position:'relative',
     border:'1px solid rgba(60,192,201,100%)',
     color:'rgba(60,192,201,100%)'
 }
 const notSelectedCardStyle={
-    width:300,
-    height:130,
+    width: '100%',
+    height: '100%',
     borderRadius:15,
-    marginBottom:20,
     backgroundColor:'white',
     position:'relative'
 }
@@ -129,7 +127,7 @@ const ApplyForJobPage=()=>{
     useEffect(()=>{
         axios({
             method:'get',
-            url:'http://192.210.174.146:5000/jobs/evaluation/'+selectedJob.id
+            url:`http://192.210.174.146:5000/jobs/evaluation/${user.user_id}/${selectedJob.id}`
         }).then(
             res=>{
                 setEvaluation(res.response.data)
@@ -153,7 +151,7 @@ const ApplyForJobPage=()=>{
         return (<Radio.Group>
             {job.map((value)=>{
                 return (
-                    <Radio key={value} value={value}>
+                    <Radio key={value} value={value} style={{width:300, height:130, marginBottom:20}}>
                         {({checked})=>{
                             return (
                                 <Button
@@ -303,15 +301,13 @@ const ApplyForJobPage=()=>{
                             <div style={{fontWeight:'bold',fontSize:17,width:'100%',height:'6%'}}>
                                 能力评价
                             </div>
-                            <div style={{width:'100%',height:'55%'}}>
+                            <div style={{width:'100%',height:'50%'}}>
 
                             </div>
                             {
                                 loading?
-                                    <Card style={{width:'100%',height:'35%',marginTop:'4%'}} bordered={false} loading={true} />:
-                                    <div style={{width:'100%',height:'35%',marginTop:'4%',overflow:'auto',fontSize:16}}>
-                                        {evaluation}
-                                    </div>
+                                    <Card style={{width:'100%',height:'40%',marginTop:'4%'}} bordered={false} loading={true} />:
+                                    <div dangerouslySetInnerHTML={{__html: marked.parse(evaluation) }} id='evaluation' style={{width:'100%',height:'40%',marginTop:'4%',overflow:'auto',fontSize:16}}></div>
                             }
                         </div>
                     </div>

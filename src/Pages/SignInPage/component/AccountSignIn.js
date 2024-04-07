@@ -124,19 +124,6 @@ const AccountSignIn = () => {
           </Button>
         </FormItem>
       </Form>
-
-      <div className="accountWrapper">
-        <div className="box">
-          <a href="about:blank" style={{ textDecoration: 'none' }}>
-            <div className="item1">忘记密码</div>
-          </a>
-        </div>
-        <div className="box">
-          <Link to="/register" style={{ textDecoration: 'none' }}>
-            <div className="item2">注册账号</div>
-          </Link>
-        </div>
-      </div>
     </>
   );
 };
