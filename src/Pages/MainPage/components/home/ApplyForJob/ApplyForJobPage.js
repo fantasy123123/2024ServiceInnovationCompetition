@@ -1,4 +1,4 @@
-import {Button, Message, Radio} from "@arco-design/web-react";
+import {Button, Card, Message, Radio} from "@arco-design/web-react";
 import {useEffect, useState} from "react";
 import './style/ApplyForJob.css'
 import pin from './image/pin.png'
@@ -62,7 +62,8 @@ const ApplyForJobPage=()=>{
         manager:'招聘经理',
         address:'工作地点',
         link:'招聘链接',
-        match:92
+        match:92,
+        id:0
     },{
         name:'前端开发工程师2',
         salary:'4-5K',
@@ -75,7 +76,8 @@ const ApplyForJobPage=()=>{
         manager:'招聘经理',
         address:'工作地点',
         link:'招聘链接',
-        match:92
+        match:92,
+        id:1
     },{
         name:'前端开发工程师3',
         salary:'4-5K',
@@ -88,7 +90,8 @@ const ApplyForJobPage=()=>{
         manager:'招聘经理',
         address:'工作地点',
         link:'招聘链接',
-        match:92
+        match:92,
+        id:2
     },{
         name:'前端开发工程师',
         salary:'4-5K',
@@ -101,7 +104,8 @@ const ApplyForJobPage=()=>{
         manager:'招聘经理',
         address:'工作地点',
         link:'招聘链接',
-        match:92
+        match:92,
+        id:3
     },{
         name:'前端开发工程师',
         salary:'4-5K',
@@ -114,10 +118,26 @@ const ApplyForJobPage=()=>{
         manager:'招聘经理',
         address:'工作地点',
         link:'招聘链接',
-        match:92
+        match:92,
+        id:4
     }])
 
-     const [selectedJob,setSelectedJob]=useState(job[0])
+    const [selectedJob,setSelectedJob]=useState(job[0])
+    const [evaluation,setEvaluation]=useState('')
+    const [loading,setLoading]=useState(true)
+
+    useEffect(()=>{
+        axios({
+            method:'get',
+            url:'http://192.210.174.146:5000/jobs/evaluation/'+selectedJob.id
+        }).then(
+            res=>{
+                setEvaluation(res.response.data)
+                setLoading(false)
+            },
+            err=>{setLoading(false)}
+        )
+    },[selectedJob])
 
     function KeyWordList({value}){
         return <div style={{display:'flex'}}>
@@ -138,8 +158,9 @@ const ApplyForJobPage=()=>{
                             return (
                                 <Button
                                     id='cardButton'
-                                    style={value===selectedJob?selectedCardStyle:notSelectedCardStyle}
+                                    style={value.id===selectedJob.id?selectedCardStyle:notSelectedCardStyle}
                                     onClick={()=>{
+                                        setLoading(true)
                                         setSelectedJob(value)
                                     }}
                                 >
@@ -279,9 +300,19 @@ const ApplyForJobPage=()=>{
                         </div>
                         <div style={{height:'100%',width:1.5,backgroundColor:'#ececec'}}></div>
                         <div  style={{width:'45%',height:'100%',marginLeft:'5%'}}>
-                            <div style={{fontWeight:'bold',fontSize:17}}>
+                            <div style={{fontWeight:'bold',fontSize:17,width:'100%',height:'6%'}}>
                                 能力评价
                             </div>
+                            <div style={{width:'100%',height:'55%'}}>
+
+                            </div>
+                            {
+                                loading?
+                                    <Card style={{width:'100%',height:'35%',marginTop:'4%'}} bordered={false} loading={true} />:
+                                    <div style={{width:'100%',height:'35%',marginTop:'4%',overflow:'auto',fontSize:16}}>
+                                        {evaluation}
+                                    </div>
+                            }
                         </div>
                     </div>
                 </div>
