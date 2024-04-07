@@ -88,7 +88,7 @@ const AccountSignIn = () => {
                       }
                   }).then(
                       res=>{
-                          if(res.response.status===201){
+                          if(res.status===201){
                               Message.info('登录成功！');
                               if(res.response.data.identity===null){
                                   navigate('/guide/identity',{state:res.response.data})
