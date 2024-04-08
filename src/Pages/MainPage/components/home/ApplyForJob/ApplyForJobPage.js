@@ -57,7 +57,7 @@ const ApplyForJobPage=()=>{
         salary:'',
         city:'',
         name:'',
-        keyWord:[],
+        skills:[],
         description:'',
         education:'',
         lastActive:'',
@@ -120,7 +120,7 @@ const ApplyForJobPage=()=>{
                                             <div style={{marginBottom:5}}>
                                                 <span>{value.job}</span>
                                             </div>
-                                            <KeyWordList value={value.keyWord} />
+                                            <KeyWordList value={value.skills} />
                                         </div>
                                         <div style={{color:"red",position:'absolute',top:'7%',right:'6%'}}>
                                             {value.salary}
@@ -232,7 +232,7 @@ const ApplyForJobPage=()=>{
                                                 <div style={{fontWeight:'bold',fontSize:17,marginBottom:7}}>
                                                     职位描述
                                                 </div>
-                                                <KeyWordList value={selectedJob.keyWord}/>
+                                                <KeyWordList value={selectedJob.skills}/>
                                                 <div style={{overflow:'auto',marginTop:7,fontSize:16,width:'100%',height:'75%'}}>
                                                     {selectedJob.description}
                                                 </div>
