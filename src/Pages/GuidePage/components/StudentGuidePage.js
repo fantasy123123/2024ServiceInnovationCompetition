@@ -46,6 +46,10 @@ const StudentGuidePage=()=>{
                     <Upload
                         drag
                         action={`http://192.210.174.146:5000/resume/upload/${user.user_id}`}
+                        limit={1}
+                        onExceedLimit={() => {
+                            Message.warning('超过上传数量限制！最多上传1个');
+                        }}
                     />
                 </div>
                 <div style={{marginTop:15}}>
