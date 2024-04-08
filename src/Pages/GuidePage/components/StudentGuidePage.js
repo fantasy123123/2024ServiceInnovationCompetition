@@ -173,7 +173,7 @@ const StudentGuidePage=()=>{
                         </RadioGroup>
                     </div>
                     <div style={{display:'flex',marginTop:30,float:'right'}}>
-                        <Button onClick={()=>{navigate('/guide/identity')}} style={{border:'1px solid lightgrey',color:'rgba(60,192,201,100%)',backgroundColor:'white',width:85,height:35,fontSize:16,borderRadius:3,display:"flex",justifyContent:'center',alignItems:'center'}}>返 回</Button>
+                        <Button onClick={()=>{navigate('/guide/identity',{state:user})}} style={{border:'1px solid lightgrey',color:'rgba(60,192,201,100%)',backgroundColor:'white',width:85,height:35,fontSize:16,borderRadius:3,display:"flex",justifyContent:'center',alignItems:'center'}}>返 回</Button>
                         <Button onClick={()=>{
                             if(privacy!=='') {
                                 axios({
@@ -210,7 +210,6 @@ const StudentGuidePage=()=>{
                                     }
                                 )
                             } else {
-                                navigate('/guide/student_information',{state:user})
                                 Message.error('请先完善信息！')
                             }
                         }} style={{color:'white',backgroundColor:'rgba(60,192,201,100%)',marginLeft:30,width:85,height:35,fontSize:16,borderRadius:3,display:"flex",justifyContent:'center',alignItems:'center'}}>继 续</Button>

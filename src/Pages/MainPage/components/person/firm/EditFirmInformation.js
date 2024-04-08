@@ -142,7 +142,7 @@ const EditFirmInformation=()=>{
                         </div>
                     </div>
                     <div style={{display:'flex',marginTop:30,float:'right'}}>
-                        <Button onClick={()=>{navigate('/main/firm_information')}} style={{width:85,height:35,fontSize:16,borderRadius:3}}>取 消</Button>
+                        <Button onClick={()=>{navigate('/main/firm_information',{state:user})}} style={{width:85,height:35,fontSize:16,borderRadius:3}}>取 消</Button>
                         <Button
                             onClick={()=>{
                                 if(name.trim()!==''&&job.trim()!==''&&description.trim()!==''&&education.trim()!==''&&manager.trim()!==''&&lowestSalary!==0&&highestSalary!==0&&address.trim()!==''&&link.trim()!==''){
@@ -166,7 +166,7 @@ const EditFirmInformation=()=>{
                                         res=>{
                                             if (res.status=== 200){
                                                 Message.info('修改成功！')
-                                                navigate('/main/firm_information')
+                                                navigate('/main/firm_information',{state:user})
                                             }
                                         },
                                         error=>{

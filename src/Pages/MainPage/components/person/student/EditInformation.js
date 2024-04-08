@@ -268,7 +268,7 @@ const EditInformation =()=>{
                 </div>
             </div>
             <div style={{display:'flex',margin:15,float:'right'}}>
-                <Button onClick={()=>{navigate('/main/student_information')}} style={{border:'1px solid lightgrey',color:'rgba(60,192,201,100%)',backgroundColor:'white',width:85,height:35,fontSize:16,borderRadius:3,display:"flex",justifyContent:'center',alignItems:'center'}}>返 回</Button>
+                <Button onClick={()=>{navigate('/main/student_information',{state:user})}} style={{border:'1px solid lightgrey',color:'rgba(60,192,201,100%)',backgroundColor:'white',width:85,height:35,fontSize:16,borderRadius:3,display:"flex",justifyContent:'center',alignItems:'center'}}>返 回</Button>
                 <Button
                     onClick={()=>{
                         if(name.trim()!==''&&sex.trim()!==''&&lowestSalary!==0&&highestSalary!==0&&phone.trim()!==''&&education.trim()!==''&&intention.trim()!==''&&intentionCity.trim()!==''&&profession.trim()!==''&&educationExperience.trim()!==''){
