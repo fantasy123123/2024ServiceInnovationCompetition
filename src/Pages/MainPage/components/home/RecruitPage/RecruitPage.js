@@ -73,6 +73,10 @@ const RecruitPage=()=>{
     },[])
 
     function KeyWordList({value}){
+        if (value.length === 0){
+            return null
+        }
+        value=JSON.parse(value)
         return <div style={{display:'flex'}}>
             {
                 value.length===0?
