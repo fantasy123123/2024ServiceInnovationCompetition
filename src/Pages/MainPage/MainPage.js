@@ -140,7 +140,6 @@ const MainPage=()=>{
                                     src={user.identity==='student'?student:firm}
                                 />
                             </Avatar>
-                            <div style={{fontSize:22,marginLeft:15}}>{user.name}</div>
                         </div>
                     </Link>
                 </div>
