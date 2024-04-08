@@ -178,7 +178,7 @@ const StudentGuidePage=()=>{
                             if(privacy!=='') {
                                 axios({
                                     method:'post',
-                                    url:'http://192.210.174.146:5000/resume/post-info'+user.user_id,
+                                    url:'http://192.210.174.146:5000/resume/post-info/'+user.user_id,
                                     data:{
                                         "identity":'student',
                                         "privacySetting":privacy,
