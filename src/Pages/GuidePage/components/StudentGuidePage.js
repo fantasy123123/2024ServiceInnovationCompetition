@@ -19,8 +19,7 @@ const StudentGuidePage=()=>{
 
     const [animationStyle,setAnimationStyle]=useState('fadeInAnimation')
     setTimeout(()=>{setAnimationStyle('')},1500)
-
-    const [file, setFile] = useState();
+    
     const [privacy,setPrivacy]=useState('')
 
     function Title(){
@@ -47,12 +46,6 @@ const StudentGuidePage=()=>{
                     <Upload
                         drag
                         action={`http://192.210.174.146:5000/resume/upload/${user.user_id}`}
-                        onChange={(_, currentFile) => {
-                            setFile({
-                                ...currentFile,
-                                url: URL.createObjectURL(currentFile.originFile),
-                            });
-                        }}
                     />
                 </div>
                 <div style={{marginTop:15}}>

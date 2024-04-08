@@ -1,5 +1,4 @@
 import { Button, Modal, Radio,Upload} from "@arco-design/web-react";
-import { IconUpload} from "@arco-design/web-react/icon";
 import {Link, Outlet, useLocation, useNavigate} from "react-router-dom";
 import {useState} from "react";
 const RadioGroup = Radio.Group;
@@ -37,7 +36,6 @@ const PersonalInformationPage=()=>{
                 }}>
                     <Upload
                         drag
-                        multiple
                         action={`http://192.210.174.146:5000/resume/upload/${user.user_id}`}
                     />
                 </div>
