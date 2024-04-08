@@ -1,6 +1,7 @@
 import {Button, Message, Modal, Radio, Upload} from "@arco-design/web-react";
 import {Link, Outlet, useLocation, useNavigate} from "react-router-dom";
 import {useState} from "react";
+import axios from "axios";
 const RadioGroup = Radio.Group;
 
 const PersonalInformationPage=()=>{
@@ -44,10 +45,10 @@ const PersonalInformationPage=()=>{
                     />
                 </div>
                 <div style={{marginTop: 15}}>
-                    <div style={{display: 'flex'}}>
+                    <div style={{display: 'flex',alignItems:"center"}}>
                         <div style={{fontWeight: 'bold'}}>隐私设置</div>
-                        <Link style={{textDecoration: 'none', color: 'rgba(60,192,201,100%)', marginLeft: 20}}
-                              onClick={() => setVisible(true)}>隐私协议和用户协议</Link>
+                        <Button style={{textDecoration: 'none', color: 'rgba(60,192,201,100%)', marginLeft: 20,backgroundColor:'white',border:'none'}}
+                              onClick={() => setVisible(true)}>隐私协议和用户协议</Button>
                         <Modal
                             title={<Title/>}
                             visible={visible}
@@ -164,10 +165,28 @@ const PersonalInformationPage=()=>{
                         </Modal>
                     </div>
                     <div style={{marginTop: 10}}>
-                        <RadioGroup defaultValue='不公开'>
-                            <Radio value='不公开'>不公开</Radio>
-                            <Radio value='仅投递企业可见'>仅投递企业可见</Radio>
-                            <Radio value='公开'>公开</Radio>
+                        <RadioGroup onChange={value=>{
+                            axios({
+                                method:'post',
+                                url:'http://192.210.174.146:5000/resume/post-info/'+user.user_id,
+                                data:{
+                                    "identity":'student',
+                                    "privacySetting":value,
+                                }
+                            }).then(
+                                res=>{
+                                    if(res.status===200){
+                                        Message.info('隐私设置上传成功！')
+                                    }
+                                },
+                                error=>{
+                                    Message.error('隐私设置上传失败，请稍后再试！')
+                                }
+                            )
+                        }}>
+                            <Radio value={2}>不公开</Radio>
+                            <Radio value={1}>仅投递企业可见</Radio>
+                            <Radio value={0}>公开</Radio>
                         </RadioGroup>
                     </div>
                     <div style={{marginTop: 30, float: 'right'}}>

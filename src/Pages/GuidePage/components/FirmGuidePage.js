@@ -159,7 +159,7 @@ const FirmGuidePage=()=>{
                                     res=>{
                                         if (res.status=== 200){
                                             Message.info('完善信息成功！')
-                                            navigate('/main/home',{state:user})
+                                            navigate('/main/home',{state:{...user,identity:'firm'}})
                                         }
                                     },
                                     error=>{

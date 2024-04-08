@@ -53,9 +53,9 @@ const StudentGuidePage=()=>{
                     />
                 </div>
                 <div style={{marginTop:15}}>
-                    <div style={{display:'flex'}}>
+                    <div style={{display:'flex',alignItems:'center'}}>
                         <div style={{fontWeight:'bold'}}>隐私设置</div>
-                        <Link style={{textDecoration:'none',color:'rgba(60,192,201,100%)',marginLeft:20}} onClick={() => setVisible(true)}>隐私协议和用户协议</Link>
+                        <Button style={{textDecoration:'none',color:'rgba(60,192,201,100%)',marginLeft:20,backgroundColor:'white',border:'none'}} onClick={() => setVisible(true)}>隐私协议和用户协议</Button>
                         <Modal
                             title={<Title/>}
                             visible={visible}
@@ -164,9 +164,9 @@ const StudentGuidePage=()=>{
                     </div>
                     <div style={{marginTop:10}}>
                         <RadioGroup onChange={value => {setPrivacy(value)}}>
-                            <Radio value='不公开'>不公开</Radio>
-                            <Radio value='仅投递企业可见'>仅投递企业可见</Radio>
-                            <Radio value='公开'>公开</Radio>
+                            <Radio value={2}>不公开</Radio>
+                            <Radio value={1}>仅投递企业可见</Radio>
+                            <Radio value={0}>公开</Radio>
                         </RadioGroup>
                     </div>
                     <div style={{display:'flex',marginTop:30,float:'right'}}>
