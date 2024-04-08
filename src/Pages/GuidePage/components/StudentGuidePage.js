@@ -46,7 +46,7 @@ const StudentGuidePage=()=>{
                 <div style={{marginTop:20,backgroundColor:'white',width:'100%',borderRadius:20,marginBottom:10}}>
                     <Upload
                         drag
-                        action='/'
+                        action={`http://192.210.174.146:5000/resume/upload/${user.user_id}`}
                         onChange={(_, currentFile) => {
                             setFile({
                                 ...currentFile,
@@ -178,16 +178,15 @@ const StudentGuidePage=()=>{
                             if(privacy!=='') {
                                 axios({
                                     method:'post',
-                                    url:'http://192.210.174.146:5000/resume/upload',
+                                    url:'http://192.210.174.146:5000/resume/post-info/'+user.user_id,
                                     data:{
-                                        "userId": user.user_id,
                                         "identity":'student',
                                         "privacySetting":privacy,
-                                        "file":file,
                                     }
                                 }).then(
                                     res=>{
                                         if(res.status===200){
+                                            Message.info('隐私设置上传成功！')
                                             navigate('/guide/student_information',{state:user})
                                         }
                                     },
@@ -195,6 +194,9 @@ const StudentGuidePage=()=>{
                                         if(error.response){
                                             if(error.response.status===400){
                                                 Message.error('请求的资源错误！')
+                                            }
+                                            if(error.response.status===404){
+                                                Message.error('用户不存在！')
                                             }
                                             if(error.response.status===422){
                                                 Message.error('文件格式不正确，请上传pdf文件')

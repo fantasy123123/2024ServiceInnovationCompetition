@@ -38,7 +38,7 @@ const PersonalInformationPage=()=>{
                     <Upload
                         drag
                         multiple
-                        action='/'
+                        action={`http://192.210.174.146:5000/resume/upload/${user.user_id}`}
                     />
                 </div>
                 <div style={{marginTop: 15}}>
