@@ -1,4 +1,4 @@
-import { Button, Modal, Radio,Upload} from "@arco-design/web-react";
+import {Button, Message, Modal, Radio, Upload} from "@arco-design/web-react";
 import {Link, Outlet, useLocation, useNavigate} from "react-router-dom";
 import {useState} from "react";
 const RadioGroup = Radio.Group;
@@ -37,6 +37,10 @@ const PersonalInformationPage=()=>{
                     <Upload
                         drag
                         action={`http://192.210.174.146:5000/resume/upload/${user.user_id}`}
+                        limit={1}
+                        onExceedLimit={() => {
+                            Message.warning('超过上传数量限制！最多上传1个');
+                        }}
                     />
                 </div>
                 <div style={{marginTop: 15}}>

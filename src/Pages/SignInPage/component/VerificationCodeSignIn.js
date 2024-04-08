@@ -246,7 +246,7 @@ const [event,setEvent]=useState(true)
               borderRadius: '5px',
             }}
             onClick={async () => {
-              navigate('/main/home',{state:{name:'diong',identity:'student',user_id:123}});
+              navigate('/main/home',{state:{identity:'student',user_id:123}});
               if(inputCode===code){
                 if (formRef.current) {
                   try {

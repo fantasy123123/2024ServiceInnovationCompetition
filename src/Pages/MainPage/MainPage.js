@@ -61,38 +61,42 @@ const MainPage=()=>{
                             <div class={textStyle1}>首页</div>
                         </Button>
                     </Link>
-                    <Link to={'/main/job'} state={user}>
-                        <Button style={buttonStyle2} onClick={()=>{
-                            setTextStyle2(notAnimationStyle)
-                            setTextStyle1(animationStyle)
-                            setTextStyle3(animationStyle)
-                            setTextStyle4(animationStyle)
-                            setTextStyle5(animationStyle2)
-                            setButtonStyle2(selectedStyle)
-                            setButtonStyle1(noSelectedStyle)
-                            setButtonStyle3(noSelectedStyle)
-                            setButtonStyle4(noSelectedStyle)
-                            setButtonStyle5(noSelectedStyle2)
-                        }}>
-                            <div class={textStyle2}>我要求职</div>
-                        </Button>
-                    </Link>
-                    <Link to={'/main/recruit'} state={user}>
-                        <Button style={buttonStyle3} onClick={()=>{
-                            setTextStyle3(notAnimationStyle)
-                            setTextStyle2(animationStyle)
-                            setTextStyle1(animationStyle)
-                            setTextStyle4(animationStyle)
-                            setTextStyle5(animationStyle2)
-                            setButtonStyle3(selectedStyle)
-                            setButtonStyle2(noSelectedStyle)
-                            setButtonStyle1(noSelectedStyle)
-                            setButtonStyle4(noSelectedStyle)
-                            setButtonStyle5(noSelectedStyle2)
-                        }}>
-                           <div class={textStyle3}>我要招聘</div>
-                        </Button>
-                    </Link>
+                    {
+                        user.identity==='student'?
+                            <Link to={'/main/job'} state={user}>
+                                <Button style={buttonStyle2} onClick={()=>{
+                                    setTextStyle2(notAnimationStyle)
+                                    setTextStyle1(animationStyle)
+                                    setTextStyle3(animationStyle)
+                                    setTextStyle4(animationStyle)
+                                    setTextStyle5(animationStyle2)
+                                    setButtonStyle2(selectedStyle)
+                                    setButtonStyle1(noSelectedStyle)
+                                    setButtonStyle3(noSelectedStyle)
+                                    setButtonStyle4(noSelectedStyle)
+                                    setButtonStyle5(noSelectedStyle2)
+                                }}>
+                                    <div class={textStyle2}>我要求职</div>
+                                </Button>
+                            </Link>
+                            :
+                            <Link to={'/main/recruit'} state={user}>
+                                <Button style={buttonStyle3} onClick={()=>{
+                                    setTextStyle3(notAnimationStyle)
+                                    setTextStyle2(animationStyle)
+                                    setTextStyle1(animationStyle)
+                                    setTextStyle4(animationStyle)
+                                    setTextStyle5(animationStyle2)
+                                    setButtonStyle3(selectedStyle)
+                                    setButtonStyle2(noSelectedStyle)
+                                    setButtonStyle1(noSelectedStyle)
+                                    setButtonStyle4(noSelectedStyle)
+                                    setButtonStyle5(noSelectedStyle2)
+                                }}>
+                                    <div class={textStyle3}>我要招聘</div>
+                                </Button>
+                            </Link>
+                    }
                     <Link to={'/main/consult'} state={user}>
                         <Button style={buttonStyle4} onClick={()=>{
                             setTextStyle4(notAnimationStyle)
@@ -110,16 +114,10 @@ const MainPage=()=>{
                         </Button>
                     </Link>
                 </div>
-                <div style={{width:'15%',textAlign:"center",fontSize:20}}>
-                    {/* <Link to={'/signIn'} style={{textDecoration:'none',color:'white'}}>
-                        <div class={'animation'}>
-                            登录
-                        </div>
-                    </Link>  */}
+                <div style={{width:'15%',fontSize:20}}>
                     <Link
-                        // to={user.identity==='student'?'/main/student_information':'/main/firm_information'}
-                        to={'/main/student_information'}
-                        style={{textDecoration:'none'}}
+                        to={user.identity==='student'?'/main/student_information':'/main/firm_information'}
+                        style={{textDecoration:'none',float:'right',marginRight:40}}
                         state={user}
                     >
                         <div class={textStyle5}  style={buttonStyle5} onClick={()=>{
@@ -140,6 +138,7 @@ const MainPage=()=>{
                                     src={user.identity==='student'?student:firm}
                                 />
                             </Avatar>
+                            <div className={textStyle5} style={{marginLeft:15}}>个人信息</div>
                         </div>
                     </Link>
                 </div>

@@ -49,10 +49,10 @@ const ApplyForJobPage=()=>{
     },[])
 
     const [job,setJob]=useState([{
-        name:'前端开发工程师1',
+        job:'前端开发工程师1',
         salary:'2-3K',
         city:'城市',
-        firm:'公司名称',
+        name:'公司名称',
         keyWord:['大专','CSS','关键词'],
         description:'description',
         education:'学历',
@@ -63,10 +63,10 @@ const ApplyForJobPage=()=>{
         match:92,
         id:0
     },{
-        name:'前端开发工程师2',
-        salary:'4-5K',
+        job:'前端开发工程师5',
+        salary:'2-3K',
         city:'城市',
-        firm:'公司名称',
+        name:'公司名称',
         keyWord:['大专','CSS','关键词'],
         description:'description',
         education:'学历',
@@ -77,10 +77,10 @@ const ApplyForJobPage=()=>{
         match:92,
         id:1
     },{
-        name:'前端开发工程师3',
-        salary:'4-5K',
+        job:'前端开发工程师3',
+        salary:'2-3K',
         city:'城市',
-        firm:'公司名称',
+        name:'公司名称',
         keyWord:['大专','CSS','关键词'],
         description:'description',
         education:'学历',
@@ -91,10 +91,10 @@ const ApplyForJobPage=()=>{
         match:92,
         id:2
     },{
-        name:'前端开发工程师',
-        salary:'4-5K',
+        job:'前端开发工程师4',
+        salary:'2-3K',
         city:'城市',
-        firm:'公司名称',
+        name:'公司名称',
         keyWord:['大专','CSS','关键词'],
         description:'description',
         education:'学历',
@@ -105,10 +105,10 @@ const ApplyForJobPage=()=>{
         match:92,
         id:3
     },{
-        name:'前端开发工程师',
-        salary:'4-5K',
+        job:'前端开发工程师2',
+        salary:'2-3K',
         city:'城市',
-        firm:'公司名称',
+        name:'公司名称',
         keyWord:['大专','CSS','关键词'],
         description:'description',
         education:'学历',
@@ -165,7 +165,7 @@ const ApplyForJobPage=()=>{
                                     <div style={{fontSize:16}}>
                                         <div style={{position:'absolute',top:'7%',left:'6%',textAlign:'left'}}>
                                             <div style={{marginBottom:5}}>
-                                                <span>{value.name}</span>
+                                                <span>{value.job}</span>
                                             </div>
                                             <KeyWordList value={value.keyWord} />
                                         </div>
@@ -175,7 +175,7 @@ const ApplyForJobPage=()=>{
                                     </div>
                                     <div>
                                         <div style={{position:'absolute',bottom:'7%',left:'6%'}}>
-                                            {value.city} | {value.firm}
+                                            {value.city} | {value.name}
                                         </div>
                                         <div style={{position:'absolute',bottom:'5%',right:'5%'}}>
                                             <div>
@@ -239,7 +239,7 @@ const ApplyForJobPage=()=>{
                         <div>
                             <div style={{display:'flex'}}>
                                 <div style={{fontSize:23,fontWeight:'bold'}}>
-                                    {selectedJob.name}
+                                    {selectedJob.job}
                                 </div>
                                 <div style={{fontSize:22,fontWeight:'bold',color:'red',marginLeft:50}}>
                                     {selectedJob.salary}
