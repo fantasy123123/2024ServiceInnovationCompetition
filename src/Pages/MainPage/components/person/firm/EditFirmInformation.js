@@ -10,7 +10,7 @@ const Option=Select.Option
 const EditFirmInformation=()=>{
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const navigate=useNavigate()
-    const user=useLocation()
+    const user=useLocation().state
 
     const [name,setName]=useState('')
     const [job,setJob]=useState('')

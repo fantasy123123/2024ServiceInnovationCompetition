@@ -19,7 +19,7 @@ const notSelectedStyle={width:50,height:31,display:'flex',justifyContent:'center
 
 const EditInformation =()=>{
     const navigate=useNavigate()
-    const user=useLocation()
+    const user=useLocation().state
 
     const [name,setName]=useState('')
     const [sex,setSex]=useState('')

@@ -19,7 +19,7 @@ const selectedStyle={width:50,height:31,display:'flex',justifyContent:'center',a
 const notSelectedStyle={width:50,height:31,display:'flex',justifyContent:'center',alignItems:'center',backgroundColor:'whitesmoke',color:'#4E5969'}
 
 const SecondStudentGuidePage=()=>{
-    const user=useLocation()
+    const user=useLocation().state
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const navigate=useNavigate()
     const [animationStyle,setAnimationStyle]=useState('fadeInAnimation')

@@ -14,7 +14,7 @@ const Step = Steps.Step;
 const Option=Select.Option
 
 const FirmGuidePage=()=>{
-    const user=useLocation();
+    const user=useLocation().state;
 
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const navigate=useNavigate()

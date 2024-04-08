@@ -29,7 +29,7 @@ const notSelectedCardStyle={
     position:'relative'
 }
 const ApplyForJobPage=()=>{
-    const user=useLocation()
+    const user=useLocation().state
     useEffect(() => {
         axios({
             method:'get',

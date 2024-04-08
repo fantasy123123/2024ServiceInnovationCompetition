@@ -2,7 +2,7 @@ import {Button, Input} from "@arco-design/web-react";
 import {Link, useLocation} from "react-router-dom";
 
 const HomePage=()=>{
-    const user=useLocation()
+    const user=useLocation().state
     return <>
         <div style={{display:'flex',marginTop:30,justifyContent:'center'}}>
             <Input  placeholder='搜索职位、公司'

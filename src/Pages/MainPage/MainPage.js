@@ -22,7 +22,7 @@ const animationStyle2='animation'
 const notAnimationStyle2=' '
 
 const MainPage=()=>{
-    const user=useLocation()
+    const user=useLocation().state
 
     const [buttonStyle1,setButtonStyle1]=useState(selectedStyle)
     const [buttonStyle2,setButtonStyle2]=useState(noSelectedStyle)

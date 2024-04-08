@@ -12,7 +12,7 @@ const RadioGroup = Radio.Group;
 const Step = Steps.Step;
 
 const StudentGuidePage=()=>{
-    const user=useLocation()
+    const user=useLocation().state
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const navigate=useNavigate()
     const [visible, setVisible] = useState(false);

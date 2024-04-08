@@ -14,7 +14,7 @@ import '../style/guide.css'
 const Step = Steps.Step;
 const FirstGuidePage=()=>{
     const [ifStudentSelected,setIfStudentSelected]=useState(true)
-    const user=useLocation()
+    const user=useLocation().state
     const navigate=useNavigate()
 
     const [animationStyle,setAnimationStyle]=useState('fadeInAnimation')

@@ -56,7 +56,7 @@ const data=[
 const FirmInformation = () => {
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const navigate=useNavigate()
-    const user=useLocation()
+    const user=useLocation().state
 
     function ButtonGroup(){
         return (<div style={{display:'flex',alignItems:'center'}}>

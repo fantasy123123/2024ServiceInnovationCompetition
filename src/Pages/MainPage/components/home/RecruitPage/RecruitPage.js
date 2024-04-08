@@ -29,7 +29,7 @@ const notSelectedCardStyle={
     position:'relative'
 }
 const RecruitPage=()=>{
-    const user=useLocation()
+    const user=useLocation().state
 
     const [person,setPerson]=useState([{
         name:'diong1',

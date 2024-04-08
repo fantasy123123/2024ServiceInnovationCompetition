@@ -5,7 +5,7 @@ import {useState} from "react";
 const RadioGroup = Radio.Group;
 
 const PersonalInformationPage=()=>{
-    const user=useLocation()
+    const user=useLocation().state
     const navigate=useNavigate()
     const [visible, setVisible] = useState(false);
 
