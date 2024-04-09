@@ -119,6 +119,14 @@ const ApplyForJobPage=()=>{
                 data: yData,
                 type: 'bar',
                 showBackground: true,
+                itemStyle:{
+                    normal:{
+                        color:function (params){
+                            const color=['#FF6B6B','#4DDBE9','#F9DA68','#CAB8FF']
+                            return color[params.dataIndex]
+                        }
+                    }
+                },
                 label: {
                     show: true, // 开启显示
                     verticalAlign: 'middle',
@@ -223,6 +231,25 @@ const ApplyForJobPage=()=>{
                                     }).then(
                                         res=>{
                                             setJob(res.data)
+                                            setSelectedJob({
+                                                job:'',
+                                                salary:'',
+                                                city:'',
+                                                name:'',
+                                                skills:[],
+                                                description:'',
+                                                education:'',
+                                                lastActive:'',
+                                                manager:'',
+                                                address:'',
+                                                link:'',
+                                                match:0,
+                                                id:-1,
+                                                abilityMatch:0,
+                                                educationMatch:0,
+                                                addressMatch:0,
+                                                salaryMatch:0
+                                            })
                                         },
                                         error=>{
                                             if (error.response){
@@ -325,7 +352,8 @@ const ApplyForJobPage=()=>{
                                                     null
                                                     :
                                                     loading?
-                                                        <Card style={{width:'100%',height:'40%',marginTop:'4%'}} bordered={false} loading={true} />:
+                                                        <Card style={{width:'100%',height:'40%',marginTop:'4%'}} bordered={false} loading={true} />
+                                                        :
                                                         <div dangerouslySetInnerHTML={{__html: marked.parse(evaluation) }} id='evaluation' style={{width:'100%',height:'40%',marginTop:'4%',overflow:'auto',fontSize:16}}></div>
                                             }
                                         </div>

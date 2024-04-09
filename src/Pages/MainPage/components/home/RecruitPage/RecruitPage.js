@@ -193,6 +193,29 @@ const RecruitPage=()=>{
                                     }).then(
                                         res=>{
                                             setPerson(res.data)
+                                            setSelectedPerson({
+                                                name:'',
+                                                sex:'',
+                                                education:'',
+                                                skills: [],
+                                                intention:'',
+                                                year:0,
+                                                phone:'',
+                                                email:'',
+                                                educationExperience:'',
+                                                project:'',
+                                                advantage:'',
+                                                internship:'',
+                                                match:0,
+                                                lowestSalary:0,
+                                                highestSalary:0,
+                                                profession:'',
+                                                educationMatch:0,
+                                                salaryMatch:0,
+                                                addressMatch:0,
+                                                abilityMatch:0,
+                                                intentionCity:''
+                                            })
                                         },
                                         error=>{
                                             if (error.response){
