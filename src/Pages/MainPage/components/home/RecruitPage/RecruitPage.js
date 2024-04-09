@@ -37,18 +37,48 @@ const RecruitPage=()=>{
         name:'',
         sex:'',
         education:'',
-        keyWord: [],
+        skills: [],
         intention:'',
         year:0,
         phone:'',
         email:'',
         educationExperience:'',
-        projectExperience:'',
+        project:'',
         advantage:'',
         internship:'',
-        match:0
+        match:0,
+        lowestSalary:0,
+        highestSalary:0,
+        profession:'',
+        educationMatch:0,
+        salaryMatch:0,
+        addressMatch:0,
+        abilityMatch:0,
+        intentionCity:''
     }])
-    const [selectedPerson,setSelectedPerson]=useState(person[0])
+    const [selectedPerson,setSelectedPerson]=useState({
+        name:'',
+        sex:'',
+        education:'',
+        skills: [],
+        intention:'',
+        year:0,
+        phone:'',
+        email:'',
+        educationExperience:'',
+        project:'',
+        advantage:'',
+        internship:'',
+        match:0,
+        lowestSalary:0,
+        highestSalary:0,
+        profession:'',
+        educationMatch:0,
+        salaryMatch:0,
+        addressMatch:0,
+        abilityMatch:0,
+        intentionCity:''
+    })
     const [loading,setLoading]=useState(true)
     const [havePerson,setHavePerson]=useState(false)
 
@@ -109,25 +139,19 @@ const RecruitPage=()=>{
                                             {value.education}
                                         </div>
                                     </div>
-                                    <KeyWordList value={value.keyWord} />
+                                    <KeyWordList value={value.skills} />
                                     <div style={{display:'flex',marginTop:5}}>
                                         {
-                                            value.projectExperience===''||null||undefined?
+                                            value.project===''||null||undefined?
                                                 null
                                                 :
-                                                value.projectExperience.trim()==='' ?
-                                                    null
-                                                    :
-                                                    <div style={{marginRight:10,backgroundColor:"rgb(220,248,255)",color:'rgb(0,167,176)',padding:'1px 10px 1px 10px',fontSize:12,borderRadius:3}}>有项目经历</div>
+                                                <div style={{marginRight:10,backgroundColor:"rgb(220,248,255)",color:'rgb(0,167,176)',padding:'1px 10px 1px 10px',fontSize:12,borderRadius:3}}>有项目经历</div>
                                         }
                                         {
                                             value.internship===''||null||undefined?
                                                 null
                                                 :
-                                                value.internship.trim()==='' ?
-                                                    null
-                                                    :
-                                                    <div style={{marginRight:10,backgroundColor:"rgb(220,248,255)",color:'rgb(0,167,176)',padding:'1px 10px 1px 10px',fontSize:12,borderRadius:3}}>有实习经历</div>
+                                                <div style={{marginRight:10,backgroundColor:"rgb(220,248,255)",color:'rgb(0,167,176)',padding:'1px 10px 1px 10px',fontSize:12,borderRadius:3}}>有实习经历</div>
                                         }
                                     </div>
                                     <div style={{marginTop:5,textAlign:'left'}}>
@@ -259,7 +283,7 @@ const RecruitPage=()=>{
                                                 <div style={{fontWeight:'bold',fontSize:17,marginBottom:7}}>
                                                     专业技能
                                                 </div>
-                                                <KeyWordList value={selectedPerson.keyWord}/>
+                                                <KeyWordList value={selectedPerson.skills}/>
                                             </div>
                                             <div style={{width:'100%',marginTop:12}}>
                                                 <div style={{fontWeight:'bold',fontSize:17,marginBottom:2}}>
@@ -282,7 +306,7 @@ const RecruitPage=()=>{
                                                     项目经历
                                                 </div>
                                                 <div style={{fontSize:17,marginBottom:7,width:'100%',wordBreak:'break-all'}}>
-                                                    {selectedPerson.projectExperience}
+                                                    {selectedPerson.project}
                                                 </div>
                                             </div>
                                             <div style={{width:'100%',marginTop:12}}>

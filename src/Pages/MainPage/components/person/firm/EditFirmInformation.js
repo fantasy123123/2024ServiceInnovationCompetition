@@ -160,6 +160,7 @@ const EditFirmInformation=()=>{
                                                     method:'post',
                                                     url:'http://192.210.174.146:5000/companies/create-info',
                                                     data:{
+                                                        "identity":'firm',
                                                         "userId": user.user_id,
                                                         "name": name,
                                                         "job": job,
@@ -167,8 +168,8 @@ const EditFirmInformation=()=>{
                                                         "education": education,
                                                         "manager": manager,
                                                         "salary": `${lowestSalary}-${highestSalary}K`,
-                                                        "lowestSalary":lowestSalary,
-                                                        "highestSalary":highestSalary,
+                                                        "lowestSalary":lowestSalary*1000,
+                                                        "highestSalary":highestSalary*1000,
                                                         "address": address,
                                                         "link": link
                                                     }

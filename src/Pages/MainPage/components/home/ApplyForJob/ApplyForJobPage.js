@@ -73,7 +73,25 @@ const ApplyForJobPage=()=>{
         addressMatch:0,
         salaryMatch:0
     }])
-    const [selectedJob,setSelectedJob]=useState(job[0])
+    const [selectedJob,setSelectedJob]=useState({
+        job:'',
+        salary:'',
+        city:'',
+        name:'',
+        skills:[],
+        description:'',
+        education:'',
+        lastActive:'',
+        manager:'',
+        address:'',
+        link:'',
+        match:0,
+        id:-1,
+        abilityMatch:0,
+        educationMatch:0,
+        addressMatch:0,
+        salaryMatch:0
+    })
     const [evaluation,setEvaluation]=useState('')
 
     const [loading,setLoading]=useState(true)
@@ -124,7 +142,7 @@ const ApplyForJobPage=()=>{
                 setEvaluation(res.data)
                 setLoading(false)
             },
-            err=>{setLoading(false)}
+            err=>{}
         )
     },[selectedJob])
 
@@ -303,9 +321,12 @@ const ApplyForJobPage=()=>{
                                             </div>
                                             <ReactEcharts style={{width:'100%',height:'50%'}} option={option} />
                                             {
-                                                loading?
-                                                    <Card style={{width:'100%',height:'40%',marginTop:'4%'}} bordered={false} loading={true} />:
-                                                    <div dangerouslySetInnerHTML={{__html: marked.parse(evaluation) }} id='evaluation' style={{width:'100%',height:'40%',marginTop:'4%',overflow:'auto',fontSize:16}}></div>
+                                                selectedJob.id===-1?
+                                                    null
+                                                    :
+                                                    loading?
+                                                        <Card style={{width:'100%',height:'40%',marginTop:'4%'}} bordered={false} loading={true} />:
+                                                        <div dangerouslySetInnerHTML={{__html: marked.parse(evaluation) }} id='evaluation' style={{width:'100%',height:'40%',marginTop:'4%',overflow:'auto',fontSize:16}}></div>
                                             }
                                         </div>
                                     </div>

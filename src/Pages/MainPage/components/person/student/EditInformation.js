@@ -12,7 +12,7 @@ const TextArea=Input.TextArea
 const Option = Select.Option;
 const options=['男','女']
 const educationSelection=['大专','本科','硕士','博士']
-const citySelection=['北京','上海','广州','深圳']
+const citySelection=['北京','上海' , '广州' , '深圳' , '武汉' , '南京', '成都','重庆','杭州', '天津','苏州','长沙' ,'青岛' , '西安' ,'郑州' , '宁波' , '无锡', '大连','东莞','昆明','合肥']
 
 const selectedStyle={width:50,height:31,display:'flex',justifyContent:'center',alignItems:'center',backgroundColor:'rgba(60,192,201,100%)',color:'white'}
 const notSelectedStyle={width:50,height:31,display:'flex',justifyContent:'center',alignItems:'center',backgroundColor:'whitesmoke',color:'#4E5969'}
