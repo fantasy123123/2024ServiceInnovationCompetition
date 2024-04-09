@@ -19,14 +19,16 @@ const selectedCardStyle={
     backgroundColor:'white',
     position:'relative',
     border:'1px solid rgba(60,192,201,100%)',
-    color:'rgba(60,192,201,100%)'
+    color:'rgba(60,192,201,100%)',
+    padding:'7px 10px 7px 10px'
 }
 const notSelectedCardStyle={
     width: '100%',
     height: '100%',
     borderRadius:15,
     backgroundColor:'white',
-    position:'relative'
+    position:'relative',
+    padding:'7px 10px 7px 10px'
 }
 const RecruitPage=()=>{
     const user=useLocation().state
@@ -57,7 +59,6 @@ const RecruitPage=()=>{
         }).then(
             res=>{
                 setPerson(res.data)
-                setSelectedPerson(person[0])
                 setLoading(false)
                 setHavePerson(true)
             },
@@ -77,14 +78,11 @@ const RecruitPage=()=>{
             return null
         }
         value=JSON.parse(value)
-        return <div style={{display:'flex'}}>
+        return <div style={{display:'flex',flexFlow:'row wrap'}}>
             {
-                value.length===0?
-                    ''
-                    :
-                    value.map((value)=>{
-                        return <div style={{marginRight:10,backgroundColor:"#ececec",color:'darkslategray',padding:'1px 13px 1px 13px',fontSize:12,borderRadius:5}}>{value}</div>
-                    })
+                value.map((value)=>{
+                    return <div style={{margin:4,backgroundColor:"#ececec",color:'darkslategray',padding:'1px 13px 1px 13px',fontSize:12,borderRadius:5}}>{value}</div>
+                })
             }
         </div>
     }
@@ -93,7 +91,7 @@ const RecruitPage=()=>{
         return (<Radio.Group>
             {person.map((value)=>{
                 return (
-                    <Radio key={value} value={value} style={{width:300, height:130, marginBottom:20}}>
+                    <Radio key={value} value={value} style={{width:300, marginBottom:20}}>
                         {({checked})=>{
                             return (
                                 <Button
@@ -103,32 +101,44 @@ const RecruitPage=()=>{
                                         setSelectedPerson(value)
                                     }}
                                 >
-                                    <div style={{fontSize:16}}>
-                                        <div style={{position:'absolute',top:'7%',left:'6%',textAlign:'left'}}>
-                                            <div style={{marginBottom:5}}>
-                                                {value.name}
-                                            </div>
-                                            <KeyWordList value={value.keyWord} />
-                                            <div style={{display:'flex',marginTop:8}}>
-                                                {value.projectExperience.trim()===''?null:<div style={{marginRight:10,backgroundColor:"rgb(220,248,255)",color:'rgb(0,167,176)',padding:'1px 10px 1px 10px',fontSize:12,borderRadius:3}}>有项目经历</div>}
-                                                {value.internship.trim()===''?null:<div style={{marginRight:10,backgroundColor:"rgb(220,248,255)",color:'rgb(0,167,176)',padding:'1px 10px 1px 10px',fontSize:12,borderRadius:3}}>有实习经历</div>}
-                                            </div>
+                                    <div style={{fontSize:16,display:'flex',justifyContent:'space-between'}}>
+                                        <div>
+                                            {value.name}
                                         </div>
-                                        <div style={{position:'absolute',top:'7%',right:'6%'}}>
+                                        <div>
                                             {value.education}
                                         </div>
                                     </div>
-                                    <div>
-                                        <div style={{position:'absolute',bottom:'7%',left:'6%'}}>
-                                            求职意向：{value.intention}
+                                    <KeyWordList value={value.keyWord} />
+                                    <div style={{display:'flex',marginTop:5}}>
+                                        {
+                                            value.projectExperience===''||null||undefined?
+                                                null
+                                                :
+                                                value.projectExperience.trim()==='' ?
+                                                    null
+                                                    :
+                                                    <div style={{marginRight:10,backgroundColor:"rgb(220,248,255)",color:'rgb(0,167,176)',padding:'1px 10px 1px 10px',fontSize:12,borderRadius:3}}>有项目经历</div>
+                                        }
+                                        {
+                                            value.internship===''||null||undefined?
+                                                null
+                                                :
+                                                value.internship.trim()==='' ?
+                                                    null
+                                                    :
+                                                    <div style={{marginRight:10,backgroundColor:"rgb(220,248,255)",color:'rgb(0,167,176)',padding:'1px 10px 1px 10px',fontSize:12,borderRadius:3}}>有实习经历</div>
+                                        }
+                                    </div>
+                                    <div style={{marginTop:5,textAlign:'left'}}>
+                                        求职意向：{value.intention}
+                                    </div>
+                                    <div style={{display:'flex',alignItems:'baseline'}}>
+                                        <div>
+                                            <span>匹配度：</span>
                                         </div>
-                                        <div style={{position:'absolute',bottom:'5%',right:'5%'}}>
-                                            <div>
-                                                匹配度：
-                                            </div>
-                                            <div style={{fontSize:21,fontWeight:'bold',color:'red'}}>
-                                                {value.match}%
-                                            </div>
+                                        <div style={{fontSize:21,fontWeight:'bold',color:'red'}}>
+                                            {value.match}%
                                         </div>
                                     </div>
                                 </Button>
@@ -155,7 +165,7 @@ const RecruitPage=()=>{
                                 <RadioGroup onChange={value => {
                                     axios({
                                         method:'get',
-                                        url:'http://192.210.174.146:5000/talents/sort/'+value,
+                                        url:`http://192.210.174.146:5000/talents/sort/${user.user_id}/${value}`,
                                     }).then(
                                         res=>{
                                             setPerson(res.data)
@@ -244,7 +254,7 @@ const RecruitPage=()=>{
                                         </div>
                                     </div>
                                     <div style={{height:'75%',margin:'10px 50px 10px 50px',display:'flex',justifyContent:'space-between'}}>
-                                        <div style={{width:'50%',height:'100%',position:'relative',overflowY:'auto'}}>
+                                        <div style={{width:'48%',marginRight:'2%',height:'100%',position:'relative',overflowY:'auto'}}>
                                             <div style={{width:'100%'}}>
                                                 <div style={{fontWeight:'bold',fontSize:17,marginBottom:7}}>
                                                     专业技能
@@ -285,7 +295,7 @@ const RecruitPage=()=>{
                                             </div>
                                         </div>
                                         <div style={{height:'100%',width:1.5,backgroundColor:'#ececec'}}></div>
-                                        <div  style={{width:'45%',height:'100%',marginLeft:'5%'}}>
+                                        <div  style={{width:'47%',height:'100%',marginLeft:'3%'}}>
                                             <div style={{fontWeight:'bold',fontSize:17}}>
                                                 匹配分析结果
                                             </div>

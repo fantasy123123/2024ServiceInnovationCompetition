@@ -60,7 +60,7 @@ const FirmInformation = () => {
 
     function ButtonGroup(){
         return (<div style={{display:'flex',alignItems:'center'}}>
-                <Button type={"primary"} onClick={()=>{navigate('/main/firm_information/edit')}}>编辑</Button>
+                <Button type={"primary"} onClick={()=>{navigate('/main/firm_information/edit',{state:user})}}>编辑</Button>
                 <Button status={"danger"} type={"primary"} style={{marginLeft:10}}>删除</Button>
             </div>
         )}
