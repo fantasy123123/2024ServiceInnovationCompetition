@@ -300,7 +300,8 @@ const RecruitPage=()=>{
                                                         url:'http://192.210.174.146:5000/resumes/view/'+selectedPerson.id
                                                     }).then(
                                                         res=>{
-                                                            window.open(`/resumes/view/${selectedPerson.id}`,'_blank')
+                                                            window.open(res.data.resume_url, '_blank');
+
                                                         },
                                                         error=>{
                                                             if(error.response){
