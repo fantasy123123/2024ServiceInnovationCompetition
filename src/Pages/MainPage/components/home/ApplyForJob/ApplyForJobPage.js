@@ -10,9 +10,8 @@ import axios from "axios";
 import {useLocation, useNavigate} from "react-router-dom";
 import {marked} from "marked";
 import ReactEcharts from 'echarts-for-react'
-import {EventEmitter} from "events";
+import PubSub from 'pubsub-js'
 
-const eventBus=new EventEmitter()
 const RadioGroup = Radio.Group;
 
 const selectedCardStyle={
@@ -273,7 +272,7 @@ const ApplyForJobPage=()=>{
                             <div style={{marginLeft:'20%'}}>
                                 <Button
                                     onClick={()=>{
-                                        eventBus.emit('goToPerson','跳到个人信息界面！')
+                                        PubSub.publish('goToPerson')
                                         navigate('/main/student_information',{state:user})
                                     }}
                                     style={{color:'white',backgroundColor:'rgba(60,192,201,100%)',width:110,height:40,fontSize:18,borderRadius:5}}

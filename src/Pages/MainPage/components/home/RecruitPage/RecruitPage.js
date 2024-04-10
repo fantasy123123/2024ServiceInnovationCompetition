@@ -301,7 +301,6 @@ const RecruitPage=()=>{
                                                     }).then(
                                                         res=>{
                                                             window.open(res.data.resume_url, '_blank');
-
                                                         },
                                                         error=>{
                                                             if(error.response){

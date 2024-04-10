@@ -5,9 +5,8 @@ import {Link, Outlet, useLocation} from "react-router-dom";
 import logo from './image/logo.png'
 import student from "./components/person/image/student.png";
 import firm from "./components/person/image/firm.png";
-import {EventEmitter} from "events";
+import PubSub from 'pubsub-js'
 
-const eventBus=new EventEmitter()
 const Header = Layout.Header;
 const Content = Layout.Content;
 
@@ -39,8 +38,7 @@ const MainPage=()=>{
     const [textStyle5,setTextStyle5]=useState(animationStyle2)
 
     useEffect(()=>{
-        const goToPerson=()=>{
-            console.log('value')
+        PubSub.subscribe('goToPerson',()=>{
             setTextStyle4(animationStyle)
             setTextStyle2(animationStyle)
             setTextStyle3(animationStyle)
@@ -51,9 +49,7 @@ const MainPage=()=>{
             setButtonStyle3(noSelectedStyle)
             setButtonStyle1(noSelectedStyle)
             setButtonStyle5(selectedStyle2)
-        }
-
-        eventBus.on('goToPerson',goToPerson)
+        })
     },[])
 
     return (<>
