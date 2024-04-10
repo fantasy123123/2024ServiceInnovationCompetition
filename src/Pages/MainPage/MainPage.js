@@ -1,10 +1,13 @@
 import {Layout, Button, Avatar} from '@arco-design/web-react';
 import './style/MainPage.css'
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {Link, Outlet, useLocation} from "react-router-dom";
 import logo from './image/logo.png'
 import student from "./components/person/image/student.png";
 import firm from "./components/person/image/firm.png";
+import {EventEmitter} from "events";
+
+const eventBus=new EventEmitter()
 const Header = Layout.Header;
 const Content = Layout.Content;
 
@@ -13,7 +16,6 @@ const selectedStyle={height:'100%',width:'25%',fontSize:21,backgroundColor:'rgba
 
 const noSelectedStyle2={color:'white',display:'flex',alignItems:'center'}
 const selectedStyle2={color:'rgba(60,192,201,100%)',display:'flex',alignItems:'center'}
-
 
 const animationStyle='animation buttonText'
 const notAnimationStyle='buttonText'
@@ -30,12 +32,29 @@ const MainPage=()=>{
     const [buttonStyle4,setButtonStyle4]=useState(noSelectedStyle)
     const [buttonStyle5,setButtonStyle5]=useState(noSelectedStyle2)
 
-
     const [textStyle1,setTextStyle1]=useState(notAnimationStyle)
     const [textStyle2,setTextStyle2]=useState(animationStyle)
     const [textStyle3,setTextStyle3]=useState(animationStyle)
     const [textStyle4,setTextStyle4]=useState(animationStyle)
     const [textStyle5,setTextStyle5]=useState(animationStyle2)
+
+    useEffect(()=>{
+        const goToPerson=()=>{
+            console.log('value')
+            setTextStyle4(animationStyle)
+            setTextStyle2(animationStyle)
+            setTextStyle3(animationStyle)
+            setTextStyle1(animationStyle)
+            setTextStyle5(notAnimationStyle2)
+            setButtonStyle4(noSelectedStyle)
+            setButtonStyle2(noSelectedStyle)
+            setButtonStyle3(noSelectedStyle)
+            setButtonStyle1(noSelectedStyle)
+            setButtonStyle5(selectedStyle2)
+        }
+
+        eventBus.on('goToPerson',goToPerson)
+    },[])
 
     return (<>
         <Layout>
@@ -58,7 +77,9 @@ const MainPage=()=>{
                             setButtonStyle5(noSelectedStyle2)
                         }}
                         >
-                            <div class={textStyle1}>首页</div>
+                            <div class={textStyle1}>
+                                首页
+                            </div>
                         </Button>
                     </Link>
                     {
@@ -76,7 +97,9 @@ const MainPage=()=>{
                                     setButtonStyle4(noSelectedStyle)
                                     setButtonStyle5(noSelectedStyle2)
                                 }}>
-                                    <div class={textStyle2}>我要求职</div>
+                                    <div class={textStyle2}>
+                                        我要求职
+                                    </div>
                                 </Button>
                             </Link>
                             :
@@ -93,7 +116,9 @@ const MainPage=()=>{
                                     setButtonStyle4(noSelectedStyle)
                                     setButtonStyle5(noSelectedStyle2)
                                 }}>
-                                    <div class={textStyle3}>我要招聘</div>
+                                    <div class={textStyle3}>
+                                        我要招聘
+                                    </div>
                                 </Button>
                             </Link>
                     }
@@ -110,7 +135,9 @@ const MainPage=()=>{
                             setButtonStyle1(noSelectedStyle)
                             setButtonStyle5(noSelectedStyle2)
                         }}>
-                            <div class={textStyle4}>行业资讯</div>
+                            <div class={textStyle4}>
+                                行业资讯
+                            </div>
                         </Button>
                     </Link>
                 </div>
@@ -138,7 +165,9 @@ const MainPage=()=>{
                                     src={user.identity==='student'?student:firm}
                                 />
                             </Avatar>
-                            <div className={textStyle5} style={{marginLeft:15}}>个人信息</div>
+                            <div className={textStyle5} style={{marginLeft:15}}>
+                                个人信息
+                            </div>
                         </div>
                     </Link>
                 </div>

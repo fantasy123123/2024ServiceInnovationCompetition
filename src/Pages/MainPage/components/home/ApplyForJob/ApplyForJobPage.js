@@ -7,10 +7,12 @@ import link from './image/link.png'
 import proFile from './image/profile.png'
 import graduation from './image/graduation.png'
 import axios from "axios";
-import {useLocation} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 import {marked} from "marked";
 import ReactEcharts from 'echarts-for-react'
+import {EventEmitter} from "events";
 
+const eventBus=new EventEmitter()
 const RadioGroup = Radio.Group;
 
 const selectedCardStyle={
@@ -32,6 +34,8 @@ const notSelectedCardStyle={
     padding:'7px 10px 7px 10px'
 }
 const ApplyForJobPage=()=>{
+    const navigate=useNavigate()
+
     const user=useLocation().state
     useEffect(() => {
         axios({
@@ -172,7 +176,7 @@ const ApplyForJobPage=()=>{
         return (<Radio.Group>
             {job.map((value)=>{
                 return (
-                    <Radio key={value} value={value} style={{width:300, marginBottom:20}}>
+                    <Radio key={value} value={value} style={{width:'80%', marginBottom:20}}>
                         {({checked})=>{
                             return (
                                 <Button
@@ -267,8 +271,83 @@ const ApplyForJobPage=()=>{
                                 </RadioGroup>
                             </div>
                             <div style={{marginLeft:'20%'}}>
-                                <Button style={{color:'white',backgroundColor:'rgba(60,192,201,100%)',width:110,height:40,fontSize:18,borderRadius:5}}>修改简历</Button>
-                                <Button style={{marginLeft:20,color:'white',backgroundColor:'rgba(60,192,201,100%)',width:110,height:40,fontSize:18,borderRadius:5}}>重新推荐</Button>
+                                <Button
+                                    onClick={()=>{
+                                        eventBus.emit('goToPerson','跳到个人信息界面！')
+                                        navigate('/main/student_information',{state:user})
+                                    }}
+                                    style={{color:'white',backgroundColor:'rgba(60,192,201,100%)',width:110,height:40,fontSize:18,borderRadius:5}}
+                                >
+                                    修改简历
+                                </Button>
+                                <Button
+                                    onClick={()=>{
+                                        setJob([{
+                                            job:'',
+                                            salary:'',
+                                            city:'',
+                                            name:'',
+                                            skills:[],
+                                            description:'',
+                                            education:'',
+                                            lastActive:'',
+                                            manager:'',
+                                            address:'',
+                                            link:'',
+                                            match:0,
+                                            id:0,
+                                            abilityMatch:0,
+                                            educationMatch:0,
+                                            addressMatch:0,
+                                            salaryMatch:0
+                                        }])
+                                        setSelectedJob({
+                                            job:'',
+                                            salary:'',
+                                            city:'',
+                                            name:'',
+                                            skills:[],
+                                            description:'',
+                                            education:'',
+                                            lastActive:'',
+                                            manager:'',
+                                            address:'',
+                                            link:'',
+                                            match:0,
+                                            id:-1,
+                                            abilityMatch:0,
+                                            educationMatch:0,
+                                            addressMatch:0,
+                                            salaryMatch:0
+                                        })
+
+                                        setLoading(true)
+                                        setAllLoading(true)
+                                        setHaveJob(false)
+
+                                        axios({
+                                            method:'get',
+                                            url:'http://192.210.174.146:5000/jobs/recommended/'+user.user_id,
+                                        }).then(
+                                            res=>{
+                                                setJob(res.data)
+                                                setAllLoading(false)
+                                                setHaveJob(true)
+                                            },
+                                            error=>{
+                                                if(error.response){
+                                                    Message.error('未找到推荐职位！')
+                                                } else {
+                                                    Message.error('Network Error!')
+                                                }
+                                                setAllLoading(false)
+                                            }
+                                        )
+                                    }}
+                                    style={{marginLeft:20,color:'white',backgroundColor:'rgba(60,192,201,100%)',width:110,height:40,fontSize:18,borderRadius:5}}
+                                >
+                                    重新推荐
+                                </Button>
                             </div>
                         </div>
                         <div style={{width:'100%',display:'flex',height:'90%'}}>
@@ -310,7 +389,7 @@ const ApplyForJobPage=()=>{
                                         </div>
                                     </div>
                                     <div style={{height:'80%',margin:'10px 50px 10px 50px',display:'flex',justifyContent:'space-between'}}>
-                                        <div style={{width:'50%',height:'100%',position:'relative',overflow:'auto'}}>
+                                        <div style={{width:'48%',marginRight:'2%',height:'100%',position:'relative',overflow:'auto'}}>
                                             <div style={{width:'100%'}}>
                                                 <div style={{fontWeight:'bold',fontSize:17,marginBottom:7}}>
                                                     职位描述

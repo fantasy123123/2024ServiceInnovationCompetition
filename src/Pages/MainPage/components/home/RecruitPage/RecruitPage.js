@@ -170,7 +170,7 @@ const RecruitPage=()=>{
         return (<Radio.Group>
             {person.map((value)=>{
                 return (
-                    <Radio key={value} value={value} style={{width:300, marginBottom:20}}>
+                    <Radio key={value} value={value} style={{width:'80%', marginBottom:20}}>
                         {({checked})=>{
                             return (
                                 <Button
@@ -354,6 +354,9 @@ const RecruitPage=()=>{
                                                         {selectedPerson.email}
                                                     </div>
                                                 </div>
+                                            </div>
+                                            <div style={{marginTop:8}}>
+                                                期望薪资：<span style={{color:'red'}}>{selectedPerson.lowestSalary/1000}——{selectedPerson.highestSalary/1000} K</span>
                                             </div>
                                         </div>
                                     </div>
