@@ -211,7 +211,7 @@ const RecruitPage=()=>{
                                             <span>匹配度：</span>
                                         </div>
                                         <div style={{fontSize:21,fontWeight:'bold',color:'red'}}>
-                                            {value.match*100}%
+                                            {value.match}%
                                         </div>
                                     </div>
                                 </Button>
@@ -278,6 +278,8 @@ const RecruitPage=()=>{
                                 }}>
                                     <Radio key={1} value='education'>学历优先</Radio>
                                     <Radio key={2} value='skills'>能力优先</Radio>
+                                    <Radio key={3} value='salary'>薪资优先</Radio>
+                                    <Radio key={4} value='location'>地址优先</Radio>
                                 </RadioGroup>
                             </div>
                         </div>

@@ -150,8 +150,8 @@ const FirmGuidePage=()=>{
                                         "education": education,
                                         "manager": manager,
                                         "salary": `${lowestSalary}-${highestSalary}K`,
-                                        "lowestSalary":lowestSalary*1000,
-                                        "highestSalary":highestSalary*1000,
+                                        "lowestSalary":lowestSalary,
+                                        "highestSalary":highestSalary,
                                         "address": address,
                                         "link": link
                                     }

@@ -51,8 +51,8 @@ const EditInformation =()=>{
             res=>{
                 setName(res.data.name)
                 setSex(res.data.sex)
-                setLowestSalary(parseInt(res.data.lowestSalary))
-                setHighestSalary(parseInt(res.data.highestSalary))
+                setLowestSalary(parseInt(res.data.lowestSalary)/1000)
+                setHighestSalary(parseInt(res.data.highestSalary)/1000)
                 setPhone(res.data.phone)
                 setEducation(res.data.education)
                 setYear(parseInt(res.data.year))
