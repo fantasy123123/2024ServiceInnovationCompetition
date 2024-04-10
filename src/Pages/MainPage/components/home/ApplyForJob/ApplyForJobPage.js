@@ -200,7 +200,7 @@ const ApplyForJobPage=()=>{
                                             <span>匹配度：</span>
                                         </div>
                                         <div style={{fontSize:21,fontWeight:'bold',color:'red'}}>
-                                            {value.match}%
+                                            {value.match*100}%
                                         </div>
                                     </div>
                                 </Button>

@@ -9,6 +9,7 @@ import graduation from './image/graduation.png'
 import phone from './image/phone.png'
 import axios from "axios";
 import {useLocation} from "react-router-dom";
+import ReactEcharts from 'echarts-for-react'
 
 const RadioGroup = Radio.Group;
 
@@ -30,6 +31,7 @@ const notSelectedCardStyle={
     position:'relative',
     padding:'7px 10px 7px 10px'
 }
+
 const RecruitPage=()=>{
     const user=useLocation().state
 
@@ -54,7 +56,8 @@ const RecruitPage=()=>{
         salaryMatch:0,
         addressMatch:0,
         abilityMatch:0,
-        intentionCity:''
+        intentionCity:'',
+        id:-1
     }])
     const [selectedPerson,setSelectedPerson]=useState({
         name:'',
@@ -77,7 +80,8 @@ const RecruitPage=()=>{
         salaryMatch:0,
         addressMatch:0,
         abilityMatch:0,
-        intentionCity:''
+        intentionCity:'',
+        id:-1
     })
     const [loading,setLoading]=useState(true)
     const [havePerson,setHavePerson]=useState(false)
@@ -102,6 +106,51 @@ const RecruitPage=()=>{
             }
         )
     },[])
+
+    const [yData,setYData]=useState([selectedPerson.abilityMatch,selectedPerson.educationMatch,selectedPerson.addressMatch,selectedPerson.salaryMatch]);
+    const option = {
+        xAxis: {
+            type: 'category',
+            data: ['能力','学历','地址','薪资']
+        },
+        yAxis: {
+            type: 'value'
+        },
+        grid:{
+            left:'2%',
+            right:'2%',
+            top:'6%',
+            bottom:'2%',
+            containLabel:'true'
+        },
+        series: [
+            {
+                data: yData,
+                type: 'bar',
+                showBackground: true,
+                itemStyle:{
+                    normal:{
+                        color:function (params){
+                            const color=['#FF6B6B','#4DDBE9','#F9DA68','#CAB8FF']
+                            return color[params.dataIndex]
+                        }
+                    }
+                },
+                label: {
+                    show: true, // 开启显示
+                    verticalAlign: 'middle',
+                    textStyle: {
+                        color: '#424656', // 顶部数据的颜色
+                        fontSize: 14     // 顶部数据的字体大小
+                    },
+                }
+            }
+        ]
+    };
+
+    useEffect(()=>{
+        setYData([selectedPerson.abilityMatch,selectedPerson.educationMatch,selectedPerson.addressMatch,selectedPerson.salaryMatch])
+    },[selectedPerson])
 
     function KeyWordList({value}){
         if (value.length === 0){
@@ -162,7 +211,7 @@ const RecruitPage=()=>{
                                             <span>匹配度：</span>
                                         </div>
                                         <div style={{fontSize:21,fontWeight:'bold',color:'red'}}>
-                                            {value.match}%
+                                            {value.match*100}%
                                         </div>
                                     </div>
                                 </Button>
@@ -214,7 +263,8 @@ const RecruitPage=()=>{
                                                 salaryMatch:0,
                                                 addressMatch:0,
                                                 abilityMatch:0,
-                                                intentionCity:''
+                                                intentionCity:'',
+                                                id:-1
                                             })
                                         },
                                         error=>{
@@ -237,28 +287,33 @@ const RecruitPage=()=>{
                             </div>
                             <div style={{width:'75%',display:'flex',justifyContent:'center',alignItems:'center'}}>
                                 <div style={{width:'90%',height:'90%',backgroundColor:'white',borderRadius:10,position:'relative'}}>
-                                    <Button
-                                        onClick={()=>{
-                                            axios({
-                                                method:'get',
-                                                url:'http://192.210.174.146:5000/resumes/view/'+user.user_id
-                                            }).then(
-                                                res=>{
-                                                    window.open(`/resumes/view/${user.user_id}`,'_blank')
-                                                },
-                                                error=>{
-                                                    if(error.response){
-                                                        Message.error('简历未找到！')
-                                                    } else {
-                                                        Message.error('Network Error!')
-                                                    }
-                                                }
-                                            )
-                                        }}
-                                        style={{color:'white',backgroundColor:'rgba(60,192,201,100%)',width:110,height:40,fontSize:18,borderRadius:5,position:'absolute',top:20,right:50}}
-                                    >
-                                        查看简历
-                                    </Button>
+                                    {
+                                        selectedPerson.id===-1?
+                                            null
+                                            :
+                                            <Button
+                                                onClick={()=>{
+                                                    axios({
+                                                        method:'get',
+                                                        url:'http://192.210.174.146:5000/resumes/view/'+selectedPerson.id
+                                                    }).then(
+                                                        res=>{
+                                                            window.open(`/resumes/view/${selectedPerson.id}`,'_blank')
+                                                        },
+                                                        error=>{
+                                                            if(error.response){
+                                                                Message.error('简历未找到！')
+                                                            } else {
+                                                                Message.error('Network Error!')
+                                                            }
+                                                        }
+                                                    )
+                                                }}
+                                                style={{color:'white',backgroundColor:'rgba(60,192,201,100%)',width:110,height:40,fontSize:18,borderRadius:5,position:'absolute',top:20,right:50}}
+                                            >
+                                                查看简历
+                                            </Button>
+                                    }
                                     <div style={{height:'15%',margin:'15px 50px 20px 50px',display:'flex',justifyContent:'space-between'}}>
                                         <div>
                                             <div style={{fontSize:23,fontWeight:'bold'}}>
@@ -346,6 +401,7 @@ const RecruitPage=()=>{
                                             <div style={{fontWeight:'bold',fontSize:17}}>
                                                 匹配分析结果
                                             </div>
+                                            <ReactEcharts style={{width:'100%',height:'90%'}} option={option} />
                                         </div>
                                     </div>
                                 </div>
