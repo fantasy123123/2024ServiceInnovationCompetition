@@ -1,7 +1,7 @@
 import {Layout, Button, Avatar} from '@arco-design/web-react';
 import './style/MainPage.css'
 import {useEffect, useState} from "react";
-import {Link, Outlet, useLocation} from "react-router-dom";
+import {Link, Outlet, useLocation, useNavigate} from "react-router-dom";
 import logo from './image/logo.png'
 import student from "./components/person/image/student.png";
 import firm from "./components/person/image/firm.png";
@@ -24,6 +24,7 @@ const notAnimationStyle2=' '
 
 const MainPage=()=>{
     const user=useLocation().state
+    const navigate=useNavigate()
 
     const [buttonStyle1,setButtonStyle1]=useState(selectedStyle)
     const [buttonStyle2,setButtonStyle2]=useState(noSelectedStyle)
@@ -38,6 +39,7 @@ const MainPage=()=>{
     const [textStyle5,setTextStyle5]=useState(animationStyle2)
 
     useEffect(()=>{
+        navigate('/main/home',{state:user})
         PubSub.subscribe('goToPerson',()=>{
             setTextStyle4(animationStyle)
             setTextStyle2(animationStyle)

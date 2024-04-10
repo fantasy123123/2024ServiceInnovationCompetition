@@ -14,8 +14,13 @@ import FirmGuidePage from "./Pages/GuidePage/components/FirmGuidePage";
 import SecondStudentGuidePage from "./Pages/GuidePage/components/SecondStudentGuidePage";
 import FirmInformation from "./Pages/MainPage/components/person/firm/FirmInformation";
 import EditFirmInformation from "./Pages/MainPage/components/person/firm/EditFirmInformation";
+import InitialPage from "./Pages/InitialPage";
 
 const routes=[
+    {
+        path: '/',
+        element: <InitialPage />
+    },
     {
         path:'/main',
         element:<MainPage />,
