@@ -13,8 +13,10 @@ const Content = Layout.Content;
 const noSelectedStyle={height:'100%',width:'25%',fontSize:21,backgroundColor:'rgba(56,56,56,100%)',color:'white',display:'flex',alignItems:'center',justifyContent:'center'}
 const selectedStyle={height:'100%',width:'25%',fontSize:21,backgroundColor:'rgba(56,56,56,100%)',color:'rgba(60,192,201,100%)',display:'flex',alignItems:'center',justifyContent:'center'}
 
-const noSelectedStyle2={color:'white',display:'flex',alignItems:'center'}
-const selectedStyle2={color:'rgba(60,192,201,100%)',display:'flex',alignItems:'center'}
+const noSelectedStyle2={backgroundColor:'rgba(56,56,56,100%)',fontSize:20,color:'white',display:'flex',alignItems:'center'}
+const selectedStyle2={backgroundColor:'rgba(56,56,56,100%)',fontSize:20,color:'rgba(60,192,201,100%)',display:'flex',alignItems:'center'}
+
+const noSelectedStyle3={backgroundColor:'rgba(56,56,56,100%)',fontSize:14,color:'white',float:'right'}
 
 const animationStyle='animation buttonText'
 const notAnimationStyle='buttonText'
@@ -31,6 +33,7 @@ const MainPage=()=>{
     const [buttonStyle3,setButtonStyle3]=useState(noSelectedStyle)
     const [buttonStyle4,setButtonStyle4]=useState(noSelectedStyle)
     const [buttonStyle5,setButtonStyle5]=useState(noSelectedStyle2)
+    const [buttonStyle6,setButtonStyle6]=useState(noSelectedStyle3)
 
     const [textStyle1,setTextStyle1]=useState(notAnimationStyle)
     const [textStyle2,setTextStyle2]=useState(animationStyle)
@@ -51,6 +54,7 @@ const MainPage=()=>{
             setButtonStyle3(noSelectedStyle)
             setButtonStyle1(noSelectedStyle)
             setButtonStyle5(selectedStyle2)
+            setButtonStyle6(noSelectedStyle3)
         })
     },[])
 
@@ -73,6 +77,7 @@ const MainPage=()=>{
                             setButtonStyle3(noSelectedStyle)
                             setButtonStyle4(noSelectedStyle)
                             setButtonStyle5(noSelectedStyle2)
+                            setButtonStyle6(noSelectedStyle3)
                         }}
                         >
                             <div class={textStyle1}>
@@ -94,6 +99,7 @@ const MainPage=()=>{
                                     setButtonStyle3(noSelectedStyle)
                                     setButtonStyle4(noSelectedStyle)
                                     setButtonStyle5(noSelectedStyle2)
+                                    setButtonStyle6(noSelectedStyle3)
                                 }}>
                                     <div class={textStyle2}>
                                         我要求职
@@ -113,6 +119,7 @@ const MainPage=()=>{
                                     setButtonStyle1(noSelectedStyle)
                                     setButtonStyle4(noSelectedStyle)
                                     setButtonStyle5(noSelectedStyle2)
+                                    setButtonStyle6(noSelectedStyle3)
                                 }}>
                                     <div class={textStyle3}>
                                         我要招聘
@@ -132,6 +139,7 @@ const MainPage=()=>{
                             setButtonStyle3(noSelectedStyle)
                             setButtonStyle1(noSelectedStyle)
                             setButtonStyle5(noSelectedStyle2)
+                            setButtonStyle6(noSelectedStyle3)
                         }}>
                             <div class={textStyle4}>
                                 行业资讯
@@ -139,13 +147,18 @@ const MainPage=()=>{
                         </Button>
                     </Link>
                 </div>
-                <div style={{width:'15%',fontSize:20}}>
-                    <Link
-                        to={user.identity==='student'?'/main/student_information':'/main/firm_information'}
-                        style={{textDecoration:'none',float:'right',marginRight:40}}
-                        state={user}
+                <div style={{width:'15%',fontSize:20,display:"flex",alignItems:'center'}}>
+                    <Avatar
+                        style={{marginLeft:'15%'}}
+                        size={48}
                     >
-                        <div class={textStyle5}  style={buttonStyle5} onClick={()=>{
+                        <img
+                            alt='avatar'
+                            src={user.identity==='student'?student:firm}
+                        />
+                    </Avatar>
+                    <div>
+                        <Button className={textStyle5} style={buttonStyle5} onClick={() => {
                             setTextStyle4(animationStyle)
                             setTextStyle2(animationStyle)
                             setTextStyle3(animationStyle)
@@ -156,18 +169,19 @@ const MainPage=()=>{
                             setButtonStyle3(noSelectedStyle)
                             setButtonStyle1(noSelectedStyle)
                             setButtonStyle5(selectedStyle2)
+                            setButtonStyle6(noSelectedStyle3)
+                            navigate(user.identity==='student'?'/main/student_information':'/main/firm_information',{state:user})
                         }}>
-                            <Avatar size={48}>
-                                <img
-                                    alt='avatar'
-                                    src={user.identity==='student'?student:firm}
-                                />
-                            </Avatar>
-                            <div className={textStyle5} style={{marginLeft:15}}>
+                            <div className={textStyle5}>
                                 个人信息
                             </div>
-                        </div>
-                    </Link>
+                        </Button>
+                        <Button className={textStyle5} style={buttonStyle6} onClick={()=>{
+                            navigate('/signIn')
+                        }}>
+                            退出登录
+                        </Button>
+                    </div>
                 </div>
             </Header>
             <Content style={{position:'absolute',left:0,top:'10%',bottom:0,right:0}}>

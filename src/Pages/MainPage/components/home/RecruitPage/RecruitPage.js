@@ -282,6 +282,83 @@ const RecruitPage=()=>{
                                     <Radio key={4} value='location'>地址优先</Radio>
                                 </RadioGroup>
                             </div>
+                            <Button
+                                onClick={()=>{
+                                    setPerson([{
+                                        name:'',
+                                        sex:'',
+                                        education:'',
+                                        skills: [],
+                                        intention:'',
+                                        year:0,
+                                        phone:'',
+                                        email:'',
+                                        educationExperience:'',
+                                        project:'',
+                                        advantage:'',
+                                        internship:'',
+                                        match:0,
+                                        lowestSalary:0,
+                                        highestSalary:0,
+                                        profession:'',
+                                        educationMatch:0,
+                                        salaryMatch:0,
+                                        addressMatch:0,
+                                        abilityMatch:0,
+                                        intentionCity:'',
+                                        id:-1
+                                    }])
+                                    setSelectedPerson({
+                                        name:'',
+                                        sex:'',
+                                        education:'',
+                                        skills: [],
+                                        intention:'',
+                                        year:0,
+                                        phone:'',
+                                        email:'',
+                                        educationExperience:'',
+                                        project:'',
+                                        advantage:'',
+                                        internship:'',
+                                        match:0,
+                                        lowestSalary:0,
+                                        highestSalary:0,
+                                        profession:'',
+                                        educationMatch:0,
+                                        salaryMatch:0,
+                                        addressMatch:0,
+                                        abilityMatch:0,
+                                        intentionCity:'',
+                                        id:-1
+                                    })
+
+                                    setLoading(true)
+                                    setHavePerson(false)
+
+                                    axios({
+                                        method:'get',
+                                        url:'http://192.210.174.146:5000/talents/recommended/'+user.user_id,
+                                    }).then(
+                                        res=>{
+                                            setPerson(res.data)
+                                            setLoading(false)
+                                            setHavePerson(true)
+                                        },
+                                        error=>{
+                                            if(error.response){
+                                                Message.error('未找到推荐人才！')
+                                            } else {
+                                                Message.error('Network Error!')
+                                            }
+                                            setLoading(false)
+                                        }
+                                    )
+                                }}
+                                style={{marginLeft:'30%',color:'white',backgroundColor:'rgba(60,192,201,100%)',width:110,height:40,fontSize:18,borderRadius:5}}
+                            >
+                                重新推荐
+                            </Button>
                         </div>
                         <div style={{width:'100%',display:'flex',height:'90%'}}>
                             <div style={{width:'25%',overflow:'auto',height:'95%',textAlign:'center',marginTop:20}}>
