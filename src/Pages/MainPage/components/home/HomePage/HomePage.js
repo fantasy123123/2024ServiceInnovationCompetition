@@ -39,7 +39,7 @@ const HomePage=()=>{
                 <div style={{width:'100%',height:'58%',marginTop:'5%',textAlign:'center'}}>
                     <video style={{width:'100%',height:'100%'}} autoPlay={true} src={video}></video>
                 </div>
-                <div style={{width:'100%',height:'27%',marginTop:'5%',textAlign:'center'}}>
+                <div style={{width:'100%',height:'27%',marginTop:'5%'}}>
                     <span style={{fontSize:18}}> “慧职通”系统通过构建知识图谱，利用BERT-BiLSTM-CRF模型自动提取简历中的关键实体信息，采用基于特征融合和多轮集成嵌入的推荐算法，以及混合加密算法，提供精准、高效、安全、个性化的职位与人才推荐服务，节约人岗匹配过程中的时间与经济成本，提升你的求职体验！</span>
                     <br />
                     <br />
