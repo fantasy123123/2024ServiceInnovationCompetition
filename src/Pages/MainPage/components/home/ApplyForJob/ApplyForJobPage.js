@@ -415,7 +415,9 @@ const ApplyForJobPage=()=>{
                                                         <img  src={link} alt='' style={{width:15,height:17}}/>
                                                         &nbsp;&nbsp;招聘链接：
                                                     </div>
-                                                    {selectedJob.link}
+                                                    <a onClick={()=>{window.open(selectedJob.link)}} style={{textDecoration:'none',color:'blue',cursor:'pointer'}}>
+                                                        {selectedJob.link}
+                                                    </a>
                                                 </div>
                                             </div>
                                         </div>
