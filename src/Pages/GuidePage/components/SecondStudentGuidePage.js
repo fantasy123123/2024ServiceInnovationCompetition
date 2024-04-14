@@ -360,7 +360,42 @@ const SecondStudentGuidePage=()=>{
                                 }}>返 回</Button>
                                 <Button
                                     onClick={() => {
-                                        if (name.trim() !== '' && sex.trim() !== '' && lowestSalary !== 0 && highestSalary !== 0 && phone.trim() !== '' && education.trim() !== '' && intention.trim() !== '' && intentionCity.trim() !== '' && profession.trim() !== '' && educationExperience.trim() !== '') {
+                                        if (name !== ''  &&
+                                            name !== null  &&
+                                            name !== undefined  &&
+                                            sex !== ''  &&
+                                            sex !==  null &&
+                                            sex !==  undefined &&
+                                            !isNaN(lowestSalary)  &&
+                                            lowestSalary !==  undefined &&
+                                            lowestSalary !==  0  &&
+                                            lowestSalary !==  null  &&
+                                            !isNaN(highestSalary)  &&
+                                            highestSalary !== undefined &&
+                                            highestSalary !==  0  &&
+                                            highestSalary !==  null &&
+                                            !isNaN(year) &&
+                                            year !== undefined &&
+                                            year !== 0  &&
+                                            year !== null  &&
+                                            phone !== ''  &&
+                                            phone !== undefined &&
+                                            phone !== null  &&
+                                            education !==  null&&
+                                            education !==  undefined &&
+                                            education !== '' &&
+                                            intention !== null  &&
+                                            intention !== undefined &&
+                                            intention !== ''  &&
+                                            intentionCity !== '' &&
+                                            intentionCity !== undefined &&
+                                            intentionCity !==  null &&
+                                            profession !== '' &&
+                                            profession !== undefined &&
+                                            profession !== null &&
+                                            educationExperience !== '' &&
+                                            educationExperience !==  undefined &&
+                                            educationExperience !== null) {
                                             axios({
                                                 method: 'put',
                                                 url: 'http://192.210.174.146:5000/students/update-info',
@@ -401,9 +436,9 @@ const SecondStudentGuidePage=()=>{
                                                         Message.error('Network Error!')
                                                     }
                                                 }
-                                            )
+                                            );
                                         } else {
-                                            Message.error('仍有未填写项！')
+                                            Message.error('仍有未填写项！');
                                         }
                                     }}
                                     style={{

@@ -65,6 +65,7 @@ const EditInformation =()=>{
                 setProject(res.data.project)
                 setAdvantage(res.data.advantage)
                 setLoading(false)
+                console.log( setYear(parseInt(res.data.year)))
             },
             error=>{
                 Message.error('数据请求失败！')
@@ -280,7 +281,42 @@ const EditInformation =()=>{
                             <Button onClick={()=>{navigate('/main/student_information',{state:user})}} style={{border:'1px solid lightgrey',color:'rgba(60,192,201,100%)',backgroundColor:'white',width:85,height:35,fontSize:16,borderRadius:3,display:"flex",justifyContent:'center',alignItems:'center'}}>返 回</Button>
                             <Button
                                 onClick={()=>{
-                                    if(name.trim()!==''&&sex.trim()!==''&&lowestSalary!==0&&highestSalary!==0&&phone.trim()!==''&&education.trim()!==''&&intention.trim()!==''&&intentionCity.trim()!==''&&profession.trim()!==''&&educationExperience.trim()!==''){
+                                    if(name !== ''  &&
+                                        name !== null  &&
+                                        name !== undefined  &&
+                                        sex !== ''  &&
+                                        sex !==  null &&
+                                        sex !==  undefined &&
+                                        !isNaN(lowestSalary)  &&
+                                        lowestSalary !==  undefined &&
+                                        lowestSalary !==  0  &&
+                                        lowestSalary !==  null  &&
+                                        !isNaN(highestSalary)  &&
+                                        highestSalary !== undefined &&
+                                        highestSalary !==  0  &&
+                                        highestSalary !==  null &&
+                                        !isNaN(year) &&
+                                        year !== undefined &&
+                                        year !== 0  &&
+                                        year !== null  &&
+                                        phone !== ''  &&
+                                        phone !== undefined &&
+                                        phone !== null  &&
+                                        education !==  null&&
+                                        education !==  undefined &&
+                                        education !== '' &&
+                                        intention !== null  &&
+                                        intention !== undefined &&
+                                        intention !== ''  &&
+                                        intentionCity !== '' &&
+                                        intentionCity !== undefined &&
+                                        intentionCity !==  null &&
+                                        profession !== '' &&
+                                        profession !== undefined &&
+                                        profession !== null &&
+                                        educationExperience !== '' &&
+                                        educationExperience !==  undefined &&
+                                        educationExperience !== null){
                                         axios({
                                             method:'put',
                                             url:'http://192.210.174.146:5000/students/update-info',

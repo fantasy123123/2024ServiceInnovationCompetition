@@ -155,7 +155,35 @@ const EditFirmInformation=()=>{
                                     <Button onClick={()=>{navigate('/main/firm_information',{state:user})}} style={{width:85,height:35,fontSize:16,borderRadius:3}}>取 消</Button>
                                     <Button
                                         onClick={()=>{
-                                            if(name.trim()!==''&&job.trim()!==''&&description.trim()!==''&&education.trim()!==''&&manager.trim()!==''&&lowestSalary!==0&&highestSalary!==0&&address.trim()!==''&&link.trim()!==''){
+                                            if(name.trim()!==''&&
+                                                name.trim()!==null&&
+                                                name.trim()!==undefined&&
+                                                job.trim()!==''&&
+                                                job.trim()!==null&&
+                                                job.trim()!==undefined&&
+                                                description.trim()!==''&&
+                                                description.trim()!==null&&
+                                                description.trim()!==undefined&&
+                                                education.trim()!==''&&
+                                                education.trim()!==null&&
+                                                education.trim()!==undefined&&
+                                                manager.trim()!==''&&
+                                                manager.trim()!==null&&
+                                                manager.trim()!==undefined&&
+                                                lowestSalary!==0&&
+                                                !isNaN(lowestSalary)&&
+                                                lowestSalary!==null&&
+                                                lowestSalary!==undefined&&
+                                                highestSalary!==0&&
+                                                !isNaN(highestSalary)&&
+                                                highestSalary!==null&&
+                                                highestSalary!==undefined&&
+                                                address.trim()!==''&&
+                                                address.trim()!==null&&
+                                                address.trim()!==undefined&&
+                                                link.trim()!==''&&
+                                                link.trim()!==null&&
+                                                link.trim()!==undefined){
                                                 axios({
                                                     method:'post',
                                                     url:'http://192.210.174.146:5000/companies/create-info',
