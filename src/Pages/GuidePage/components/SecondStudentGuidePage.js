@@ -251,6 +251,8 @@ const SecondStudentGuidePage=()=>{
                                                 <span style={{color: 'red'}}>* </span>意向城市
                                             </div>
                                             <Select
+                                                showSearch
+                                                allowClear
                                                 defaultValue={intentionCity}
                                                 style={{marginBottom: 17, marginTop: 3, borderRadius: 5, width: 200}}
                                                 onChange={value => {
@@ -267,7 +269,7 @@ const SecondStudentGuidePage=()=>{
 
                                         <div>
                                             <div style={{fontSize: 17, color: 'grey'}}>
-                                                电子邮箱（选填）
+                                                <span style={{color: 'red'}}>* </span>电子邮箱
                                             </div>
                                             <Input defaultValue={email}
                                                    style={{marginBottom: 17, marginTop: 3, borderRadius: 5}}
@@ -381,6 +383,9 @@ const SecondStudentGuidePage=()=>{
                                             phone !== ''  &&
                                             phone !== undefined &&
                                             phone !== null  &&
+                                            email !== null  &&
+                                            email !== undefined &&
+                                            email !== ''  &&
                                             education !==  null&&
                                             education !==  undefined &&
                                             education !== '' &&
