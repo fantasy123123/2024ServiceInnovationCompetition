@@ -1,5 +1,5 @@
 import {Button, Message, Modal, Radio, Upload} from "@arco-design/web-react";
-import {Link, Outlet, useLocation, useNavigate} from "react-router-dom";
+import {Outlet, useLocation, useNavigate} from "react-router-dom";
 import {useState} from "react";
 import axios from "axios";
 const RadioGroup = Radio.Group;

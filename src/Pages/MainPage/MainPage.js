@@ -43,20 +43,22 @@ const MainPage=()=>{
 
     useEffect(()=>{
         navigate('/main/home',{state:user})
-        PubSub.subscribe('goToPerson',()=>{
-            setTextStyle4(animationStyle)
-            setTextStyle2(animationStyle)
-            setTextStyle3(animationStyle)
-            setTextStyle1(animationStyle)
-            setTextStyle5(notAnimationStyle2)
-            setButtonStyle4(noSelectedStyle)
-            setButtonStyle2(noSelectedStyle)
-            setButtonStyle3(noSelectedStyle)
-            setButtonStyle1(noSelectedStyle)
-            setButtonStyle5(selectedStyle2)
-            setButtonStyle6(noSelectedStyle3)
-        })
     },[])
+
+    PubSub.unsubscribe('goToPerson')
+    PubSub.subscribe('goToPerson',()=>{
+        setTextStyle4(animationStyle)
+        setTextStyle2(animationStyle)
+        setTextStyle3(animationStyle)
+        setTextStyle1(animationStyle)
+        setTextStyle5(notAnimationStyle2)
+        setButtonStyle4(noSelectedStyle)
+        setButtonStyle2(noSelectedStyle)
+        setButtonStyle3(noSelectedStyle)
+        setButtonStyle1(noSelectedStyle)
+        setButtonStyle5(selectedStyle2)
+        setButtonStyle6(noSelectedStyle3)
+    })
 
     return (<>
         <Layout>
